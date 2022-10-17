@@ -4,5 +4,7 @@
 - Likes on friends activity
 - Search history
 
+Wireframe Link: https://whimsical.com/team-zeta-MhBJeFcqMBxZ34dY6qdh7Z
+
 BREAKDOWN OF WORK
 - Izaias, Will, and Brendan simultaneously created the wireframes for the website
