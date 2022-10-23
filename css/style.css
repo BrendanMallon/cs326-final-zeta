@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background-color: #191414;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.center {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    margin: auto;
+    background-color: #1db954;
+}
