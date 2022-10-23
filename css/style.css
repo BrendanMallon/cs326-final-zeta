@@ -1,0 +1,64 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+#page-background {
+    min-height: 900px;
+    background-color: #1db954;
+}
+
+#friends-list {
+    margin: 5% 0%;
+    border-right: 1px solid #191414;
+}
+.friends-list-item {
+    margin: 10px 10% 0 10%;
+    background-color: #eee;
+    border-radius: 8px;
+}
+
+#friends-list-firstname {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+#friends-list-lastname {
+    padding-left: 10px;
+}
+#friends-list-signal-icon {
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+#activity-list {
+    padding-top: 2%;
+    padding-left: 5%;
+}
+.activity-list-item {
+    margin-bottom: 10px;
+    margin-right: 25%;
+    background-color: #eee;
+    border-radius: 8px;
+}
+
+#activity-item-title {
+    margin-top: 4px;
+}
+
+#activity-item-art {
+    padding: 10px;
+}
+
+#activity-item-title {
+    padding-right: 10px;
+    padding-top: 10px;
+    font-size: 16px;
+}
+#activity-item-description {
+    padding-right: 10px;
+    font-size: 12px;
+}
+
+#activity-heart-icon {
+    margin-top: 4px;
+    transform: scale(0.8, 0.7);
+}
