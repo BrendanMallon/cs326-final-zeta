@@ -62,3 +62,20 @@
     margin-top: 4px;
     transform: scale(0.8, 0.7);
 }
+.playlist-list-item {
+    margin-bottom: 10px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: #eee;
+    border-radius: 8px;
+}
+
+#playlist-item-art {
+    padding: 10px;
+}
+
+#playlist-item-title {
+    padding-right: 10px;
+    padding-top: 10px;
+    font-size: 24px;
+}
