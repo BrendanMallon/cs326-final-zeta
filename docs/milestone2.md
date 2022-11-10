@@ -1,5 +1,12 @@
-## Milestone 2 ##
+## Milestone 2
 
-# APIs #
+# APIs
 
-- '/login'
+-   '/login'
+-   '/register'
+-   '/playlists'
+-   '/friends/activity'
+-   '/me/activity'
+-   '/search'
+-   '/playlistCard'
+-   '/addPlaylist'
