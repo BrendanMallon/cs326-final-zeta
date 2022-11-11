@@ -9,9 +9,10 @@ router.use((req, res, next) => {
 });
 
 const pageDirectory = [];
-const page = (url, result) => {
-    url, result;
-};
+const page = (url, result) => ({
+    url,
+    result,
+});
 
 // define pages here:
 pageDirectory.push(page("/", "./src/login-page.html"));
