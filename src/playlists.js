@@ -1,7 +1,7 @@
 const playlistListElem = document.getElementById("playlist-list");
 
-const playListData = await fetch(
+const playListResponse = await fetch(
     "https://team-zeta.herokuapp.com/api/playlists"
 );
-
-console.log(playListData);
+const playListJSON = await playListResponse.json();
+console.log(playListJSON);
