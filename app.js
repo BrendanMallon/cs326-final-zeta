@@ -1,14 +1,10 @@
 const express = require("express");
-const birds = require("./router");
+const router = require("./router");
 
 const app = express();
 const port = process.env.PORT;
 
-app.use("/birds", birds);
-
-app.get("/", (req, res) => {
-    res.send("Hello World!\n");
-});
+app.use("/", router);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

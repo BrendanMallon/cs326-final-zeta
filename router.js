@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const router = express.Router();
 
 // middleware that is specific to this router
@@ -6,13 +7,19 @@ router.use((req, res, next) => {
     console.log("Time: ", Date.now());
     next();
 });
-// define the home page route
-router.get("/", (req, res) => {
-    res.send("Birds home page");
-});
-// define the about route
-router.get("/about", (req, res) => {
-    res.send("About birds");
+
+const pageDirectory = [];
+const page = (url, result) => {
+    url, result;
+};
+
+// define pages here:
+pageDirectory.append(page("/", "./src/login.html"));
+
+pageDirectory.forEach((page) => {
+    router.get(page.url, function (req, res) {
+        res.sendFile(path.join(__dirname, page.result));
+    });
 });
 
 module.exports = router;
