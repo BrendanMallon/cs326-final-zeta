@@ -5,8 +5,8 @@ import { dirname } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 console.log(__filename);
-const __dirname = "/app";
-
+const __dirname = dirname(__filename);
+console.log(__dirname);
 const app = express();
 const port = process.env.PORT;
 app.use(express.static(__dirname));
