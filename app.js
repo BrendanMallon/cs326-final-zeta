@@ -1,5 +1,5 @@
 const express = require("express");
-const birds = require("./birds");
+const birds = require("./router");
 
 const app = express();
 const port = process.env.PORT;
