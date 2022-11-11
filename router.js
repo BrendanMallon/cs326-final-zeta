@@ -14,7 +14,7 @@ const page = (url, result) => {
 };
 
 // define pages here:
-pageDirectory.append(page("/", "./src/login.html"));
+pageDirectory.append(page("/", "./src/login-page.html"));
 
 pageDirectory.forEach((page) => {
     router.get(page.url, function (req, res) {
