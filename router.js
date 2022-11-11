@@ -1,7 +1,6 @@
-import PAGES from "constants/pages.js";
-
-const express = require("express");
-const path = require("path");
+import express from "express";
+import path from "path";
+import PAGES from "./constants/pages.js";
 const router = express.Router();
 
 // middleware that is specific to this router
@@ -16,4 +15,4 @@ PAGES.forEach((page) => {
     });
 });
 
-module.exports = router;
+export default router;
