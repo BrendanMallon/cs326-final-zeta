@@ -1,3 +1,8 @@
+export const REDIRECT_LANDING_PAGE_TO_LOGIN_PAGE = {
+    url: "/",
+    path: "./src/login-page.html",
+};
+
 export const LOGIN_PAGE = {
     url: "/login",
     path: "./src/login-page.html",
@@ -22,5 +27,12 @@ export const SOCIAL_PAGE = {
     url: "/social",
     path: "./src/social-page.html",
 };
-const PAGES = [LOGIN_PAGE, SIGNUP_PAGE, HOME_PAGE, PLAYLIST_PAGE, SOCIAL_PAGE];
+const PAGES = [
+    REDIRECT_LANDING_PAGE_TO_LOGIN_PAGE,
+    LOGIN_PAGE,
+    SIGNUP_PAGE,
+    HOME_PAGE,
+    PLAYLIST_PAGE,
+    SOCIAL_PAGE,
+];
 export default PAGES;
