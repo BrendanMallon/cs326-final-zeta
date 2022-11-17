@@ -15,12 +15,16 @@ const USER = generateUser();
 
 const generatePlaylist = () => ({
     playlistID: faker.datatype.uuid(),
-    image: faker.image.imageUrl(),
+    name: faker.internet.userName(),
+    image: `${faker.image.nature()}?random=${Math.random()}`,
     userId: faker.datatype.uuid(),
     likes: Math.floor(Math.random() * 500),
 });
 
-const PLAYLISTS = [generatePlaylist(), generatePlaylist(), generatePlaylist()];
+const PLAYLISTS = [];
+for (let i = 0; i < 15; i++) {
+    PLAYLISTS.push(generatePlaylist());
+}
 
 const generateFriendActivity = () => ({
     userId: faker.datatype.uuid(),
