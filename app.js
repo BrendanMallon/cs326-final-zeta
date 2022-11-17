@@ -8,8 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT ? process.env.PORT : 8080;
 app.use(express.static(__dirname));
+app.get("/", function (req, res) {
+    res.redirect("/login");
+});
 app.use("/", router);
 app.use("/", testAPI);
 app.listen(port, () => {
