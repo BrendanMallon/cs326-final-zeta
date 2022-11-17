@@ -3,10 +3,10 @@
     padding: 0;
 }
 
-.background {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgb(30, 215, 96);
+body{
+    height: 100vw;
+    justify-content: center;
+    background: rgb(30, 215, 96);
 }
 
 .square{
