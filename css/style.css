@@ -9,35 +9,35 @@
     height: 100px;
     background-color: white;
     margin: auto;
-  }
+}
 
-  .box2 {
+.box2 {
     width: 400px;
     height: 500px;
     background-color: white;
     margin: auto;
-  }
+}
 
-  .box3 {
+.box3 {
     width: 500px;
     height: 520px;
     background-color: white;
     margin: auto;
     border-radius: 10px;
-  }
+}
 
-  .box4 {
+.box4 {
     width: 500px;
     height: 650px;
     background-color: white;
     margin: auto;
     border-radius: 10px;
-  }
+}
 
-  .pad {
+.pad {
     padding-top: 30px;
-  }
-  
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -95,6 +95,7 @@
 }
 #activity-item-description {
     padding-right: 10px;
+    padding-left: 4px;
     font-size: 12px;
 }
 
