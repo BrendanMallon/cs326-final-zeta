@@ -13,6 +13,7 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
+        <script type="module" src="../src/signupPage.js" defer></script>
     </head>
     <body>
         <div class="container-fluid bg">
@@ -37,7 +38,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="name"
+                                        id="signUpUsername"
                                         required
                                     />
                                 </div>
@@ -48,7 +49,7 @@
                                     <input
                                         type="Email"
                                         class="form-control"
-                                        id="Email"
+                                        id="signUpEmail"
                                         required
                                     />
                                 </div>
@@ -59,7 +60,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="username"
+                                        id="signUpUsername"
                                         required
                                     />
                                 </div>
@@ -70,7 +71,7 @@
                                     <input
                                         type="password"
                                         class="form-control"
-                                        id="password"
+                                        id="signUpPassword"
                                         required
                                     />
                                 </div>
@@ -81,11 +82,12 @@
                                     <input
                                         type="password"
                                         class="form-control"
-                                        id="password"
+                                        id="signUpConfirmPassword"
                                         required
                                     />
                                 </div>
                                 <button
+                                    onclick="signUp()"
                                     type="submit"
                                     class="btn btn-primary mt-3"
                                 >

@@ -15,6 +15,7 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
+        <script type="module" src="../src/profilePage.js" defer></script>
         <title>Zeta</title>
     </head>
     <body>
@@ -84,24 +85,24 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Username</label>
                                 <input class="form-control" id="userNameInput" placeholder="Username"></input>
-                                <button id = "usernameChangeBtn">change</button>
+                                <button id = "usernameChangeBtn" onclick="changeUsername()">change</button>
                             </div>
                             <form class = "form-inline">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect2">first name</label>
                                     <input class="form-control" id="firstNameInput" placeholder="First"></input>     
-                                    <button id= "firstNameChangeBtn">change</button>
+                                    <button id= "firstNameChangeBtn" onclick="changeFirst()">change</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect2">Last Name</label>
                                     <input class="form-control" id="lastNameInput" placeholder="Last"></input>     
-                                    <button id = "lastNameChangeBtn">change</button>
+                                    <button id = "lastNameChangeBtn" onclick="changeLast()">change</button>
                                 </div>
                             </form>
                             <div class = "form-group">
                                 <label for="exampleFormControlInput1">Email address</label>
                                 <input type="email" class="form-control" id="emailAddressInput" placeholder="name@example.com">
-                                <button id = "emailChangeBtn" >change</button>
+                                <button id = "emailChangeBtn" onclick="changeEmail()" >change</button>
                             </div>
                         </form>
                     </div>
@@ -121,7 +122,7 @@
                                     <label for="exampleFormControlSelect2">Confirm New Password</label>
                                     <input class="form-control" id="newPasswordConfirmInput" placeholder="Confirm New Password"></input>     
                                 </div>
-                                <button id = "passwordChangeBtn"> Submit</button>
+                                <button id = "passwordChangeBtn" onclick="changePassword()"> Submit</button>
 
                             </form>
                         </div>

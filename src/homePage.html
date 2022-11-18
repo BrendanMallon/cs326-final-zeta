@@ -15,6 +15,7 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
+        <script type="module" src="../src/homePage.js" defer></script>
         <title>Zeta</title>
     </head>
     <body>
@@ -75,10 +76,10 @@
                             <input
                                 type="text"
                                 class="form-control"
-                                id="search-Text"
+                                id="homePageSearch-Text"
                                 placeholder="Search"
                             />
-                            <button type="submit" class="btn btn-primary mb-2">
+                            <button id= "searchTextBtn" type="submit" class="btn btn-primary mb-2" onclick="homePageSearch()" >
                                 GO
                             </button>
                         </div>
@@ -90,7 +91,7 @@
                 style="min-height: 850px; background-color: rgb(30, 215, 96)"
             >
                 <div class="col-lg-3 align-self-center mr-auto">
-                    <a href="">
+                    <a href="" onclick="dislikePlaylist()">
                         <img
                             src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
                             width="100%"
@@ -105,7 +106,7 @@
                     Spotify API placeholder
                 </div>
                 <div class="col-lg-3 align-self-center mr-auto">
-                    <a href="">
+                    <a href="" onclick="likePlayList()">
                         <img
                             src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png"
                             width="70%"
