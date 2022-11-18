@@ -12,7 +12,9 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
+        <script type="module" src="../src/loginPage.js" defer></script>
         <link rel="stylesheet" href="/../css/style.css" />
+
     </head>
     <body>
         <div class="container-fluid bg">
@@ -37,18 +39,18 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="username"
+                                        id="signInUsername"
                                         required
                                     />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="form-label"
+                                    <label id="signInPassword" for="password" class="form-label"
                                         >Password</label
                                     >
                                     <input
                                         type="password"
                                         class="form-control"
-                                        id="password"
+                                        id="signInPassword"
                                         required
                                     />
                                 </div>
@@ -66,6 +68,7 @@
                                 </div>
                                 <a href="home">
                                     <button
+                                        onclick="signIn()"
                                         type="submit"
                                         class="btn btn-primary mt-3"
                                         href="homePage.html"
