@@ -44,30 +44,31 @@ app.get("/auth/callback", function (req, res) {
     if (code === null) {
         res.status(400).send(req.query.error);
     }
-});
 
-app.get("/refresh_token", function (req, res) {
-    var { refresh_token } = req.query;
-    var authOptions = {
+    axios({
+        method: "post",
         url: "https://accounts.spotify.com/api/token",
-        headers: {
-            Authorization:
-                "Basic " +
-                new Buffer(client_id + ":" + client_secret).toString("base64"),
+        data: queryString.stringify({
+            grant_type: "authorization_code",
+            code: code,
+        }),
+        header: {
+            "content-type": "application/x-www-form-urlencoded",
+            Authorization: `Basic ${new Buffer.from(
+                `${CLIENT_ID}:${CLIENT_SECRET}`
+            ).toString("base64")}`,
         },
-        form: {
-            grant_type: "refresh_token",
-            refresh_token: refresh_token,
-        },
-        json: true,
-    };
-
-    req.post(authOptions, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            var { access_token } = body;
-            res.send({
-                access_token: access_token,
-            });
-        }
-    });
+    })
+        .then((response) => {
+            if (response.status === 200) {
+                //send to db
+                window.localStorage("token", JSON.stringify(response.data));
+                res.send();
+            } else {
+                res.status(response.staus).send("Token Error");
+            }
+        })
+        .catch((error) => {
+            res.status(400).send(error);
+        });
 });
