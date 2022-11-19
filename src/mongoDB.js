@@ -67,7 +67,6 @@ export async function mdbSetAuthToken(passedUserName, authT){
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS")     
-        // Query for a user that has the username provided in passedUserName
         const user = { username: passedUserName };
         const newData = {
                 $set: { 
@@ -84,7 +83,6 @@ export async function mdbSetRefreshToken(passedUserName, refT){
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS")     
-        // Query for a user that has the username provided in passedUserName
         const user = { username: passedUserName };
         const newData = {
                 $set: { 
@@ -101,7 +99,6 @@ export async function mdbAddFriend(passedUserName, newFriend){
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS")     
-        // Query for a user that has the username provided in passedUserName
         const user = { username: passedUserName };
         
         let userInfo = mdbGetUserInfo(passedUserName)
@@ -117,20 +114,70 @@ export async function mdbAddFriend(passedUserName, newFriend){
       await client.close();
     }
 }
-export async function mdbGetFriendStatus(friendID){
-    try {
+
+
+
+export async function mdbAddPlaylistActivity(addUserName, addPlayListID,addLikes,addComments){
+    date = new Date()
+    try{   
         const database = client.db("spotlist");
-        const usersInfo = database.collection("USERS")     
-        // Query for a user that has the username provided in passedUserName
-        const userNameQuery = { username: passedUserName };
-        const returnedUser = await usersInfo.findOne(userNameQuery);
-    
-    }catch{
-        returnedUser = -1
-    } finally {
-      await client.close();
-      return returnedUser
+        const playListInfo = database.collection("PLAYLISTACTIVITY")  
+        const newPlayListActivity = { time: date, username: addUserName, playListID: addPlayListID, likes: addLikes, comments:addComments}
+        await usersInfo.insertOne(newPlayListActivity)
+    }finally{
+        await client.close()
     }
 }
 
+export async function mdbGetPlaylistActivity(passedUserName, passedPlayListID){
+    try {
+        const database = client.db("spotlist");
+        const playListActivities = database.collection("PLAYLISTACTIVITY")     
+        const playListActivityQuery = { username: passedUserName, playListID: passedPlayListID }
+        const returnedPlayListActivity = await playListActivities.findOne(playListActivityQuery)
+        await playListActivities.updateOne(user,newData);
+    }catch{
+        returnedPlayListActivity = -1;
+    
+    } finally {
+      await client.close()
+      return returnedPlayListActivity
+    }
+}
+//Adds a like to the like property
+export async function mdbSetPlaylistActivityLikes(passedUserName, passedPlayListID){
+    try {
+        const database = client.db("spotlist");
+        const playListActivites = database.collection("PLAYLISTACTIVITY")     
+        const playListActivity = { username: passedUserName, playListID: passedPlayListID }
+        let playListActivityInfo = mdbGetPlaylistActivity(passedUserName, passedPlayListID)
+        newLikes = playListActivityInfo.likes + 1
+        const newData = {
+            $set: { 
+                likes: newLikes
+            },
+        }
+        await playListActivites.updateOne(playListActivity,newData);
+    }finally{
+        await client.close()
+    }
 
+}
+export async function mdbSetPlaylistActivityComments(passedUserName, passedPlayListID, newComment){
+    try {
+        const database = client.db("spotlist");
+        const playListActivites = database.collection("PLAYLISTACTIVITY")     
+        const playListActivity = { username: passedUserName, playListID: passedPlayListID }
+        let playListActivityInfo = mdbGetPlaylistActivity(passedUserName, passedPlayListID)
+        newComments = playListActivityInfo.comments.append(newComment)
+        const newData = {
+            $set: { 
+                comments: newComments
+            },
+        }
+        await playListActivites.updateOne(playListActivity,newData);
+    }finally{
+        await client.close()
+    }
+
+}

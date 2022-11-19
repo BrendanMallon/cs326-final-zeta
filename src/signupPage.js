@@ -1,6 +1,7 @@
 import {mdbGetUserEmail, mdbGetUserInfo, mdbAddUser} from './mongoDB.js'
 //signUp function called from signup page to create a new user
 function signUp(){
+    
     newPWord = document.getElementById("signUpPassword").value
     newEmail = document.getElementById("signUpEmail").value
     newUserName = document.getElementById("signUpUsername").value
