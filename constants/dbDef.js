@@ -35,7 +35,7 @@ const PLAYLISTACTIVITY = {
     comments: [
         {
             userId: "string",
-            commentId: "string"
+            commentId: "string",
             username: "string",
             text: "string",
             time: "date",
