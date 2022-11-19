@@ -49,40 +49,82 @@ playListJSON.forEach((playlist) => {
     playlistListElem.append(playListItem);
 });
 
+console.log(window.location.origin);
+const friendslistResponse = await fetch(
+    window.location.origin + "/api/activity/friends"
+);
+const friendslistJSON = await friendslistResponse.json();
+
+const friendsListElem = document.getElementById("friends-list");
+console.log(friendslistJSON);
+
+friendslistJSON.forEach((friend) => {
+    // Friend Container
+    const container = document.createElement("div");
+    container.classList.add("row");
+    container.classList.add("friends-list-item");
+    friendsListElem.append(container);
+    // Name Col
+    const nameCol = document.createElement("div");
+    nameCol.classList.add("col-sm-9");
+    container.append(nameCol);
+    // FName Row
+    const fnameRow = document.createElement("div");
+    fnameRow.classList.add("row");
+    nameCol.append(fnameRow);
+    // fname
+    const fname = document.createElement("h6");
+    fname.id = "friends-list-firstname";
+    fname.innerText = friend.fname;
+    fnameRow.append(fname);
+    // LName Row
+    const lnameRow = document.createElement("div");
+    lnameRow.classList.add("row");
+    nameCol.append(lnameRow);
+    // fname
+    const lname = document.createElement("h6");
+    lname.id = "friends-list-lastname";
+    lname.innerText = friend.lname;
+    lnameRow.append(lname);
+    // signal col
+    const signalCol = document.createElement("div");
+    signalCol.classList.add("col-3");
+    container.append(signalCol);
+    // Signal container
+    const signalContainer = document.createElement("div");
+    signalContainer.id = "friends-list-signal-icon";
+    signalContainer.classList.add("row");
+    signalContainer.classList.add("justify-content-end");
+    signalCol.append(signalContainer);
+    // Signal
+    const signal = document.createElement("img");
+    signal.src = "https://cdn-icons-png.flaticon.com/512/254/254613.png";
+    signal.height = "50";
+    signal.width = "50";
+    signalContainer.append(signal);
+});
+
 /**
  *
-<div class="row activity-list-item">
-    <div id="activity-item-art" class="col-sm-3">
-        <img
-            src="https://cdn.pixabay.com/photo/2021/06/06/21/20/album-cover-6316344_1280.jpg"
-            width="100%"
-            height="100%"
-        />
-    </div>
+<div class="row friends-list-item">
     <div class="col-sm-9">
         <div class="row">
-            <div class="col-sm-10">
-                <h6 id="activity-item-title">
-                    Example Playlist Title
-                </h6>
-            </div>
-            <div id="activity-heart-icon" class="col-sm-2">
-                <img
-                    src="https://freeiconshop.com/wp-content/uploads/edd/heart-outline.png"
-                    width="100%"
-                    height="100%"
-                />
-            </div>
+            <h6 id="friends-list-firstname">FIRST_NAME</h6>
         </div>
         <div class="row">
-            <h6 id="activity-item-description">
-                Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.
-            </h6>
+            <h6 id="friends-list-lastname">LAST_NAME</h6>
+        </div>
+    </div>
+    <div class="col-3">
+        <div
+            id="friends-list-signal-icon"
+            class="row justify-content-end"
+        >
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/254/254613.png"
+                width="50%"
+                height="50%"
+            />
         </div>
     </div>
 </div>
