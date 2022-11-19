@@ -17,6 +17,9 @@ const generatePlaylist = () => ({
     playlistID: faker.datatype.uuid(),
     name: faker.internet.userName(),
     image: `${faker.image.nature()}?random=${Math.random()}`,
+<<<<<<< HEAD
+    description: faker.lorem.sentences(3),
+>>>>>>> 92defc2f487b73645660fa00a571e1677deee564
     userId: faker.datatype.uuid(),
     likes: Math.floor(Math.random() * 500),
 });
