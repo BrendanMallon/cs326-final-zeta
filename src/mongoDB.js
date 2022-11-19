@@ -7,7 +7,7 @@ import { MongoClient } from "mongodb";
 //   returns an object with properties {username:,email:,password:,uathToken:}
 
 let uri;
-if (!process.env.PASSWORD) {
+if (!process.env.mongoDBURI) {
     const secrets = require("secrets.json");
     uri = secrets.mongoDBURI;
 } else {
