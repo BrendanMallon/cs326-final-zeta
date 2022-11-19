@@ -29,7 +29,6 @@ for (let i = 0; i < 15; i++) {
 
 const generateFriendActivity = () => ({
     userId: faker.datatype.uuid(),
-    avatar: faker.internet.avatar(),
     fname: faker.name.firstName(),
     lname: faker.name.lastName(),
     lastOnline: faker.date.past(),
