@@ -30,11 +30,15 @@ for (let i = 0; i < 15; i++) {
 const generateFriendActivity = () => ({
     userId: faker.datatype.uuid(),
     avatar: faker.internet.avatar(),
+    fname: faker.name.firstName(),
+    lname: faker.name.lastName(),
     lastOnline: faker.date.past(),
 });
 
-const FRIENDSACTIVITY = [generateFriendActivity(), generateFriendActivity()];
-
+const FRIENDSACTIVITY = [];
+for (let i = 0; i < 6; i++) {
+    FRIENDSACTIVITY.push(generateFriendActivity());
+}
 const generateActivity = () => ({
     time: faker.date.past(),
     type: faker.datatype.string(),
