@@ -1,3 +1,10 @@
+/*
+ COLLECTIONS:
+    USERS
+    PLAYLISTACTIVITY
+
+
+*/
 const USER = {
     userId: "string",
     username: "string",
@@ -21,11 +28,14 @@ const FRIENDSTATUS = {
 
 const PLAYLISTACTIVITY = {
     time: "Date",
+    userId: "string",
+    username: "string",
     playlistId: "string",
     likes: "number",
     comments: [
         {
             userId: "string",
+            commentId: "string"
             username: "string",
             text: "string",
             time: "date",
