@@ -1,72 +1,53 @@
-//**Figure out what to do if user does not authenticate**\\
-//Buffer\\
+//figure out what buffer does\\
 
-const client_id = "84f9f6cbc26d428ea9b95b1ca65861ad";
-const client_secret = "dd14585ebfa7402f9901bf92272d8128";
-const redirect_uri = "https://spotlist.herokuapp.com/callback";
+import express, { response } from 'express';
+import queryString from 'node:querystring';
+import axios from 'axios';
 
-import express, { response } from "express";
-import { request } from "node:http";
-import queryString from "node:querystring";
+require('dotenv').config();
 
 const app = express();
 
+let secret, CLIENT_ID, CLIENT_SECRET, URI;
+
+if(!process.env.CLIENT_ID) {
+    secret = require('secret.JSON');
+    CLIENT_ID = secret.CLIENT_ID;
+    CLIENT_SECRET = secret.CLIENT_SECRET;
+    URI = secret.URI;
+} else {
+    CLIENT_ID = process.env.CLIENT_ID;
+    CLIENT_SECRET = process.env.CLIENT_SECRET;
+    URI = process.env.URI;
+}
+
 //Request User Authorization
 app.get("/auth", function (req, res) {
-    //find out if this is a built in fuction
-    const state = generateRandomString(16);
-    const scope = "user-modify-playback-state playlist-modify-public streaming";
+    const scope =
+        "user-modify-playback-state playlist-modify-public streaming  user-read-private";
 
-    res.redirect(
-        "https://accounts.spotify.com/authorize?" +
-            queryString.stringify({
-                response_type: "code",
-                client_id: client_id,
-                scope: scope,
-                redirect_uri: redirect_uri,
-                state: state,
-            })
+    const scope = 'user-modify-playback-state playlist-modify-public streaming  user-read-private';
+
+    res.redirect('https://accounts.spotify.com/authorize?' + 
+        queryString.stringify({
+            response_type: 'code',
+            client_id: CLIENT_ID,
+            scope: scope,
+            redirect_uri: URI,
+        })
     );
 });
 
 //Request Access Token
-app.get("/callback", function (req, res) {
-    const { code } = req.query;
-    const { state } = req.query;
+app.get('/auth/callback', function(req, res) {
+    const code = req.query.code || null;
 
-    if (state === null) {
-        //add something to the /signup that check for error
-        res.redirect("/signup" + "");
-    } else {
-        const authOptions = {
-            url: "https://accounts.spotify.com/api/token",
-            form: {
-                code: code,
-                redirect_uri: "https://spotlist.herokuapp.com/home",
-                grant_type: "authorization_code",
-            },
-            headers: {
-                Authorization:
-                    "Basic " +
-                    new Buffer(
-                        client_id + ":" + client_secret.toString("base64")
-                    ),
-            },
-            json: true,
-        };
-        // request.post(authOptions, function(error, response, body) {
-        //     if(!error && response.statusCode === 200) {
-        //         const access_token = body.access_token;
-        //         res.send({
-        //             'access_token': access_token
-        //         });
-        //     }
-        // });
+    if (code === null) {
+        res.status(400).send(req.query.error);
     }
-});
 
 app.get("/refresh_token", function (req, res) {
-    var { refresh_token } = req.query;
+    var refresh_token = req.query.refresh_token;
     var authOptions = {
         url: "https://accounts.spotify.com/api/token",
         headers: {
@@ -83,7 +64,7 @@ app.get("/refresh_token", function (req, res) {
 
     request.post(authOptions, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            var { access_token } = body;
+            var access_token = body.access_token;
             res.send({
                 access_token: access_token,
             });
