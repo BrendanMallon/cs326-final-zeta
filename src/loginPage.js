@@ -2,9 +2,8 @@ const bcrypt = require('bcrypt');
 import mdbGetUserInfo from "./mongoDB.js"
 
 async function signIn(){
-    const username = document.getElementById("signInUsername"),
-        password = document.getElementById("signInPassword"),
-        hash = "";
+    const username = document.getElementById("signInUsername").value,
+        password = document.getElementById("signInPassword").value;
 
     const userInfo = mdbGetUserInfo(username);
     if (userInfo !== -1)
