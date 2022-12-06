@@ -23,6 +23,7 @@ async function signUp(){
     else if(existingUser === null && existingEmail === null){
         //user account created succesfully
         if (validatePassword(newPWord)) {
+            //const token = await fetch 
             try {
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(newPWord, salt);

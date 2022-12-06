@@ -10,7 +10,9 @@ async function signIn(){
         try {
             //password needs to be changed
             if (await bcrypt.compare(password, userInfo)) {
+                window.username = username;
                 //succsesful login
+                
             } else {
                 alert("Incorrect username or password");
             }

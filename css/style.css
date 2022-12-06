@@ -4,6 +4,10 @@
     width: 100vw;
 }
 
+.green {
+    background-color: rgb(30, 215, 96);
+}
+
 .center {
     display: block;
     margin-left: auto;
