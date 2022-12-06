@@ -8,18 +8,6 @@ require("dotenv").config();
 
 const app = express();
 
-let secret, CLIENT_ID, CLIENT_SECRET, URI;
-
-if (!process.env.CLIENT_ID) {
-    secret = require("secret.JSON");
-    CLIENT_ID = secret.CLIENT_ID;
-    CLIENT_SECRET = secret.CLIENT_SECRET;
-    URI = secret.URI;
-} else {
-    CLIENT_ID = process.env.CLIENT_ID;
-    CLIENT_SECRET = process.env.CLIENT_SECRET;
-    URI = process.env.URI;
-}
 
 //Request User Authorization
 app.get("/auth", function (req, res) {
