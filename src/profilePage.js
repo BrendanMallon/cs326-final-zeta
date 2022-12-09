@@ -25,7 +25,7 @@ const bcrypt = require('bcrypt');
     hidePopUp('confirmUsernameChangesPopUp');
     showPopUp('changeSuccessPopUp');
 }*/
-async function changeName(){
+function changeName(){
     
     newName = document.getElementById("nameInput").value
     username = document.getElementById("confirmUserName2").value
@@ -41,7 +41,7 @@ async function changeName(){
     if(userInfo == null){
         window.alert("incorrect username or password")
         return;
-    }else if(await !(bcrypt.compare(password, userInfo.password))){
+    }else if(!(bcrypt.compare(password, userInfo.password))){
         window.alert("incorrect password")
         return
     }
@@ -50,7 +50,7 @@ async function changeName(){
     hidePopUp('confirmNameChangesPopUp');
     showPopUp('changeSuccessPopUp');
 }
-async function changeEmail(){
+function changeEmail(){
 
     newEmail = document.getElementById("emailAdressInput").value
     username = document.getElementById("confirmUserName3").value
@@ -66,7 +66,7 @@ async function changeEmail(){
     if(userInfo == null){
         window.alert("incorrect username or password")
         return;
-    }else if(await !(bcrypt.compare(password, userInfo.password))){
+    }else if(!(bcrypt.compare(password, userInfo.password))){
         window.alert("incorrect password")
         return
     }
@@ -74,7 +74,7 @@ async function changeEmail(){
     hidePopUp('confirmEmailChangesPopUp');
     showPopUp('changeSuccessPopUp');
 }
-async function changePassword(){
+function changePassword(){
     confirmNewPassword = document.getElementById("newPasswordConfirmInput").value
     newPassword = document.getElementById("newPasswordInput").value
     username = document.getElementById("confirmUserName4").value
@@ -87,7 +87,7 @@ async function changePassword(){
         return;
     }
     if(newPassword != confirmNewPassword){
-        window.alert("Passwords dont match.")
+        window.alert("Password must be between 7 to 15 characters and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.")
         hidePopUp('confirmPasswordChangesPopUp');
         return
     }
@@ -100,7 +100,7 @@ async function changePassword(){
     if(userInfo == null){
         window.alert("incorrect username or password")
         return;
-    }else if(await !(bcrypt.compare(password, userInfo.password))){
+    }else if(!(bcrypt.compare(password, userInfo.password))){
         window.alert("incorrect password")
         return
     }
