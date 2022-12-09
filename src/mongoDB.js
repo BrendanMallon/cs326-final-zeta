@@ -281,7 +281,6 @@ export async function mdbGetPlaylistActivity(passedUserName, passedPlayListID) {
         returnedPlayListActivity = await playListActivities.findOne(
             playListActivityQuery
         );
-        await playListActivities.updateOne(user, newData);
     } catch {
         returnedPlayListActivity = -1;
     } finally {
