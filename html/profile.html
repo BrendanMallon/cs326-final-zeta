@@ -58,29 +58,112 @@
             <div id="pageName" class="text-lg mx-auto">My Profile</div>
         </div>
 
+
+        <div id="confirmNameChangesPopUp" class="modal">
+            <div class="modal-header">
+                <div id="close-btn" class="close-btn" onclick="hidePopUp('confirmNameChangesPopUp')">&times;</div>
+            </div>
+            <div class="modal-content">
+                <p><strong>Confirm Changes</strong></p>
+                <div>
+                    <div style="display:inline-block">
+                        <div>
+                            <p>Username:</p>
+                            <input type="text" id="confirmUserName2" name="confirmUserName" />
+                            <p>Password:</p>
+                            <input type="text" id="confirmPassword2" name="confirmPassword" />
+                        </div>
+                    </div>
+                    <div style="float:right">
+                        <input type="button" style="padding:3px" onclick="changeName()" value="Confirm Changes" />
+                        <input type="button" style="padding:3px" onclick="hidePopUp('confirmNameChangesPopUp')" value="Cancel" />
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmEmailChangesPopUp" class="modal">
+            <div class="modal-header">
+                <div id="close-btn" class="close-btn" onclick="hidePopUp('confirmEmailChangesPopUp')">&times;</div>
+            </div>
+            <div class="modal-content">
+                <p><strong>Confirm Changes</strong></p>
+                <div>
+                    <div style="display:inline-block">
+                        <div>
+                            <p>Username:</p>
+                            <input type="text" id="confirmUserName3" name="confirmUserName" />
+                            <p>Password:</p>
+                            <input type="text" id="confirmPassword3" name="confirmPassword" />
+                        </div>
+                    </div>
+                    <div style="float:right">
+                        <input type="button" style="padding:3px" onclick="changeEmail()" value="Confirm Changes" />
+                        <input type="button" style="padding:3px" onclick="hidePopUp('confirmEmailChangesPopUp')" value="Cancel" />
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmPasswordChangesPopUp" class="modal">
+            <div class="modal-header">
+                <div id="close-btn" class="close-btn" onclick="hidePopUp('confirmPasswordChangesPopUp')">&times;</div>
+            </div>
+            <div class="modal-content">
+                <p><strong>Confirm Changes</strong></p>
+                <div>
+                    <div style="display:inline-block">
+                        <div>
+                            <p>Username:</p>
+                            <input type="text" id="confirmUserName4" name="confirmUserName" />
+                            <p>Password:</p>
+                            <input type="text" id="confirmPassword4" name="confirmPassword" />
+                            <p>Confirm New Password</p>
+                            <input type="text" id="newPasswordConfirmInput" name="confirmNewPassword"></input>
+                        </div>
+                    </div>
+                    <div style="float:right">
+                        <input type="button" style="padding:3px" onclick="changePassword()" value="Confirm Changes" />
+                        <input type="button" style="padding:3px" onclick="hidePopUp('confirmPasswordChangesPopUp')" value="Cancel" />
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="changeSuccessPopUp" class="modal">
+            <div class="modal-header">
+                <div id="close-btn" class="close-btn" onclick="hidePopUp('changeSuccessPopUp')">&times;</div>
+            </div>
+            <div class="modal-content">
+                <p><strong>Changes Succesful!</strong></p>
+                <div>
+                    <div style="float:right">
+                        <input type="button" style="padding:3px" onclick="hidePopUp('changeSuccessPopUp')" value="OK" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div id="information-container" class="row justify-content-md-center">
             <div id="change-information-container" class="col-lg-3">
                 <div class="mx-auto d-flex d-flex justify-content-center col-8">
                     <form id="change-account-form">
                         <div class="form-group">
-                            <label>First Name:</label>
-                            <input type="text" name="firstName" disabled />
+                            <label>Name:</label>
+                            <input type="text"id="nameInput" placeholder="New Name" name="Name" />
                         </div>
-                        <div class="form-group">
-                            <label>Last Name:</label>
-                            <input type="text" name="lastName" disabled />
-                        </div>
+                        <button id= "firstNameChangeBtn" onclick="showPopUp('confirmNameChangesPopUp')">Update Name</button>
                         <div class="form-group">
                             <label>Email:</label>
-                            <input type="email" name="email" disabled />
+                            <input type="email"id="emailAddressInput" placeholder="New Email" name="email" />   
                         </div>
+                        <button id = "emailChangeBtn" onclick="showPopUp('confirmEmailChangesPopUp')" >Update Email</button>
                         <div class="form-group">
                             <label>Password:</label>
-                            <input type="password" name="password" disabled />
+                            <input type="password"id="newPasswordInput" placeholder="New Password" name="password" />
                         </div>
-                        <button type="submit" disabled>
-                            Update Information
-                        </button>
+                        <button id = "passwordChangeBtn" onclick="showPopUp('confirmPasswordChangesPopUp')"> Update Password</button>
                     </form>
                 </div>
             </div>

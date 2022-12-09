@@ -9,8 +9,8 @@ async function signIn(){
     if (userInfo !== -1)
         try {
             //password needs to be changed
-            if (await bcrypt.compare(password, userInfo)) {
-                window.username = username;
+            if (await bcrypt.compare(password, userInfo.password)) {
+                window.username === userInfo.username;
                 //succsesful login
                 
             } else {
