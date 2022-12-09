@@ -87,7 +87,7 @@ export async function mdbGetUserInfo(passedUserName) {
         return returnedUser;
     }
 }
-export async function mdbSetUserName(passedUserName, passedPassword, newUserName) {
+/*export async function mdbSetUserName(passedUserName, passedPassword, newUserName) {
     const client = new MongoClient(mongoDBURI);
     try {
         const database = client.db("spotlist");
@@ -102,7 +102,7 @@ export async function mdbSetUserName(passedUserName, passedPassword, newUserName
     } finally {
         await client.close();
     }
-}
+}*/
 export async function mdbSetName(passedUserName, passedPassword, newName) {
     const client = new MongoClient(mongoDBURI);
     try {

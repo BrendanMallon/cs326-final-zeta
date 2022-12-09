@@ -1,7 +1,7 @@
 import {mdbGetUserInfo, mdbSetName, mdbSetEmail, mdbSetUserName,mdbSetPassword} from './mongoDB.js'
 const bcrypt = require('bcrypt');
 
-async function changeUsername(){
+/*async function changeUsername(){
 
     newUsername = document.getElementById("userNameInput").value
     username = document.getElementById("confirmUserName1").value
@@ -24,7 +24,7 @@ async function changeUsername(){
     mdbSetUserName(username, password, newUsername)
     hidePopUp('confirmUsernameChangesPopUp');
     showPopUp('changeSuccessPopUp');
-}
+}*/
 async function changeName(){
     
     newName = document.getElementById("nameInput").value
