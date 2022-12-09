@@ -30,15 +30,15 @@ function changeName(){
     const newName = document.getElementById("nameInput").value;
     const username = document.getElementById("confirmUserName2").value;
     const password = document.getElementById("confirmPassword2").value;
-    if (newName == "" || username == "" || password == "") {
+    if (newName === "" || username === "" || password === "") {
         window.alert("Fields cannot be empty.");
-        if (newName == ""){
+        if (newName === ""){
             hidePopUp('confirmNameChangesPopUp');
         }
         return;
     }
     const userInfo = mdbGetUserInfo(username);
-    if(userInfo == null){
+    if(userInfo === null){
         window.alert("incorrect username or password");
         return;
     }else if(!(bcrypt.compare(password, userInfo.password))){
@@ -55,9 +55,9 @@ function changeEmail(){
     const newEmail = document.getElementById("emailAdressInput").value;
     const username = document.getElementById("confirmUserName3").value;
     const password = document.getElementById("confirmPassword3").value;
-    if (newEmail == "" || username == "" || password == "") {
+    if (newEmail === "" || username === "" || password === "") {
         window.alert("Fields cannot be empty.");
-        if(newEmail == "" ){
+        if(newEmail === "" ){
             hidePopUp('confirmEmailChangesPopUp');
         }
         return;
@@ -79,9 +79,9 @@ function changePassword(){
     const newPassword = document.getElementById("newPasswordInput").value;
     const username = document.getElementById("confirmUserName4").value;
     const password = document.getElementById("confirmPassword4").value;
-    if (newPassword == "" || username == "" || password == "" || confirmNewPassword == "") {
+    if (newPassword === "" || username === "" || password === "" || confirmNewPassword === "") {
         window.alert("Fields cannot be empty.");
-        if(newPassword == "" ||confirmNewPassword == ""){
+        if(newPassword === "" ||confirmNewPassword === ""){
             hidePopUp('confirmPasswordChangesPopUp');
         }
         return;
@@ -113,7 +113,6 @@ function hidePopUp(popUpHide) {
     popUp.style.display = "none";
 }
 function showPopUp(popUpShow) {
-
     var popUp = document.getElementById(popUpShow);
     popUp.style.display = "block";
 }
