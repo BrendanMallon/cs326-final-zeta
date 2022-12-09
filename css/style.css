@@ -1,11 +1,27 @@
-.bg {
+body {
+    height: 100vh;
+    background-color: rgb(25, 20, 20);
+}
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+}
+
+.btn-primary {
     background-color: rgb(30, 215, 96);
+}
+
+.bg {
+    background-color: rgb(25, 20, 20);
     height: 100vh;
     width: 100vw;
 }
 
 .green {
-    background-color: rgb(30, 215, 96);
+    background-color: rgb(25, 20, 20);
 }
 
 .center {
@@ -19,7 +35,6 @@
 .box {
     width: 500px;
     height: 100px;
-    background-color: white;
     margin: auto;
 }
 
@@ -56,7 +71,7 @@
 }
 #page-background {
     min-height: 900px;
-    background-color: rgb(30, 215, 96);
+    background-color: rgb(25, 20, 20);
 }
 
 #friends-list {
@@ -130,5 +145,24 @@
 #playlist-item-title {
     padding-right: 10px;
     padding-top: 10px;
+    font-size: 24px;
+}
+
+input {
+    display: block;
+}
+
+#information-container {
+    height: 350;
+}
+
+#change-information-container {
+    border-radius: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+}
+
+#pageName {
     font-size: 24px;
 }
