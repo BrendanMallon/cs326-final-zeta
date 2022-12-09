@@ -161,7 +161,7 @@ function checkLoggedIn(req, res, next) {
 }
 
 app.get("/", checkLoggedIn, (req, res) => {
-    res.send("hello world");
+    res.redirect("/login");
 });
 
 // Handle post data from the login.html form.
