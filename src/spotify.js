@@ -1,55 +1,23 @@
 import queryString from 'node:querystring';
 import axios from 'axios';
 
-require('dotenv').config();
-
-let secret, CLIENT_ID, CLIENT_SECRET;
-
-if(!process.env.CLIENT_ID) {
-    secret = require('secret.JSON');
-    CLIENT_ID = secret.CLIENT_ID;
-    CLIENT_SECRET = secret.CLIENT_SECRET;
-} else {
-    CLIENT_ID = process.env.CLIENT_ID;
-    CLIENT_SECRET = process.env.CLIENT_SECRET;
-}
-
-export function refreshToken () {
-    const token = JSON.parse(window.localStorage('token'));
-
-    axios({
-        method : 'post',
-        url : 'https://accounts.spotify.com/api/token',
-        data : queryString.stringify({
-            grant_type : 'refresh_token',
-            refresh_token : token.refresh_token
-        }),
-        header : {
-            'content-type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
-        }
-    })
-        .then(reponse => {
-            if(reponse.ok) {
-                window.localStorage('token', JSON.stringify())
-                //send new token to DB
-            }
-        })
-        .catch (error => {
-            //authorize again
-        });
-}
-
-const refresh = () => {
-    try {
-        refreshToken();
-    } catch(error) {
-        console.log(error);
+const refresh = async () => {
+    const res = await fetch(`https://spotlist.herokuapp.com/refresh/${window.token.refresh_token}`);
+    if(res.ok) {
+        const json = await res.json();
+        window.localStorage('time', json.time);
+        window.localStorage('token', JSON.stringify(json.token));
     }
 }
 
+function checkToken() {
+    if(Date.now() - window.localStorage('time') > 3600) {refresh;}
+}
+
 export function getPlaylist (query, offSet) {
-    const token = JSON.parse(window.localStorage('token'));
+    checkToken();
+
+    const token = JSON.parse(window.localStorage('token')).access_token;
 
     axios({
         method : 'get',
@@ -65,11 +33,9 @@ export function getPlaylist (query, offSet) {
         }
     })
         .then (response => {
-            if (!response.ok) {
-                refresh();
-                return getPlaylist(query, offSet);
+            if (response.ok) {
+                return response.body.playlists.items;
             }
-            return response.body.playlists.items;
         }) 
         .catch(error => {
             console.log(error);
@@ -81,6 +47,8 @@ export function getPlaylist (query, offSet) {
 
 export function followPlaylist (playlistID) {
     if (!checkFollow(playlistID)) {
+        checkToken();
+
         const token = JSON.parse(window.localStorage('token'));
     
         axios({
@@ -104,6 +72,8 @@ export function followPlaylist (playlistID) {
 }
 
 function checkFollow (playlistID) {
+    checkToken();
+    
     const token = JSON.parse(window.localStorage('token'));
     
     axios({
@@ -126,6 +96,8 @@ function checkFollow (playlistID) {
 } 
 
 export function getUserPlaylist () {
+    checkToken();
+
     const token = window.localStorage('token');
 
     axios({
@@ -135,15 +107,13 @@ export function getUserPlaylist () {
             'content-type' : 'application/json',
             Authorization : 'Bearer ' + token
         }
-    })
-        .then(response => {
+    }).then(response => {
             if(!response.ok) {
                 refresh();
                 return getUserPlaylist();
             }
             return response.body.items;
-        })
-        .catch(error => {
+        }).catch(error => {
             console.log(error);
         });
 
@@ -161,6 +131,8 @@ export function getSubStatus () {
 }
 
 function getUserProfile () {
+    checkToken();
+
     const token = JSON.parse(window.localStorage('token'));
     
     axios({
@@ -170,23 +142,21 @@ function getUserProfile () {
             'content-type' : 'application/json',
             Authorization : 'Bearer ' + token
         }
-    }) 
-        .then (reponse => {
+    }).then (reponse => {
             if (reponse.ok) {
                 return reponse.body;
             } else {
                 refresh();
                 return getUserProfile();
             }
-        })
-        .catch (error => {
+        }).catch (error => {
             console.log(error);
         })
 
     return {};
 }
 
-export function getUserID () {
+function getUserID () {
     try{
         const profile = getUserProfile();
     } catch(error) {
