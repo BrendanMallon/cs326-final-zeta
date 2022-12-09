@@ -175,12 +175,12 @@ app.post(
 );
 
 // Handle the URL /login (just output the login.html file).
-app.get("/login", (req, res) =>
+app.get("*/login", (req, res) =>
     res.sendFile("html/login.html", { root: __dirname })
 );
 
 // Handle logging out (takes us back to the login page).
-app.get("/logout", (req, res) => {
+app.get("*/logout", (req, res) => {
     // Logs us out!
     req.logout(() => {
         res.redirect("/login"); // back to login
