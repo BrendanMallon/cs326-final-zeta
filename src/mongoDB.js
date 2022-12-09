@@ -31,7 +31,7 @@ export async function mdbAddUser(newUserName, newEmail, newPWord, newName) {
             name: newName,
             friendsList: [],
             authToken: null,
-            refreshToken: null,
+            tokenTime: null
         };
         await usersInfo.insertOne(newUser);
     } finally {
@@ -47,7 +47,7 @@ export async function mdbGetUserEmail(passedEmail) {
         const usersInfo = database.collection("USERS");
         // Query for a user that has the username provided in passedUserName
         const userNameQuery = { email: passedEmail  };
-        const returnedEmail = await usersInfo.findOne(userNameQuery).email;
+        returnedEmail = await usersInfo.findOne(userNameQuery).email;
     } catch {
         returnedEmail = -1;
 
@@ -89,7 +89,7 @@ export async function mdbGetUserSaltHash(passedUserName) {
 
     } finally {
         await client.close();
-        return  returnedHash;
+        return returnedHash;
     }
 }
 export async function mdbGetUserName(passedUserName) {
@@ -192,15 +192,17 @@ export async function mdbSetPassword(passedUserName, passedPassword, newPassword
 }
 
 // sets authorization token
-export async function mdbSetAuthToken(passedUserName, authT) {
+export async function mdbSetToken(passedUserName, tokn, time) {
     const client = new MongoClient(mongoDBURI);
+
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
         const user = { username: passedUserName };
         const newData = {
             $set: {
-                authToken: authT,
+                authToken: tokn,
+                token: time
             },
         };
         await usersInfo.updateOne(user, newData);
@@ -208,20 +210,19 @@ export async function mdbSetAuthToken(passedUserName, authT) {
         await client.close();
     }
 }
-export async function mdbSetRefreshToken(passedUserName, refT) {
+export async function mdbGetTokenTime(passedUserName) {
     const client = new MongoClient(mongoDBURI);
+    let returnedTokenTime = 0;
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
-        const user = { username: passedUserName };
-        const newData = {
-            $set: {
-                refreshToken: refT,
-            },
-        };
-        await usersInfo.updateOne(user, newData);
+        const userNameQuery = { username: passedUserName };
+        returnedTokenTime = await usersInfo.findOne(userNameQuery).tokenTime;
+    } catch {
+        returnedTokenTime = -1;
     } finally {
         await client.close();
+        return returnedTokenTime;
     }
 }
 export async function mdbAddFriend(passedUserName, newFriend) {
