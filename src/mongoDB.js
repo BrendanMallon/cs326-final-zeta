@@ -55,19 +55,53 @@ export async function mdbGetUserEmail(passedEmail) {
         return  returnedEmail;
     }
 }
+export async function mdbCheckUserName(passedUserName) {
+    const client = new MongoClient(mongoDBURI);
+    try {
+        const database = client.db("spotlist");
+        const usersInfo = database.collection("USERS");
+        // Query for a user that has the username provided in passedUserName
+
+        const returnedUser = await usersInfo.findOne(userNameQuery).username;
+    } catch {
+        returnedUser = null;
+    } finally {
+        await client.close();
+        if(returnedUser == null){
+            return false;
+        }
+        return true;
+    }
+}
+export async function mdbGetUserSaltHash(passedUserName) {
+    const client = new MongoClient(mongoDBURI);
+    try {
+        const database = client.db("spotlist");
+        const usersInfo = database.collection("USERS");
+        // Query for a user that has the username provided in passedUserName
+        const userNameQuery = { username: passedUsername };
+        const returnedHash = await usersInfo.findOne(userNameQuery).salt-hash;
+    } catch {
+        returnedHash = -1;
+
+    } finally {
+        await client.close();
+        return  returnedHash;
+    }
+}
 export async function mdbGetUserName(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
         // Query for a user that has the username provided in passedUserName
-        const userNameQuery = { username: passedUserName };
+
         const returnedUser = await usersInfo.findOne(userNameQuery).username;
     } catch {
         returnedUser = -1;
     } finally {
         await client.close();
-        return returnedUser
+        return returnedUser;
     }
 }
 //mdbGetUSer searches for an existing user in the database using username parameter

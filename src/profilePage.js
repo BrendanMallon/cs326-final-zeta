@@ -1,4 +1,4 @@
-import {mdbGetUserInfo, mdbSetName, mdbSetEmail, mdbSetUserName,mdbSetPassword} from './mongoDB.js'
+import {mdbGetUserInfo, mdbSetName, mdbSetEmail, mdbSetUserName,mdbSetPassword} from './mongoDB.js';
 const bcrypt = require('bcrypt');
 
 /*async function changeUsername(){
@@ -27,9 +27,9 @@ const bcrypt = require('bcrypt');
 }*/
 function changeName(){
     
-    const newName = document.getElementById("nameInput").value
-    const username = document.getElementById("confirmUserName2").value
-    const password = document.getElementById("confirmPassword2").value
+    const newName = document.getElementById("nameInput").value;
+    const username = document.getElementById("confirmUserName2").value;
+    const password = document.getElementById("confirmPassword2").value;
     if (newName == "" || username == "" || password == "") {
         window.alert("Fields cannot be empty.");
         if (newName == ""){
@@ -37,24 +37,24 @@ function changeName(){
         }
         return;
     }
-    const userInfo = mdbGetUserInfo(username)
+    const userInfo = mdbGetUserInfo(username);
     if(userInfo == null){
-        window.alert("incorrect username or password")
+        window.alert("incorrect username or password");
         return;
     }else if(!(bcrypt.compare(password, userInfo.password))){
-        window.alert("incorrect password")
-        return
+        window.alert("incorrect password");
+        return;
     }
 
-    mdbSetName(username, password, newName)
+    mdbSetName(username, password, newName);
     hidePopUp('confirmNameChangesPopUp');
     showPopUp('changeSuccessPopUp');
 }
 function changeEmail(){
 
-    const newEmail = document.getElementById("emailAdressInput").value
-    const username = document.getElementById("confirmUserName3").value
-    const password = document.getElementById("confirmPassword3").value
+    const newEmail = document.getElementById("emailAdressInput").value;
+    const username = document.getElementById("confirmUserName3").value;
+    const password = document.getElementById("confirmPassword3").value;
     if (newEmail == "" || username == "" || password == "") {
         window.alert("Fields cannot be empty.");
         if(newEmail == "" ){
@@ -62,23 +62,23 @@ function changeEmail(){
         }
         return;
     }
-    const userInfo = mdbGetUserInfo(username)
+    const userInfo = mdbGetUserInfo(username);
     if(userInfo == null){
-        window.alert("incorrect username or password")
+        window.alert("incorrect username or password");
         return;
     }else if(!(bcrypt.compare(password, userInfo.password))){
-        window.alert("incorrect password")
-        return
+        window.alert("incorrect password");
+        return;
     }
-    mdbSetEmail(username, password, newEmail)
+    mdbSetEmail(username, password, newEmail);
     hidePopUp('confirmEmailChangesPopUp');
     showPopUp('changeSuccessPopUp');
 }
 function changePassword(){
-    const confirmNewPassword = document.getElementById("newPasswordConfirmInput").value
-    const newPassword = document.getElementById("newPasswordInput").value
-    const username = document.getElementById("confirmUserName4").value
-    const password = document.getElementById("confirmPassword4").value
+    const confirmNewPassword = document.getElementById("newPasswordConfirmInput").value;
+    const newPassword = document.getElementById("newPasswordInput").value;
+    const username = document.getElementById("confirmUserName4").value;
+    const password = document.getElementById("confirmPassword4").value;
     if (newPassword == "" || username == "" || password == "" || confirmNewPassword == "") {
         window.alert("Fields cannot be empty.");
         if(newPassword == "" ||confirmNewPassword == ""){
@@ -87,24 +87,24 @@ function changePassword(){
         return;
     }
     if(newPassword != confirmNewPassword){
-        window.alert("Password must be between 7 to 15 characters and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.")
+        window.alert("Password must be between 7 to 15 characters and contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.");
         hidePopUp('confirmPasswordChangesPopUp');
-        return
+        return;
     }
     if(!(validatePassword(newPassword))){
-        window.alert("password must be in parameters")
+        window.alert("password must be in parameters");
         hidePopUp('confirmPasswordChangesPopUp');
-        return
+        return;
     }
     const userInfo = mdbGetUserInfo(username)
     if(userInfo == null){
-        window.alert("incorrect username or password")
+        window.alert("incorrect username or password");
         return;
     }else if(!(bcrypt.compare(password, userInfo.password))){
-        window.alert("incorrect password")
-        return
+        window.alert("incorrect password");
+        return;
     }
-    mdbSetPassword(username, password, newPassword)
+    mdbSetPassword(username, password, newPassword);
     hidePopUp('confirmPasswordChangesPopUp');
     showPopUp('changeSuccessPopUp');
 }
