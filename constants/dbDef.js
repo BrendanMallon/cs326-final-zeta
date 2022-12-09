@@ -14,8 +14,8 @@ const USER = {
     email: "string",
     registeredAt: "date",
     lastLogin: "date",
-    authToken: "string",
-    refreshToken: "string",
+    token: "object",
+    tokenTime: "integer",
     friendsList: ["string"],
 };
 
