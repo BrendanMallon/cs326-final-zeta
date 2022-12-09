@@ -2,7 +2,7 @@ import queryString from 'node:querystring';
 import axios from 'axios';
 
 const refresh = async () => {
-    const res = await fetch(`https://spotlist.herokuapp.com/refresh/${window.token.refresh_token}`);
+    const res = await fetch(`https://spotlist.herokuapp.com/refresh/${JSON.parse(window.localStorage('token')).refresh_token}`);
     if(res.ok) {
         const json = await res.json();
         window.localStorage('time', json.time);
@@ -11,7 +11,7 @@ const refresh = async () => {
 }
 
 function checkToken() {
-    if(Date.now() - window.localStorage('time') > 3600) {refresh;}
+    if(Date.now() - window.localStorage('time') > 3600) {refresh();}
 }
 
 export function getPlaylist (query, offSet) {
