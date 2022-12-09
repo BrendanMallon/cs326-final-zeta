@@ -119,7 +119,7 @@ function showPopUp(popUpShow) {
 }
 function validatePassword (password) {
     const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-    if(inputtxt.value.match(paswd)) {
+    if(password.value.match(paswd)) {
         return true;
     }
     return false;

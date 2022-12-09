@@ -41,6 +41,7 @@ export async function mdbAddUser(newUserName, newEmail, newPWord, newName) {
 // function for checking if username and email are valid
 export async function mdbGetUserEmail(passedEmail) {
     const client = new MongoClient(mongoDBURI);
+    let returnedEmail = 0
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
@@ -57,12 +58,13 @@ export async function mdbGetUserEmail(passedEmail) {
 }
 export async function mdbCheckUserName(passedUserName) {
     const client = new MongoClient(mongoDBURI);
+    let returnedUser = 0;
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
         // Query for a user that has the username provided in passedUserName
-
-        const returnedUser = await usersInfo.findOne(userNameQuery).username;
+        const userNameQuery = { username: passedUserName };
+        returnedUser = await usersInfo.findOne(userNameQuery).username;
     } catch {
         returnedUser = null;
     } finally {
@@ -75,12 +77,13 @@ export async function mdbCheckUserName(passedUserName) {
 }
 export async function mdbGetUserSaltHash(passedUserName) {
     const client = new MongoClient(mongoDBURI);
+    let returnedHash = 0;
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
         // Query for a user that has the username provided in passedUserName
-        const userNameQuery = { username: passedUsername };
-        const returnedHash = await usersInfo.findOne(userNameQuery).salt-hash;
+        const userNameQuery = { username: passedUserName };
+        returnedHash = await usersInfo.findOne(userNameQuery).salt-hash;
     } catch {
         returnedHash = -1;
 
@@ -91,12 +94,13 @@ export async function mdbGetUserSaltHash(passedUserName) {
 }
 export async function mdbGetUserName(passedUserName) {
     const client = new MongoClient(mongoDBURI);
+    let returnedUser = 0;
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
         // Query for a user that has the username provided in passedUserName
-
-        const returnedUser = await usersInfo.findOne(userNameQuery).username;
+        const userNameQuery = { username: passedUserName };
+        returnedUser = await usersInfo.findOne(userNameQuery).username;
     } catch {
         returnedUser = -1;
     } finally {
@@ -108,12 +112,13 @@ export async function mdbGetUserName(passedUserName) {
 //returns user object
 export async function mdbGetUserInfo(passedUserName) {
     const client = new MongoClient(mongoDBURI);
+    let returnedUser = 0;
     try {
         const database = client.db("spotlist");
         const usersInfo = database.collection("USERS");
         // Query for a user that has the username provided in passedUserName
         const userNameQuery = { username: passedUserName };
-        const returnedUser = await usersInfo.findOne(userNameQuery);
+        returnedUser = await usersInfo.findOne(userNameQuery);
     } catch {
         returnedUser = -1;
     } finally {
@@ -265,6 +270,7 @@ export async function mdbAddPlaylistActivity(
 
 export async function mdbGetPlaylistActivity(passedUserName, passedPlayListID) {
     const client = new MongoClient(mongoDBURI);
+    let returnedPlayListActivity = 0;
     try {
         const database = client.db("spotlist");
         const playListActivities = database.collection("PLAYLISTACTIVITY");
@@ -272,7 +278,7 @@ export async function mdbGetPlaylistActivity(passedUserName, passedPlayListID) {
             username: passedUserName,
             playListID: passedPlayListID,
         };
-        const returnedPlayListActivity = await playListActivities.findOne(
+        returnedPlayListActivity = await playListActivities.findOne(
             playListActivityQuery
         );
         await playListActivities.updateOne(user, newData);
