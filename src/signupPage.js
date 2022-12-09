@@ -1,4 +1,4 @@
-import {mdbGetUserEmail, mdbGetUsername, mdbAddUser} from './mongoDB.js'
+import {mdbGetUserEmail, mdbGetUsername, mdbAddUser} from './mongoDB.js';
 const bcrypt = require('bcrypt');
 
 //signUp function called from signup page to create a new user
@@ -15,8 +15,8 @@ async function signUp(){
         //ERROR PASSWORDS DONT MATCH, PRINT ERROR ON SIGNUP PAGE
         error += "Passwords do not match\n";
     }
-    existingUser = mdbGetUsername(newUserName).catch(console.dir)
-    existingEmail = mdbGetUserEmail( newEmail).catch(console.dir)
+    existingUser = mdbGetUsername(newUserName).catch(console.dir);
+    existingEmail = mdbGetUserEmail( newEmail).catch(console.dir);
     if(existingEmail === -1 || existingUser === -1){
         //SERVER FAILED TO RESPOND
         return null;
@@ -28,7 +28,7 @@ async function signUp(){
             try {
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(newPWord, salt);
-                mdbAddUser(newUserName, newEmail, hashedPassword, newName)
+                mdbAddUser(newUserName, newEmail, hashedPassword, newName);
             } catch (e) {
                 console.log(e);
             }
