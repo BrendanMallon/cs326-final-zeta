@@ -27,9 +27,9 @@ const bcrypt = require('bcrypt');
 }*/
 function changeName(){
     
-    newName = document.getElementById("nameInput").value
-    username = document.getElementById("confirmUserName2").value
-    password = document.getElementById("confirmPassword2").value
+    const newName = document.getElementById("nameInput").value
+    const username = document.getElementById("confirmUserName2").value
+    const password = document.getElementById("confirmPassword2").value
     if (newName == "" || username == "" || password == "") {
         window.alert("Fields cannot be empty.");
         if (newName == ""){
@@ -37,7 +37,7 @@ function changeName(){
         }
         return;
     }
-    userInfo = mdbGetUserInfo(username)
+    const userInfo = mdbGetUserInfo(username)
     if(userInfo == null){
         window.alert("incorrect username or password")
         return;
@@ -52,9 +52,9 @@ function changeName(){
 }
 function changeEmail(){
 
-    newEmail = document.getElementById("emailAdressInput").value
-    username = document.getElementById("confirmUserName3").value
-    password = document.getElementById("confirmPassword3").value
+    const newEmail = document.getElementById("emailAdressInput").value
+    const username = document.getElementById("confirmUserName3").value
+    const password = document.getElementById("confirmPassword3").value
     if (newEmail == "" || username == "" || password == "") {
         window.alert("Fields cannot be empty.");
         if(newEmail == "" ){
@@ -62,7 +62,7 @@ function changeEmail(){
         }
         return;
     }
-    userInfo = mdbGetUserInfo(username)
+    const userInfo = mdbGetUserInfo(username)
     if(userInfo == null){
         window.alert("incorrect username or password")
         return;
@@ -75,10 +75,10 @@ function changeEmail(){
     showPopUp('changeSuccessPopUp');
 }
 function changePassword(){
-    confirmNewPassword = document.getElementById("newPasswordConfirmInput").value
-    newPassword = document.getElementById("newPasswordInput").value
-    username = document.getElementById("confirmUserName4").value
-    password = document.getElementById("confirmPassword4").value
+    const confirmNewPassword = document.getElementById("newPasswordConfirmInput").value
+    const newPassword = document.getElementById("newPasswordInput").value
+    const username = document.getElementById("confirmUserName4").value
+    const password = document.getElementById("confirmPassword4").value
     if (newPassword == "" || username == "" || password == "" || confirmNewPassword == "") {
         window.alert("Fields cannot be empty.");
         if(newPassword == "" ||confirmNewPassword == ""){
@@ -96,7 +96,7 @@ function changePassword(){
         hidePopUp('confirmPasswordChangesPopUp');
         return
     }
-    userInfo = mdbGetUserInfo(username)
+    const userInfo = mdbGetUserInfo(username)
     if(userInfo == null){
         window.alert("incorrect username or password")
         return;
