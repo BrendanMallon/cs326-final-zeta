@@ -15,50 +15,51 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
-        <script type="module" src="/src/playlists.js" defer></script>
+        <script type="module" src="/playlists.js" defer></script>
         <link rel="stylesheet" href="/style.css" />
         <title>Zeta</title>
     </head>
     <body>
-        <div class="container-fluid" id="header">
-            <div class="row" style="min-height: 80px">
-                <div class="col-lg-2 align-self-center">
-                    <div class="dropdown">
-                        <button
-                            class="btn btn-primary dropdown-toggle btn-lg btn-block"
-                            type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                        >
-                            MENU
-                        </button>
-
-                        <div
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton"
-                        >
-                            <a class="dropdown-item" href="home">Home</a>
-                            <a class="dropdown-item" href="social">Social</a>
-                            <a class="dropdown-item" href="playlists"
-                                >Playlists</a
+        <header>
+            <div class="container-fluid" id="header">
+                <div class="row" style="min-height: 80px">
+                    <div class="col-lg-2 align-self-center">
+                        <div class="dropdown">
+                            <button
+                                class="btn dropdown-toggle btn-lg btn-block"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
                             >
+                                MENU
+                            </button>
+
+                            <div
+                                class="dropdown-menu"
+                                aria-labelledby="dropdownMenuButton"
+                            >
+                                <a class="dropdown-item" href="home">Home</a>
+                                <a class="dropdown-item" href="social"
+                                    >Social</a
+                                >
+                                <a class="dropdown-item" href="playlists"
+                                    >Playlists</a
+                                >
+                                <a class="dropdown-item" href="profile"
+                                    >Account</a
+                                >
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col align-self-center" id="logo">
-                    <h1 style="text-align: center">Team Zeta</h1>
-                </div>
-                <div class="col-lg-2 align-self-center">
-                    <form
-                        action="C:\Users\WillP\Documents\School\UMASS Fall22\CS326\Spotify project\profile.html"
-                    >
-                        <a class="dropdown-item" href="profile"> Account </a>
-                    </form>
+                    <div class="col align-self-center" id="logo">
+                        <h1 style="text-align: center">Team Zeta</h1>
+                    </div>
+                    <div class="col-lg-2 align-self-center"></div>
                 </div>
             </div>
-        </div>
+        </header>
         <div class="container-fluid" id="home-page">
             <div id="page-background" class="row justify-content-md-center">
                 <div id="playlist-list" class="col-md-8">
@@ -66,7 +67,7 @@
                         id="playlist-list-title"
                         class="row justify-content-md-center"
                     >
-                        <h1>Playlists</h1>
+                        <div id="pageName">Playlists</div>
                     </div>
                 </div>
             </div>
