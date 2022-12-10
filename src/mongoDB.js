@@ -252,52 +252,38 @@ export async function mdbAddFriend(passedUserName, newFriend) {
     }
 }
 
-export async function mdbAddPlaylistActivity(
-    addUserName,
-    addPlayListID,
-    addLikes,
-    addComments
-) {
+export async function mdbAddPlaylistActivity(addUserName, addPlayListID) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    const date = new Date();
-    try {
-        const database = await client.db("spotlist");
-        const playListInfo = await database.collection("PLAYLISTACTIVITY");
-        const newPlayListActivity = {
-            time: date,
-            username: addUserName,
-            playListID: addPlayListID,
-            likes: addLikes,
-            comments: addComments,
-        };
-        await playListInfo.insertOne(newPlayListActivity);
-    } finally {
-        await client.close();
-    }
+    console.log("Connected successfully to server");
+    const db = client.db("spotlist");
+    const collection = db.collection("PLAYLISTACTIVITY");
+    const newPlayListActivity = {
+        time: Date.now(),
+        username: addUserName,
+        playListID: addPlayListID,
+        likes: 0,
+        comments: [],
+    };
+    await collection.insertOne(newPlayListActivity);
+    await client.close();
+    return true;
 }
 
-export async function mdbGetPlaylistActivity(passedUserName, passedPlayListID) {
+export async function mdbGetPlaylistActivity(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    let returnedPlayListActivity = 0;
-    try {
-        const database = await client.db("spotlist");
-        const playListActivities = await database.collection(
-            "PLAYLISTACTIVITY"
-        );
-        const playListActivityQuery = {
-            username: passedUserName,
-            playListID: passedPlayListID,
-        };
-        returnedPlayListActivity = await playListActivities.findOne(
-            playListActivityQuery
-        );
-    } catch {
-        returnedPlayListActivity = -1;
-    } finally {
-        await client.close();
-    }
+    console.log("Connected successfully to server");
+    const db = client.db("spotlist");
+    const collection = db.collection("PLAYLISTACTIVITY");
+    const playListActivityQuery = {
+        username: passedUserName,
+    };
+    const returnedPlayListActivity = await collection.find(
+        playListActivityQuery
+    );
+    await client.close();
+    console.log(returnedPlayListActivity);
     return returnedPlayListActivity;
 }
 //Adds a like to the like property

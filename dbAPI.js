@@ -3,8 +3,15 @@ import {
     mdbAddUser,
     mdbCheckUserName,
     mdbGetUserSaltHash,
+    mdbAddPlaylistActivity,
+    mdbGetPlaylistActivity,
 } from "./src/mongoDB.js";
-import { API_FIND_USER, API_REGISTER_USER } from "./constants/api.js";
+import {
+    API_FIND_USER,
+    API_REGISTER_USER,
+    API_GET_USER_ACTIVITY,
+    API_ADD_USER_ACTIVITY,
+} from "./constants/api.js";
 const dbAPI = express.Router();
 
 // middleware that is specific to this router
@@ -38,6 +45,22 @@ dbAPI.use(async (req, res, next) => {
         const salt_hash = await mdbGetUserSaltHash(req.body.username);
         console.log("Exists and salt_hash are obtained");
         const result = { exists, salt_hash };
+        console.log(result);
+        res.end(JSON.stringify(result));
+        break;
+    }
+    case API_ADD_USER_ACTIVITY: {
+        console.log("Adding New User");
+        console.log(req.body);
+        await mdbAddPlaylistActivity(req.user, req.body.playListID);
+        // res.end(JSON.stringify(true));
+        res.send("true");
+        break;
+    }
+    case API_GET_USER_ACTIVITY: {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        const result = await mdbGetPlaylistActivity(req.body.username);
+        console.log("Got Activity:");
         console.log(result);
         res.end(JSON.stringify(result));
         break;
