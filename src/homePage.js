@@ -34,7 +34,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     })
 }
 
-function loadTracks() {
+async function loadTracks() {
     stopLoop = true;
     checkToken();
     const token = JSON.parse(window.localStorage.getItem(token)).access_token;
@@ -56,18 +56,25 @@ function loadTracks() {
         }
     });
 
+    player.seek(30 * 1000).then(() => {
+        console.log("seeked 30 sec");
+    });
+
     stopPlay = false;
+
+    await sleep(30 * 1000);
+
     playLoop();
 }
 
 async function playLoop() {
     while (!stopPlay) {
-        player.seek(30 * 1000).then(() => {
-            console.log("seeked 30 sec");
-        });
-
         player.nextTrack().then(() => {
             console.log("next Track");
+        });
+
+        player.seek(30 * 1000).then(() => {
+            console.log("seeked 30 sec");
         });
 
         await sleep(30 * 1000);
