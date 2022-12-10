@@ -4,7 +4,9 @@ import express, { response } from "express";
 import queryString from "node:querystring";
 import axios from "axios";
 
-const CLIENT_ID, CLIENT_SECRET, URI;
+const CLIENT_ID = process.env.CLIENT_ID,
+    CLIENT_SECRET = process.env.SECRET_ID,
+    URI = process.env.cbURI;
 
 const app = express();
 
@@ -48,6 +50,18 @@ app.get("/auth/callback", function (req, res) {
     })
         .then((response) => {
             if (response.status === 200) {
+                const json = {date: Date.now(), token: response.body};
+                axios({
+                    method : "post",
+                    url : "https://spotlist.herokuapp.com/api/setToken",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body : JSON.stringify(json)
+                }).then(response => {
+                    if(!response.ok) {console.log(response)}
+                }).catch(error => {console.log(error)});
+
                 res.send();
             } else {
                 res.status(response.staus).send("Token Error");
@@ -76,12 +90,15 @@ app.get("/refresh/:refresh", function (req,res) {
                 const json = {date: Date.now(), token: response.body};
 
                 axios({
-                    method : "post",
-                    url : "",
-                    data : json
+                    method : "POST",
+                    url : "https://spotlist.herokuapp.com/api/setToken",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body : JSON.stringify(json)
                 }).then(response => {
-                    if(!response.ok) {console.log(repsonse)}
-                }).catch(erro => {console.log(error)});
+                    if(!response.ok) {console.log(response)}
+                }).catch(error => {console.log(error)});
 
                 res.send(JSON.stringify(json));
             } else {

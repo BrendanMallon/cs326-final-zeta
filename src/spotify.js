@@ -2,22 +2,22 @@ import queryString from 'node:querystring';
 import axios from 'axios';
 
 const refresh = async () => {
-    const res = await fetch(`https://spotlist.herokuapp.com/refresh/${JSON.parse(window.localStorage('token')).refresh_token}`);
+    const res = await fetch(`https://spotlist.herokuapp.com/refresh/${JSON.parse(window.localStorage.getItem('token')).refresh_token}`);
     if(res.ok) {
         const json = await res.json();
-        window.localStorage('time', json.time);
-        window.localStorage('token', JSON.stringify(json.token));
+        window.localStorage.setItem('time', json.time);
+        window.localStorage.setItem('token', JSON.stringify(json.token));
     }
 }
 
-function checkToken() {
-    if(Date.now() - window.localStorage('time') > 3600) {refresh();}
+export function checkToken() {
+    if(Date.now() - window.localStorage.getItem('time') > 3600) {refresh();}
 }
 
 export function getPlaylist (query, offSet) {
     checkToken();
 
-    const token = JSON.parse(window.localStorage('token')).access_token;
+    const token = JSON.parse(window.localStorage.getItem('token')).access_token;
 
     axios({
         method : 'get',
@@ -49,7 +49,7 @@ export function followPlaylist (playlistID) {
     if (!checkFollow(playlistID)) {
         checkToken();
 
-        const token = JSON.parse(window.localStorage('token'));
+        const token = JSON.parse(window.localStorage.getItem('token')).access_token;
     
         axios({
             method : 'put',
@@ -74,7 +74,7 @@ export function followPlaylist (playlistID) {
 function checkFollow (playlistID) {
     checkToken();
     
-    const token = JSON.parse(window.localStorage('token'));
+    const token = JSON.parse(window.localStorage.getItem('token')).access_token;
     
     axios({
         method : 'get',
@@ -98,7 +98,7 @@ function checkFollow (playlistID) {
 export function getUserPlaylist () {
     checkToken();
 
-    const token = window.localStorage('token');
+    const token = JSON.parse(window.localStorage.getItem('token')).access_token;
 
     axios({
         method : 'get',
@@ -121,19 +121,14 @@ export function getUserPlaylist () {
 }
 
 export function getSubStatus () {
-    try{
-        const profile = getUserProfile();
-    } catch(error) {
-        console.log(error);
-    }
+    const profile = getUserProfile();
 
     return profile.product === "premium" ? true : false;
 }
 
 function getUserProfile () {
     checkToken();
-
-    const token = JSON.parse(window.localStorage('token'));
+    const token = JSON.parse(window.localStorage.getItem('token')).access_token;
     
     axios({
         method : 'get',
@@ -157,11 +152,25 @@ function getUserProfile () {
 }
 
 function getUserID () {
-    try{
-        const profile = getUserProfile();
-    } catch(error) {
-        console.log(error);
-    }
+    const profile = getUserProfile();
     
     return profile.id;
+}
+
+export async function getPlaylistByID(id) {
+    checkToken();
+    const token = JSON.parse(window.localStorage.getItem('token')).access_token;
+
+    const res = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
+        method : 'GET',
+        header : {
+            'content-type' : 'application/json',
+            Authorization : 'Bearer ' + token
+        }
+    });
+
+    if (res.ok) {
+        return await res.json();
+    }
+    return {};
 }
