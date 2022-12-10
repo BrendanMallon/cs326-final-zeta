@@ -148,12 +148,12 @@
         <div id="information-container" class="row justify-content-md-center">
             <div id="change-information-container" class="col-lg-3">
                 <div class="mx-auto d-flex d-flex justify-content-center col-8">
-                    <form id="change-account-form">
+
                         <div class="form-group">
                             <label>Name:</label>
-                            <input type="text"id="nameInput" placeholder="New Name" name="Name" />
+                            <input type="text"id="nameInput" placeholder="New Name" name="foo" />
                         </div>
-                        <input type="button" id= "firstNameChangeBtn" onclick="showPopUp('confirmNameChangesPopUp')" value="Update Name"></input>
+                        <button id= "firstNameChangeBtn">Update Name</button>
                         <div class="form-group">
                             <label>Email:</label>
                             <input type="email"id="emailAddressInput" placeholder="New Email" name="email" />   
@@ -163,8 +163,8 @@
                             <label>Password:</label>
                             <input type="password"id="newPasswordInput" placeholder="New Password" name="password" />
                         </div>
-                        <input type="button" id = "passwordChangeBtn" onclick="showPopUp('confirmPasswordChangesPopUp')" value="Update Password"></input>
-                    </form>
+                        <button id = "passwordChangeBtn" onclick="showPopUp('confirmPasswordChangesPopUp')"> Update Password</button>
+
                 </div>
             </div>
         </div>

@@ -4,8 +4,10 @@ let playlist = [];
 const devid = '';
 let indx = 0;
 
-document.getElementById("submit").addEventListener("click", () => {
-    query = document.getElementById("submit").value;
+// let playlist = [];
+// let currPlaylist = {};
+// let index = 0;
+// let query = "";
 
     playlist = getPlaylist(query, 0);
     loadTracks();
