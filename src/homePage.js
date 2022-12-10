@@ -1,14 +1,13 @@
+import { query } from 'express';
 import {checkToken, getPlaylist, followPlaylist} from './spotify.js';
 
 let playlist = [];
 const devid = '';
 let indx = 0;
+let stopPlay = false;
 
-// let playlist = [];
-// let currPlaylist = {};
-// let index = 0;
-// let query = "";
-
+document.getElementById("searchTextBtn").addEventListener("click", () => {
+    query = document.getElementById("homePageSearch-Text").value;
     playlist = getPlaylist(query, 0);
     loadTracks();
 });
@@ -36,6 +35,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 }
 
 function loadTracks() {
+    stopLoop = true;
     checkToken();
     const token = JSON.parse(window.localStorage.getItem(token)).access_token;
 
@@ -55,9 +55,31 @@ function loadTracks() {
           'Authorization': `Bearer ${token}`
         }
     });
+
+    stopPlay = false;
+    playLoop();
 }
 
+async function playLoop() {
+    while (!stopPlay) {
+        player.seek(30 * 1000).then(() => {
+            console.log("seeked 30 sec");
+        });
+
+        player.nextTrack().then(() => {
+            console.log("next Track");
+        });
+
+        await sleep(30 * 1000);
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+ }
+
 function likePlaylist(){
+    stopLoop = true;
     followPlaylist(playlist.id);
     //add to mongo
     loadTracks();
