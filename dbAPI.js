@@ -5,12 +5,16 @@ import {
     mdbGetUserSaltHash,
     mdbAddPlaylistActivity,
     mdbGetPlaylistActivity,
+    mdbSetToken,
+    mdbGetToken,
 } from "./src/mongoDB.js";
 import {
     API_FIND_USER,
     API_REGISTER_USER,
     API_GET_USER_ACTIVITY,
     API_ADD_USER_ACTIVITY,
+    API_SET_TOKEN,
+    API_GET_TOKEN,
 } from "./constants/api.js";
 const dbAPI = express.Router();
 
@@ -50,17 +54,32 @@ dbAPI.use(async (req, res, next) => {
         break;
     }
     case API_ADD_USER_ACTIVITY: {
-        console.log("Adding New User");
+        console.log("Adding New Activity");
         console.log(req.body);
+        console.log(req.user);
         await mdbAddPlaylistActivity(req.user, req.body.playListID);
-        // res.end(JSON.stringify(true));
         res.send("true");
         break;
     }
     case API_GET_USER_ACTIVITY: {
         res.writeHead(200, { "Content-Type": "application/json" });
-        const result = await mdbGetPlaylistActivity(req.body.username);
+        const result = await mdbGetPlaylistActivity(req.user);
         console.log("Got Activity:");
+        console.log(result);
+        res.end(JSON.stringify(result));
+        break;
+    }
+    case API_SET_TOKEN: {
+        console.log("Adding New Activity");
+        console.log(req.body);
+        await mdbSetToken(req.user, req.body.token, req.body.date);
+        res.send("true");
+        break;
+    }
+    case API_GET_TOKEN: {
+        console.log("Getting Token");
+        const result = await mdbGetToken(req.user);
+        console.log("Got Token:");
         console.log(result);
         res.end(JSON.stringify(result));
         break;

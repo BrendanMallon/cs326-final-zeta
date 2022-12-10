@@ -1,4 +1,29 @@
 console.log(window.location.origin);
+
+const fooElem = document.getElementById("foo");
+console.log(fooElem);
+async function testAPI(event) {
+    console.log("TESTING API");
+    const id = document.getElementById("input-field").value;
+    // await fetch(window.location.origin + "/api/setToken", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //         token: id,
+    //         date: Date.now(),
+    //     }),
+    // });
+
+    const response = await fetch(window.location.origin + "/api/getToken");
+    const result = await response.json();
+    console.log(result.date);
+    console.log(result.token);
+    console.log(result);
+}
+fooElem.addEventListener("click", testAPI);
+
 const playListResponse = await fetch(window.location.origin + "/api/playlists");
 const playListJSON = await playListResponse.json();
 
