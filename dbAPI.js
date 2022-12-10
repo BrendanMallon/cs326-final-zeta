@@ -52,10 +52,7 @@ dbAPI.use(async (req, res, next) => {
     case API_ADD_USER_ACTIVITY: {
         console.log("Adding New User");
         console.log(req.body);
-        await mdbAddPlaylistActivity(
-            req.body.username,
-            req.body.playListID
-        );
+        await mdbAddPlaylistActivity(req.user, req.body.playListID);
         // res.end(JSON.stringify(true));
         res.send("true");
         break;
