@@ -1,29 +1,9 @@
-// import express from "express";
-// import router from "./router.js";
-// import testAPI from "./testAPI.js";
-// import { fileURLToPath } from "url";
-// import { dirname } from "path";
+"use strict";
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
-// const app = express();
-// const port = process.env.PORT ? process.env.PORT : 8080;
-// app.use(express.static(__dirname));
-// app.get("/", function (req, res) {
-//     res.redirect("/login");
-// });
-// app.use("/", router);
-// app.use("/", testAPI);
-// app.listen(port, () => {
-//     console.log(`Example app listening on port ${port}`);
-// });
-
-("use strict");
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import testAPI from "./testAPI.js";
+import dbAPI from "./dbAPI.js";
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,6 +12,9 @@ const __dirname = dirname(__filename);
 require("dotenv").config();
 
 const express = require("express"); // express routing
+const request = require("request");
+
+const bodyParser = require("body-parser");
 const expressSession = require("express-session"); // for managing session state
 const passport = require("passport"); // handles authentication
 const LocalStrategy = require("passport-local").Strategy; // username/password strategy
@@ -40,6 +23,7 @@ const port = process.env.PORT || 3000;
 
 /// NEW
 import { MiniCrypt } from "./miniCrypt.js";
+import axios from "axios";
 const mc = new MiniCrypt();
 
 // Session configuration
@@ -53,12 +37,14 @@ const session = {
 // Passport configuration
 
 const strategy = new LocalStrategy(async (username, password, done) => {
-    if (!findUser(username)) {
+    const user = await findUser(username);
+    if (!user.exists) {
         // no such user
         await new Promise((r) => setTimeout(r, 2000)); // two second delay
         return done(null, false, { message: "Wrong username" });
     }
-    if (!validatePassword(username, password)) {
+    const validated = await validatePassword(username, password);
+    if (!validated) {
         // invalid password
         // should disable logins after N messages
         // delay return to rate-limit brute-force attacks
@@ -76,6 +62,9 @@ app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
 app.use(passport.session());
+
+// enable the body-parser middleware
+app.use(bodyParser.json());
 
 // Convert user object to a unique identifier.
 passport.serializeUser((user, done) => {
@@ -117,34 +106,69 @@ console.log(mc.check("compsci326", exampleSalt, exampleHash)); // true
 console.log(mc.check("nope", exampleSalt, exampleHash)); // false
 
 // Returns true iff the user exists.
-function findUser(username) {
-    if (!users[username]) {
-        return false;
-    } else {
-        return true;
-    }
+async function findUser(username) {
+    const result = await new Promise((resolve, reject) => {
+        axios
+            .post("http://localhost:" + port + "/api/findUser", {
+                username,
+            })
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+                reject(error);
+            });
+    });
+    console.log("result:");
+    console.log(result);
+    return result;
+
+    // if (!users[username]) {
+    //     return false;
+    // } else {
+    //     return true;
+    // }
 }
 
 // Returns true iff the password is the one we have stored.
-function validatePassword(name, pwd) {
-    if (!findUser(name)) {
+async function validatePassword(name, pwd) {
+    const result = await findUser(name);
+    console.log("VALIDATING");
+    console.log(result);
+    console.log(result.exists);
+    if (!result.exists) {
+        console.log("exiting");
         return false;
     }
-    if (mc.check(pwd, users[name][0], users[name][1])) {
+    if (mc.check(pwd, result.salt_hash[0], result.salt_hash[1])) {
         return true;
     }
     return false;
 }
 
 // Add a user to the "database".
-function addUser(name, pwd) {
-    if (findUser(name)) {
+async function addUser(username, pwd, email, name) {
+    console.log("TESTING TESTING");
+    const result = await findUser(username);
+    console.log("ADDING USER");
+    console.log(result);
+    console.log(result["exists"]);
+    if (result["exists"]) {
         return false;
     }
-    const [salt, hash] = mc.hash(pwd);
-    users[name] = [salt, hash];
+    console.log("HASHING PASSWORD");
+    const salt_hash = mc.hash(pwd);
+    console.log(salt_hash);
+    const userData = { username, email, salt_hash, name };
+    console.log("userData");
+    console.log(userData);
+    request.debug = true;
+    const registered = await new Promise((resolve, reject) => {
+        axios.post("http://localhost:" + port + "/api/registerUser", userData);
+    });
     // Now print the user database
-    console.log(users);
+    console.log("User Created");
     return true;
 }
 
@@ -192,9 +216,12 @@ app.get("*/logout", (req, res) => {
 // Use req.body to access data (as in, req.body['username']).
 // Use res.redirect to change URLs.
 app.post("/register", (req, res) => {
+    console.log("/register");
     const username = req.body["username"];
     const password = req.body["password"];
-    if (addUser(username, password)) {
+    const email = req.body["email"];
+    const name = req.body["name"];
+    if (addUser(username, password, email, name)) {
         res.redirect("/login");
     } else {
         res.redirect("/register");
@@ -276,7 +303,7 @@ app.use(express.static("css"));
 app.use(express.static("src"));
 app.use(express.static("public"));
 
-app.use("/", testAPI);
+app.use("/", dbAPI);
 
 app.get("*", (req, res) => {
     res.statusCode = 404;
