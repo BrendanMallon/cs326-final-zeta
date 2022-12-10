@@ -17,7 +17,7 @@
         />
         <script type="module" src="/profilePage.js" defer></script>
         <link rel="stylesheet" href="/style.css" />
-        <title>Zeta</title>
+        <title>Profile</title>
     </head>
     <body>
         <header>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="col align-self-center" id="logo">
-                    <h1 style="text-align: center">Team Zeta</h1>
+                    <h1 style="text-align: center">Spotlist</h1>
                 </div>
                 <div class="col-lg-2 align-self-center"></div>
             </div>
@@ -148,12 +148,12 @@
         <div id="information-container" class="row justify-content-md-center">
             <div id="change-information-container" class="col-lg-3">
                 <div class="mx-auto d-flex d-flex justify-content-center col-8">
-                    <form id="change-account-form">
+                    <form>
                         <div class="form-group">
                             <label>Name:</label>
-                            <input type="text"id="nameInput" placeholder="New Name" name="Name" />
+                            <input type="text"id="nameInput" placeholder="New Name" name="foo" />
                         </div>
-                        <input type="button" id= "firstNameChangeBtn" onclick="showPopUp('confirmNameChangesPopUp')" value="Update Name"></input>
+                        <button id= "firstNameChangeBtn">Update Name</button>
                         <div class="form-group">
                             <label>Email:</label>
                             <input type="email"id="emailAddressInput" placeholder="New Email" name="email" />   
@@ -163,7 +163,7 @@
                             <label>Password:</label>
                             <input type="password"id="newPasswordInput" placeholder="New Password" name="password" />
                         </div>
-                        <input type="button" id = "passwordChangeBtn" onclick="showPopUp('confirmPasswordChangesPopUp')" value="Update Password"></input>
+                        <button id = "passwordChangeBtn" onclick="showPopUp('confirmPasswordChangesPopUp')"> Update Password</button>
                     </form>
                 </div>
             </div>

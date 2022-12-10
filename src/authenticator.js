@@ -4,10 +4,9 @@ import express, { response } from "express";
 import queryString from "node:querystring";
 import axios from "axios";
 
-require("dotenv").config();
+const CLIENT_ID, CLIENT_SECRET, URI;
 
 const app = express();
-
 
 //Request User Authorization
 app.get("/auth", function (req, res) {
@@ -60,7 +59,7 @@ app.get("/auth/callback", function (req, res) {
 });
 
 app.get("/refresh/:refresh", function (req,res) {
-    let error = 0;
+
     axios({
             method : 'post',
             url : 'https://accounts.spotify.com/api/token',
