@@ -69,7 +69,7 @@ async function loadTracks() {
 
 async function getTrackinfo() {
     const track = await fetch (`https://api.spotify.com/v1/me/player`, {
-        method : "get",
+        method : "GET",
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -105,7 +105,12 @@ function sleep(ms) {
 document.getElementById("like").addEventListener("click", () => {
     stopLoop = true;
     followPlaylist(playlist.id);
-    //add to mongo
+    
+    fetch("https://spotlist.herokuapp.com/api/addUserActivity", {
+        method : "POST",
+        body : currPlaylist.id  
+    });
+
     loadTracks();
 });
 
