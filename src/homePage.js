@@ -67,6 +67,23 @@ async function loadTracks() {
     playLoop();
 }
 
+async function getTrackinfo() {
+    const track = await fetch (`https://api.spotify.com/v1/me/player`, {
+        method : "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if(track.ok) {
+        await track.json();
+        const picture = track.body.item.album.images[0].url;
+        const song = track.body.item.name;
+        const artist = track.body.item.artist.name;
+    }
+}
+
 async function playLoop() {
     while (!stopPlay) {
         player.nextTrack().then(() => {
@@ -85,9 +102,11 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
  }
 
-function likePlaylist(){
+document.getElementById("like").addEventListener("click", () => {
     stopLoop = true;
     followPlaylist(playlist.id);
     //add to mongo
     loadTracks();
-}
+});
+
+document.getElementById("dislike").addEventListener("click", () => {loadTracks();});
