@@ -18,10 +18,10 @@
             crossorigin="anonymous"
         />
 
-        <title>Zeta</title>
+        <title>Home</title>
     </head>
     <body>
-
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
         <header>
             <div class="container-fluid" id="header">
                 <div class="row" style="min-height: 80px">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="col align-self-center" id="logo">
-                        <h1 style="text-align: center">Team Zeta</h1>
+                        <h1 style="text-align: center">Spotlist</h1>
                     </div>
                     <div class="col-lg-2 align-self-center"></div>
                 </div>
@@ -111,8 +111,18 @@
                         text-align: center;
                     "
                 >
-                    <script src="https://sdk.scdn.co/spotify-player.js"></script>
-                    Spotify API placeholder
+                    <div class="row">
+                        <div class="col">
+                            <image id="cover"/>
+                        </div>
+                        <div class="col" id="songInfo">
+                        </div>
+                    </div>
+                    <div class="row align-self-center">
+                        <button id="pause">
+                            <img src="https://cdn-icons-png.flaticon.com/512/27/27185.png"/>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-3 align-self-center mr-auto">
                     <button id="like">
