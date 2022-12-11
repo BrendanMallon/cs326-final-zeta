@@ -63,7 +63,7 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
 
     async function loadNext() {
         clearInterval(stopPlay);
-        
+        let error = false;
         fetch(`https://api.spotify.com/v1/me/player/play?decive_id=${devid}`, {
             method : 'PUT',
             body : JSON.stringify({context_uri : playlists[index].uri}),
@@ -77,14 +77,17 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
                 if (res.error.status === 401) {
                     token = await fetch(`${window.location.origin}/spotify/token`);
                     alert("Please try again");
+                    error = true;
                     return;
                 }
                 console.log(res.error);
                 alert("please change spotify listening device to Spotlist and try again");
+                error = true;
                 return;
+
             }
         });
-        
+        if (error) {return;}
         ++index;
 
         setTimeout(() => {
