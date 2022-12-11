@@ -59,53 +59,57 @@
         </div>
 
 
-        <div id="confirmNameChangesPopUp" class="modal">
-            <div class="modal-header">
-                <div id="close-btn-Name" class="close-btn" onclick="hidePopUp('confirmNameChangesPopUp')">&times;</div>
-            </div>
-            <div class="modal-content">
-                <p><strong>Confirm Changes</strong></p>
-                <div>
-                    <div style="display:inline-block">
-                        <div>
-                            <p>Username:</p>
-                            <input type="text" id="confirmUserName2" name="confirmUserName" />
-                            <p>Password:</p>
-                            <input type="text" id="confirmPassword2" name="confirmPassword" />
+        <div id="confirmNameChangesPopUp" class="modal-fade">
+            <div class="modal_dialog" role="document">
+                <div class="modal-header">
+                    <div id="close-btn-Name" class="close-btn" onclick="hidePopUp('confirmNameChangesPopUp')">&times;</div>
+                </div>
+                <div class="modal-content">
+                    <p><strong>Confirm Changes</strong></p>
+                    <div>
+                        <div style="display:inline-block">
+                            <div>
+                                <p>Username:</p>
+                                <input type="text" id="confirmUserName2" name="confirmUserName" />
+                                <p>Password:</p>
+                                <input type="text" id="confirmPassword2" name="confirmPassword" />
+                            </div>
                         </div>
-                    </div>
-                    <div style="float:right">
-                        <input id="confirm-btn-Name" type="button" style="padding:3px" onclick="changeName()" value="Confirm Changes" />
-                        <input id = "cancel-btn-Name"type="button" style="padding:3px" onclick="hidePopUp('confirmNameChangesPopUp')" value="Cancel" />
-    
+                        <div style="float:right">
+                            <input id="confirm-btn-Name" type="button" style="padding:3px" onclick="changeName()" value="Confirm Changes" />
+                            <input id = "cancel-btn-Name"type="button" style="padding:3px" onclick="hidePopUp('confirmNameChangesPopUp')" value="Cancel" />
+        
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="confirmEmailChangesPopUp" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="close-btn-Email" onclick="hidePopUp('confirmEmailChangesPopUp')">&times;</div>
-                    <p><strong>Confirm Changes</strong></p>
-                </div>
-                <div class="modal-body">
-                    <div style="display:inline-block">
-                        <div>
-                            <p>Username:</p>
-                            <input type="text" id="confirmUserName3" name="confirmUserName" />
-                            <p>Password:</p>
-                            <input type="text" id="confirmPassword3" name="confirmPassword" />
+        <div id="confirmEmailChangesPopUp" class="modal fade">
+            <div class="modal_dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="close-btn-Email" onclick="hidePopUp('confirmEmailChangesPopUp')">&times;</div>
+                        <p><strong>Confirm Changes</strong></p>
+                    </div>
+                    <div class="modal-body">
+                        <div style="display:inline-block">
+                            <div>
+                                <p>Username:</p>
+                                <input type="text" id="confirmUserName3" name="confirmUserName" />
+                                <p>Password:</p>
+                                <input type="text" id="confirmPassword3" name="confirmPassword" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div style="float:right">
-                        <input id="confirm-btn-Email" type="button" style="padding:3px" onclick="changeEmail()" value="Confirm Changes" />
-                        <input id ="cancel-button-Email"type="button" style="padding:3px" onclick="hidePopUp('confirmEmailChangesPopUp')" value="Cancel" />
-    
+                    <div class="modal-footer">
+                        <div style="float:right">
+                            <input id="confirm-btn-Email" type="button" style="padding:3px" onclick="changeEmail()" value="Confirm Changes" />
+                            <input id ="cancel-button-Email"type="button" style="padding:3px" onclick="hidePopUp('confirmEmailChangesPopUp')" value="Cancel" />
+        
+                        </div>
                     </div>
+                    
                 </div>
-                
             </div>
         </div>
         <div id="confirmPasswordChangesPopUp" class="modal">
@@ -161,7 +165,7 @@
                             <label>Email:</label>
                             <input type="email"id="emailAddressInput" placeholder="New Email" name="email" />   
                         </div>
-                        <input type="button" id = "emailChangeBtn" value="Update Email" ></input>
+                        <button type="button" id = "emailChangeBtn" data-toggle="modal" data-target="#confirmEmailChangesPopUp" value="Update Email" ></input>
                         <div class="form-group">
                             <label>Password:</label>
                             <input type="password"id="newPasswordInput" placeholder="New Password" name="password" />
