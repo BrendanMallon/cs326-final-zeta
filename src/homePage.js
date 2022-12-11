@@ -7,6 +7,7 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     let playlists = '';
     let index = 0;
     let stopPlay = null;
+    let play = false;
     
     const player = new Spotify.Player({
         name: 'Spotlist',
@@ -98,7 +99,8 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
         });
 
         if (error) {return;}
-
+        play === true;
+        
         ++index;
 
         setTimeout(() => {
@@ -114,6 +116,8 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     }
     
     document.getElementById('like').onclick = function () {
+        if (play === false) {return;}
+        
         clearInterval(stopPlay);
 
         fetch(window.location.origin + "/api/addUserActivity", {
@@ -130,6 +134,8 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     };
 
     document.getElementById('dislike').onclick = () => {
+        if (play === false) {return;}
+
         clearInterval(stopPlay);
 
         loadNext();
