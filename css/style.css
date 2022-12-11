@@ -157,7 +157,7 @@ header {
     padding-top: 10px;
     font-size: 24px;
 }
-<<<<<<< Updated upstream
+
 
 input {
     display: block;
@@ -179,7 +179,7 @@ input {
     color: white;
     margin-bottom: 8px;
     text-align: center;
-=======
+}
 .modal {
     display: none;
     position: fixed;
@@ -217,28 +217,35 @@ input {
 .close-btn:hover {
     color: darkgray;
 }
+
+.span{
+    text-align: center;
+}
+#pause{
+    object-fit: fill;
+}
 /* styling for rendering pop up box*/
 @-webkit-keyframes animatetop {
-from {
-    top: -300px;
-    opacity: 0
-}
+    from {
+        top: -300px;
+        opacity: 0
+    }
 
-to {
-    top: 0;
-    opacity: 1
-}
+    to {
+        top: 0;
+        opacity: 1
+    }
 }
 /* styling for rendering pop up box*/
 @keyframes animatetop {
-from {
-    top: -300px;
-    opacity: 0
-}
+    from {
+        top: -300px;
+        opacity: 0
+    }
 
-to {
-    top: 0;
-    opacity: 1
-}
->>>>>>> Stashed changes
+    to {
+        top: 0;
+        opacity: 1
+    }
+
 }

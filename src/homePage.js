@@ -167,3 +167,26 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+document.getElementById("like").addEventListener("click", () => {
+    stopLoop = true;
+    followPlaylist(playlist.id);
+    
+    fetch("https://spotlist.herokuapp.com/api/addUserActivity", {
+        method : "POST",
+        body : currPlaylist.id  
+    });
+
+    loadTracks();
+});
+
+function replaceCover(img){
+    document.getElementById("cover").src = img;
+
+}
+function replaceSongInfo(song, artist){
+    document.getElementById("artistName").innerText = artist
+    document.getElementById("songName").innerText = song
+}
+
+document.getElementById("dislike").addEventListener("click", () => {loadTracks();});
