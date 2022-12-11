@@ -187,39 +187,30 @@ export async function mdbSetPassword(
 }
 
 // sets authorization token
-export async function mdbSetToken(passedUserName, tokn, time) {
+export async function mdbSetToken(username, token, time) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-
-    const database = await client.db("spotlist");
-    const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName };
+    const database = client.db("spotlist");
+    const usersInfo = database.collection("USERS");
+    const user = { username };
     const newData = {
         $set: {
-            authToken: tokn,
-            token: time,
+            authToken: token,
+            tokenTime: time,
         },
     };
     await usersInfo.updateOne(user, newData);
-
     await client.close();
-
 }
-export async function mdbGetTokenTime(passedUserName) {
+export async function mdbGetToken(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    let returnedTokenTime = 0;
-
-    const database = await client.db("spotlist");
-    const usersInfo = await database.collection("USERS");
+    const database = client.db("spotlist");
+    const usersInfo = database.collection("USERS");
     const userNameQuery = { username: passedUserName };
-    returnedTokenTime = await usersInfo.findOne(userNameQuery).tokenTime;
-
-    returnedTokenTime = -1;
-
+    const user = await usersInfo.findOne(userNameQuery);
     await client.close();
-    return returnedTokenTime;
-
+    return { token: user.authToken, date: user.tokenTime };
 }
 export async function mdbAddFriend(passedUserName, newFriend) {
     const client = new MongoClient(mongoDBURI);
@@ -268,9 +259,10 @@ export async function mdbGetPlaylistActivity(passedUserName) {
     const playListActivityQuery = {
         username: passedUserName,
     };
-    const returnedPlayListActivity = await collection.find(
-        playListActivityQuery
-    );
+    const returnedPlayListActivity = await collection
+        .find(playListActivityQuery)
+        .toArray();
+    console.log("testing");
     await client.close();
     console.log(returnedPlayListActivity);
     return returnedPlayListActivity;
