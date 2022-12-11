@@ -204,4 +204,6 @@ input {
 #home-info{
     min-height: 850px
 }
-
+.font-color-home-info{
+    color: white
+}
