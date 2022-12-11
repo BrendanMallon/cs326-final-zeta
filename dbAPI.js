@@ -15,6 +15,7 @@ import {
     API_ADD_USER_ACTIVITY,
     API_SET_TOKEN,
     API_GET_TOKEN,
+    API_GET_PLAYLISTS,
 } from "./constants/api.js";
 const dbAPI = express.Router();
 
@@ -83,6 +84,9 @@ dbAPI.use(async (req, res, next) => {
         console.log(result);
         res.end(JSON.stringify(result));
         break;
+    }
+    case API_GET_PLAYLISTS: {
+        const token = req.session.accessToken;
     }
     default:
         next();

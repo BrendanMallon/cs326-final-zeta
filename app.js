@@ -3,7 +3,9 @@
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import fetch from "node-fetch";
 import dbAPI from "./dbAPI.js";
+import { API_GET_PLAYLISTS } from "./constants/api.js";
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -18,16 +20,36 @@ const bodyParser = require("body-parser");
 const expressSession = require("express-session"); // for managing session state
 const passport = require("passport"); // handles authentication
 const LocalStrategy = require("passport-local").Strategy; // username/password strategy
+const SpotifyWebApi = require("spotify-web-api-node");
 const app = express();
 const port = process.env.PORT || 3000;
 
 /// NEW
 import { MiniCrypt } from "./miniCrypt.js";
+import queryString from "node:querystring";
 import axios from "axios";
 const mc = new MiniCrypt();
 
 // Session configuration
 
+let clientId, clientSecret, redirectUri;
+let secrets;
+
+if (!process.env.CLIENT_ID) {
+    secrets = require("./secrets.json");
+    clientId = secrets.CLIENT_ID;
+    clientSecret = secrets.SECRET_ID;
+    redirectUri = secrets.cbURI;
+} else {
+    clientId = process.env.CLIENT_ID;
+    clientSecret = process.env.SECRET_ID;
+    redirectUri = process.env.cbURI;
+}
+const spotifyApi = new SpotifyWebApi({
+    clientId,
+    clientSecret,
+    redirectUri,
+});
 const session = {
     secret: process.env.SECRET || "SECRET", // set this encryption key in Heroku config (never in GitHub)!
     resave: false,
@@ -193,7 +215,7 @@ app.post(
     "/login",
     passport.authenticate("local", {
         // use username/password authentication
-        successRedirect: "/private", // when we login, go to /private
+        successRedirect: "/auth", // when we login, go to /private
         failureRedirect: "/login", // otherwise, back to login
     })
 );
@@ -215,7 +237,7 @@ app.get("*/logout", (req, res) => {
 // If we successfully add a new user, go to /login, else, back to /register.
 // Use req.body to access data (as in, req.body['username']).
 // Use res.redirect to change URLs.
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
     console.log("/register");
     const username = req.body["username"];
     const password = req.body["password"];
@@ -302,6 +324,55 @@ app.get(
 app.use(express.static("css"));
 app.use(express.static("src"));
 app.use(express.static("public"));
+
+app.get("/auth", (req, res) => {
+    // Get the authorization URL.
+    const authorizeURL = spotifyApi.createAuthorizeURL([
+        "user-modify-playback-state",
+        "playlist-modify-public",
+        "streaming",
+        "user-read-private",
+    ]);
+
+    // Redirect the user to the authorization URL.
+    res.redirect(authorizeURL);
+});
+
+// app.get("/auth", function (req, res) {
+//     const scope =
+//         "user-modify-playback-state playlist-modify-public streaming  user-read-private";
+
+//     res.redirect(
+//         "https://accounts.spotify.com/authorize?" +
+//             queryString.stringify({
+//                 response_type: "code",
+//                 client_id: CLIENT_ID,
+//                 scope: scope,
+//                 redirect_uri: URI,
+//             })
+//     );
+// });
+
+app.get("/auth/callback", async (req, res) => {
+    // Get the authorization code from the query string.
+    const code = req.query.code;
+
+    try {
+        // Use the code to get an access token.
+        const data = await spotifyApi.authorizationCodeGrant(code);
+        const accessToken = data.body.access_token;
+
+        // Save the access token to the user's session.
+        req.session.accessToken = accessToken;
+        console.log(accessToken);
+        // This is where we would save token to database
+        // Redirect the user to the app home page.
+        res.redirect("/private");
+    } catch (err) {
+        // Handle the error.
+        res.status(500).send(err);
+    }
+});
 
 app.use("/", dbAPI);
 
