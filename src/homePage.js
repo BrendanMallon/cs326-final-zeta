@@ -43,6 +43,8 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
         playlists = res.playlist;
         index = 0;
         loadNext();
+        document.getElementById("homePageSearch-Text").value = "";
+        
     };
 
     function trackPlay() {
