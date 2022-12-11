@@ -180,40 +180,7 @@ input {
     margin-bottom: 8px;
     text-align: center;
 }
-/*
-.modal {
-    display: none;
 
-}
-
-
- styling for the inner contents of the pop up box
-.modal-content {
-    position: relative;
-    background-color: white;
-    border-style:solid;
-    border-width:8px;
-    border-color:darkgray;
-    padding: 20px;
-    margin: auto;
-    width: 75%;
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-styling for the close 'x' button for file popup boxes
-.close-btn {
-    float: right;
-    color: lightgray;
-    font-size: 24px;
-    font-weight: bold;
-}
- styling for shading close button on user hover
-.close-btn:hover {
-    color: darkgray;
-}
-*/
 .span{
     text-align: center;
 }
