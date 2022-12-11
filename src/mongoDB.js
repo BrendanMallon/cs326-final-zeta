@@ -156,10 +156,10 @@ export async function mdbSetEmail(passedUserName, passedPassword, newEmail) {
             email: newEmail,
         },
     };
-    await usersInfo.updateOne(user, newData);
+    result = await usersInfo.updateOne(user, newData);
 
     await client.close();
-    
+    return result;
 }
 export async function mdbSetPassword(
     passedUserName,

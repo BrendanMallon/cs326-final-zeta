@@ -1,12 +1,9 @@
-import {
-    mdbGetUserInfo,
-    mdbSetName,
-    mdbSetEmail,
-    mdbSetUserName,
-    mdbSetPassword,
-} from "./mongoDB.js";
+
 const bcrypt = require("bcrypt");
 console.log("test");
+import { MiniCrypt } from "./miniCrypt.js";
+const mc = new MiniCrypt();
+
 /*async function changeUsername(){
 
     newUsername = document.getElementById("userNameInput").value
@@ -31,29 +28,28 @@ console.log("test");
     hidePopUp('confirmUsernameChangesPopUp');
     showPopUp('changeSuccessPopUp');
 }*/
-function changeName() {
+async function changeName() {
     const newName = document.getElementById("nameInput").value;
     const username = document.getElementById("confirmUserName2").value;
     const password = document.getElementById("confirmPassword2").value;
-    if (newName === "" || username === "" || password === "") {
+    if (username === "" || password === "") {
         window.alert("Fields cannot be empty.");
-        if (newName == "") {
-            hidePopUp("confirmNameChangesPopUp");
-        }
         return;
     }
-    const userInfo = mdbGetUserInfo(username);
-    if (userInfo == null) {
-        window.alert("incorrect username or password");
+    if (newName == "") {
+        window.alert("New name is empty");
+        hidePopUp("confirmNameChangesPopUp");
         return;
-    } else if (!bcrypt.compare(password, userInfo.password)) {
-        window.alert("incorrect password");
+    }
+    const response = await fetch(window.location.origin + "/api/setName",{user: username, salt_hash: password, new_name: newName}).json();   
+    if (response.matchedCount === 1 && response.modifiedCount === 1) {
+        showPopUp("changeSuccessPopUp");
+        return;
+    } else {
+        window.alert("incorrect username or password");
         return;
     }
 
-    mdbSetName(username, password, newName);
-    hidePopUp("confirmNameChangesPopUp");
-    showPopUp("changeSuccessPopUp");
 }
 function changeEmail() {
     const newEmail = document.getElementById("emailAdressInput").value;
