@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <script type="module" src="/homePage.js" defer></script>
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
@@ -18,10 +17,12 @@
             crossorigin="anonymous"
         />
 
+        <!-- <script type="module" src="/homePage.js"></script> -->
+
         <title>Home</title>
+        <link rel="icon" href="/LogoNotext.png">
     </head>
     <body>
-        <script src="https://sdk.scdn.co/spotify-player.js"></script>
         <header>
             <div class="container-fluid" id="header">
                 <div class="row" style="min-height: 80px">
@@ -70,8 +71,7 @@
                 style="min-height: 80px"
             >
                 <div class="col-auto align-self-end">
-                    <form class="form-inline">
-                        <div class="form-row">
+                        <div class="form-row pad">
                             <input
                                 type="text"
                                 class="form-control"
@@ -80,13 +80,11 @@
                             />
                             <button
                                 id="searchTextBtn"
-                                type="submit"
                                 class="btn btn-primary mb-2"
                             >
-                                GO
+                                Search
                             </button>
                         </div>
-                    </form>
                 </div>
             </div>
             <div
@@ -94,7 +92,7 @@
                 style="min-height: 850px"
             >
                 <div class="col-3 align-self-center mr-auto">
-                    <button id="dislike">
+                    <button id="dislike" class="b1">
                         <img
                             src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
                             width="100%"
@@ -111,33 +109,28 @@
                         text-align: center;
                     "
                 >
+                    <h1 id="title"></h1>
+                    <br>
                     <div class="row align-middle form-group">
                         <div class="col">
-                            <image id="cover" src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/514dc845-04f5-4538-8a4f-869b64243265/1-2.jpg"
+                            <image id="cover"
                             width ="100%"
                             height="100%"
                             />
                         </div>
-                        <div class="col my-auto" id="songInfo">
-                            <li><span id="artistName">Artist</span></li>
-                            <li><span id="songName">Song</span></li>
+                        <div class="col my-auto">
+                            <h2 id="song"></h2>
+                            <br>
+                            <h3 id="artist"></h3>
                         </div>
-                    </div>
-                    <div class="row align-self-center">
-                        <button id="pause">
-                            <img id ="pause" class="img-fluid" alt ="Responsive Image"src="https://cdn-icons-png.flaticon.com/512/27/27185.png"
-                            width="100%"
-                            height="100%"
-                            />
-                        </button>
                     </div>
                 </div>
                 <div class="col-3 align-self-center mr-auto">
-                    <button id="like">
+                    <button id="like" class="b1">
                         <img
                             src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png"
-                            width="100%"
-                            height="100%"
+                            width="180%"
+                            height="180%"
                         />
                     </buttton>
                 </div>
@@ -166,5 +159,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"
         ></script>
+        <script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <script src="/homePage.js"></script>
     </body>
 </html>

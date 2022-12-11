@@ -330,6 +330,7 @@ app.get("/spotify/auth", (req, res) => {
         "playlist-modify-public",
         "streaming",
         "user-read-private",
+        "user-read-email"
     ]);
 
     res.redirect(authorizeURL);
@@ -342,7 +343,7 @@ app.get("/spotify/callback", async (req, res) => {
     spotifyApi.authorizationCodeGrant(code).then(data => {
         spotifyApi.setAccessToken(data.body.access_token);
         spotifyApi.setRefreshToken(data.body.refresh_token);
-        expireTime = Date.now() + data.body.expires_in;
+        expireTime = Date.now() + (data.body.expires_in * 1000);
     });
     res.redirect("/private");
 });
@@ -350,37 +351,38 @@ app.get("/spotify/callback", async (req, res) => {
 async function refresh () {
     if(Date.now() > expireTime) {
         spotifyApi.refreshAccessToken().then(data => {
-        spotifyApi.setAccessToken(data.body.access_token);
-        spotifyApi.setRefreshToken(data.body.refresh_token);
-        expireTime = Date.now() + data.body.expires_in;
+            spotifyApi.setAccessToken(data.body.access_token);
+            spotifyApi.setRefreshToken(data.body.refresh_token);
+            expireTime = Date.now() + (data.body.expires_in * 1000);
         });
     }
 }
 
 app.get("/spotify/token", (req, res) => {
     refresh();
-    res.send(spotifyApi.getAccessToken);
+    res.json({tk : spotifyApi.getAccessToken()});
 });
 
-app.post("/spotify/playlist/", (req, res) => {
+app.get("/spotify/playlist/:query", (req, res) => {
     refresh();
-    const query = req.body;
+    const query = req.params.query;
     spotifyApi.searchPlaylists(query).then(data => {
-        res.send(JSON.stringify(data.body.playlists));
+        res.json({playlist : data.body.playlists.items});
     });
 });
 
-app.post("/spotify/playlistid", (req, res) => {
+app.get("/spotify/playlistid/:query", (req, res) => {
     refresh();
-    const query = req.body;
+    const query = req.params.query;
     spotifyApi.getPlaylist(query).then(data => {
-        res.send(JSON.stringify(data.body));
+        res.json({playlist : data.body});
     });
 });
 
-app.post("/spotify/follow", (req, res) => {
+app.get("/spotify/follow/:query", (req, res) => {
     refresh();
-    const query = req.body;
+    const query = req.params.query;
+    console.log(query);
     spotifyApi.followPlaylist(query).then(data => {
         res.send();
     });
