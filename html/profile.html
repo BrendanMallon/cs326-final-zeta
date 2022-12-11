@@ -83,12 +83,12 @@
             </div>
         </div>
         <div id="confirmEmailChangesPopUp" class="modal">
-            <div class="modal-header">
-                <div class="close-btn-Email" onclick="hidePopUp('confirmEmailChangesPopUp')">&times;</div>
-            </div>
             <div class="modal-content">
-                <p><strong>Confirm Changes</strong></p>
-                <div>
+                <div class="modal-header">
+                    <div class="close-btn-Email" onclick="hidePopUp('confirmEmailChangesPopUp')">&times;</div>
+                    <p><strong>Confirm Changes</strong></p>
+                </div>
+                <div class="modal-body">
                     <div style="display:inline-block">
                         <div>
                             <p>Username:</p>
@@ -97,12 +97,15 @@
                             <input type="text" id="confirmPassword3" name="confirmPassword" />
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
                     <div style="float:right">
                         <input id="confirm-btn-Email" type="button" style="padding:3px" onclick="changeEmail()" value="Confirm Changes" />
                         <input id ="cancel-button-Email"type="button" style="padding:3px" onclick="hidePopUp('confirmEmailChangesPopUp')" value="Cancel" />
     
                     </div>
                 </div>
+                
             </div>
         </div>
         <div id="confirmPasswordChangesPopUp" class="modal">
