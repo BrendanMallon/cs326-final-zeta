@@ -7,7 +7,6 @@ import {
     mdbGetPlaylistActivity,
     mdbSetToken,
     mdbGetToken,
-    API_GET_PLAYLISTS,
 } from "./src/mongoDB.js";
 import {
     API_FIND_USER,
@@ -16,6 +15,7 @@ import {
     API_ADD_USER_ACTIVITY,
     API_SET_TOKEN,
     API_GET_TOKEN,
+    API_GET_PLAYLISTS,
 } from "./constants/api.js";
 const dbAPI = express.Router();
 
