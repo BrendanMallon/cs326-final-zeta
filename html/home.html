@@ -50,9 +50,13 @@
         <!-- Search Bar -->
         <div class="container-fluid" id="home-page">
             <div class="row justify-content-md-center green" style="min-height: 80px">
-                <div class="col-auto align-self-center">
-                    <input type="text" id="homePageSearch-Text" placeholder="Search"/>
-                    <button id="searchTextBtn" class="btn btn-primary mb-2">Search</button>    
+                <div class="col-auto pad">
+                    <div class="input">
+                        <input type="text" id="homePageSearch-Text" placeholder="Playlist Search"/>
+                    </div>
+                </div>
+                <div class="col-auto pad">
+                    <button id="searchTextBtn" class="btn btn-primary mb-2">Search</button>
                 </div>
             </div>
 
@@ -66,7 +70,7 @@
                 </div>
 
                 <!-- Song Player -->
-                <div id="home-song-info" class="col-6 align-self-center">
+                <div id="home-song-info" class="col-6 align-self-center" style="border-radius: 10px">
                     <h1 id="title" class="text-center font-color-home-info">Title</h1>
                     <br>
                     <div class="row align-middle form-group">
