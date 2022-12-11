@@ -382,7 +382,6 @@ app.get("/spotify/playlistid/:query", (req, res) => {
 app.get("/spotify/follow/:query", (req, res) => {
     refresh();
     const query = req.params.query;
-    console.log(query);
     spotifyApi.followPlaylist(query).then(data => {
         res.send();
     });

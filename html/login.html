@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Log In</title>
+        <link rel="icon" href="/LogoNotext.png">
+        
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Log In</title>
 
         <link rel="stylesheet" href="/style.css" />
         <link
@@ -13,7 +15,6 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
-        <link rel="icon" href="/LogoNotext.png">
     </head>
     <body>
         <div class="container-fluid bg">
@@ -21,63 +22,41 @@
                 <div class="col">
                     <div class="mt-4 box justify-content-center">
                         <img src="/Logo.png" alt="Spotlist Logo" class="center">
-                </div>
-            </div>
-            <br />
-            <br />
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="box3">
-                        <div class="box2">
-                            <form action="/login" method="post" class="mt-3 pad">
-                                <h3 class="mt-1 mb-3">Sign In</h3>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label"
-                                        >Username</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        name="username"
-                                        id="username"
-                                        required
-                                    />
-                                </div>
-                                <div class="mb-3">
-                                    <label id="signInPassword" for="password" class="form-label"
-                                        >Password</label
-                                    >
-                                    <input
-                                        type="password"
-                                        class="form-control"
-                                        id="password"
-                                        name="password"
-                                        required
-                                    />
-                                </div>
-                                <div class="mb-3 form-check">
-                                    <input
-                                        type="checkbox"
-                                        class="form-check-input"
-                                        id="exampleCheck1"
-                                    />
-                                    <label
-                                        class="form-check-label"
-                                        for="exampleCheck1"
-                                        >Remember Me</label
-                                    >
-                                </div>
-                                <input type="submit" value="Submit" />
-                                <p class="mt-3">
-                                    Not a Member?
-                                    <a href="register"> Sign Up</a>
-                                </p>
-                            </form>
-                        </div>
                     </div>
                 </div>
+
+                <br>
+                <br>
+
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="box3">
+                            <div class="box2">
+                                <form action="/login" method="post" class="mt-3 pad">
+                                    <h3 class="mt-1 mb-3">Sign In</h3>
+
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="username" id="username"required/>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label id="signInPassword" for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required/>
+                                    </div>
+                                    
+                                    <input type="submit" value="Submit" />
+                                    <p class="mt-3">
+                                        Not a Member?
+                                        <a href="register"> Sign Up</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
+
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Sign Up</title>
+        <link rel="icon" href="/LogoNotext.png">
+
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sign Up</title>
 
         <link rel="stylesheet" href="/style.css" />
         <link
@@ -13,45 +15,37 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
-        <script type="module" src="../src/signupPage.js" defer></script>
-        <link rel="icon" href="/LogoNotext.png">
     </head>
     <body>
         <div class="container-fluid bg">
             <div class="row justify-content-center pad">
                 <div class="col">
                     <div class="mt-4 box align-items-center">
-                        <img
-                            src="../Logo.png"
-                            alt="Spotlist Logo"
-                            class="center"
-                        />
+                        <img src="../Logo.png" alt="Spotlist Logo" class="center"/>
                     </div>
                 </div>
             </div>
-            <br />
+            <br>
             <div class="row align-items-center">
                 <div class="col">
                     <div class="box4">
                         <div class="box2">
                             <form action="/register" method="post" class="pad">
                                 <h3 class="mb-3">Sign Up</h3>
+
                                 <div class="mb-3">
-                                    <label for="name" class="form-label"
-                                        >Name</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="name"
-                                        name="name"
+                                    <label for="name" class="form-label">Name</label>
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="name" 
+                                        name="name" 
                                         required
                                     />
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="email" class="form-label"
-                                        >Email</label
-                                    >
+                                    <label for="email" class="form-label">Email</label>
                                     <input
                                         type="Email"
                                         class="form-control"
@@ -60,10 +54,9 @@
                                         required
                                     />
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="username" class="form-label"
-                                        >Username</label
-                                    >
+                                    <label for="username" class="form-label">Username</label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -72,29 +65,12 @@
                                         required
                                     />
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="password" class="form-label"
-                                        >Password</label
-                                    >
-                                    <input
-                                        type="password"
-                                        class="form-control"
-                                        id="password"
-                                        name="password"
-                                        required
-                                    />
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required/>
                                 </div>
-                                <!-- <div class="mb-3">
-                                    <label for="passwoprd" class="form-label"
-                                        >Confirm Password</label
-                                    >
-                                    <input
-                                        type="password"
-                                        class="form-control"
-                                        id="signUpConfirmPassword"
-                                        required
-                                    />
-                                </div> -->
+
                                 <input type="submit" value="Submit" />
                                 <p class="mt-3">
                                     Already a Member?
@@ -106,6 +82,7 @@
                 </div>
             </div>
         </div>
+
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
