@@ -207,3 +207,6 @@ input {
 .font-color-home-info{
     color: white
 }
+#home-search{
+    padding: 20px;
+}
