@@ -145,3 +145,29 @@ function validatePassword(password) {
     }
     return false;
 }
+const emailChangeButton = document.getElementById("emailChangeBtn");
+const passwordChangeButton = document.getElementById("passwordChangeBtn");
+emailChangeButton.addEventListener("click",showPopUp('confirmEmailChangesPopUp') );
+passwordChangeButton.addEventListener("click",showPopUp('confirmPasswordChangesPopUp'));
+const closeButtonEmail = document.getElementById("close-btn-Email");
+const closeButtonPassword = document.getElementById("close-btn-Password");
+const closeButtonName = document.getElementById("close-btn-Name");
+closeButtonEmail.addEventListener("click",hidePopUp('confirmEmailChangesPopUp'));
+closeButtonPassword.addEventListener("click",hidePopUp('confirmPasswordChangesPopUp'));
+closeButtonName.addEventListener("click",hidePopUp('confirmNameChangesPopUp'));
+const confirmButtonName = document.getElementById("confirm-btn-Name");
+const confirmButtonEmail = document.getElementById("confirm-btn-Email");
+const confirmButtonPassword = document.getElementById("confirm-btn-Password");
+confirmButtonName.addEventListener("click", changeName());
+confirmButtonEmail.addEventListener("click",changeEmail());
+confirmButtonPassword.addEventListener("click",changePassword());
+const cancelButtonName = document.getElementById("cancel-btn-Name");
+const cancelButtonEmail = document.getElementById("cancel-btn-Email");
+const cancelButtonPassword = document.getElementById("cancel-btn-Password");
+cancelButtonName.addEventListener("click",hidePopUp('confirmNameChangesPopUp') );
+cancelButtonEmail.addEventListener("click",hidePopUp('confirmEmailChangesPopUp'));
+cancelButtonPassword.addEventListener("click",hidePopUp('confirmPasswordChangesPopUp'));
+const closeButtonSuccess = document.getElementById("close-btn-Success");
+const okButtonSuccess = document.getElementById("ok-btn-Success");
+closeButtonSuccess.addEventListener("click",hidePopUp('changeSuccessPopUp'));
+okButtonSuccess.addEventListener("click", hidePopUp('changeSuccessPopUp'));
