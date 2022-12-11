@@ -210,3 +210,8 @@ input {
 #home-search{
     padding: 20px;
 }
+#search-text-button{
+    display: inline-block;
+    padding: 20px;
+    border-radius: 0;
+}
