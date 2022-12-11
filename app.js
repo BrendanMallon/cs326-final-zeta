@@ -324,7 +324,7 @@ app.use(express.static("css"));
 app.use(express.static("src"));
 app.use(express.static("public"));
 
-app.get("spotify/auth", (req, res) => {
+app.get("/spotify/auth", (req, res) => {
     const authorizeURL = spotifyApi.createAuthorizeURL([
         "user-modify-playback-state",
         "playlist-modify-public",
