@@ -69,13 +69,7 @@ dbAPI.use(async (req, res, next) => {
         res.end(JSON.stringify(result));
         break;
     }
-    case API_SET_TOKEN: {
-        console.log("Adding New Activity");
-        console.log(req.body);
-        await mdbSetToken(req.user, req.body.token, req.body.date);
-        res.send("true");
-        break;
-    }
+    
     case API_GET_TOKEN: {
         console.log("Getting Token");
         const result = await mdbGetToken(req.user);
