@@ -15,7 +15,7 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
-        
+        <script type="module" src="/profilePage.js" defer></script>
         <link rel="stylesheet" href="/style.css" />
         <title>Profile</title>
         <link rel="icon" href="/LogoNotext.png">
@@ -113,33 +113,33 @@
                 </div>
             </div>
         </div>
+        
         <div id="confirmPasswordChangesPopUp" class="modal fade" tabindex="-1" role="dialog">
-            <div class = "modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <p><strong>Confirm Password Changes</strong></p>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        
-                    </div>
-                    <div class = "modal-body">
-                        <div style="display:inline-block">
-                            <div>
-                                <p>Username:</p>
-                                <input type="text" id="confirmUserName4" name="confirmUserName" />
-                                <p>Password:</p>
-                                <input type="password" id="confirmPassword4" name="confirmPassword" />
-                                <p>Confirm New Password</p>
-                                <input type="password" id="newPasswordConfirmInput" name="confirmNewPassword"></input>
-                            </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    
+                    <p><strong>Confirm Password Changes</strong></p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </div>
+                <div class = "modal-body">
+                    <div style="display:inline-block">
+                        <div>
+                            <p>Username:</p>
+                            <input type="text" id="confirmUserName4" name="confirmUserName" />
+                            <p>Password:</p>
+                            <input type="text" id="confirmPassword4" name="confirmPassword" />
+                            <p>Confirm New Password</p>
+                            <input type="text" id="newPasswordConfirmInput" name="confirmNewPassword"></input>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button id="confirm-btn-Password" type="button" class =" btn btn-primary" data-toggle="modal" data-target="#confirmPasswordChangesPopUp" onclick="changePassword()" value="Confirm Changes" >Update</button>
-                        <button type="button"class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
-                    </div>                       
                 </div>
-            </div>    
+                <div class="modal-footer">
+                    <button id="confirm-btn-Password" type="button" class =" btn btn-primary" data-toggle="modal" data-target="#confirmPasswordChangesPopUp" onclick="changePassword()" value="Confirm Changes" >Update</button>
+                    <button type="button"class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
+                </div>                       
+            </div>
         </div>
+    </div>
         <div id="changeSuccessPopUp" class="modal fade" tabindex="-1" role="dialog">
             <div class = "modal-dialog" role="document"> 
                 <div class = "modal-content">
@@ -150,11 +150,11 @@
                         <p><strong>Changes Succesful!</strong></p>
                     </div>   
                     <div class="modal-footer" >
-                        <button id="ok-btn-Success"type="button" style="padding:3px" value="OK" ></button>
+                        <button id="ok-btn-Success"type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
                     </div>
                         
                 </div>
-            </div>    
+            </div>
         </div>
 
 
@@ -166,17 +166,17 @@
                             <label>Name:</label>
                             <input type="text"id="nameInput" placeholder="New Name" name="foo" />
                         </div>
-                        <button type ="button" class =" btn btn-primary" id= "NameChangeBtn" data-toggle="modal" data-target="#confirmNameChangesPopUp">Update Name</button>
+                        <button type ="button" id= "NameChangeBtn" data-toggle="modal" data-target="#confirmNameChangesPopUp">Update Name</button>
                         <div class="form-group">
                             <label>Email:</label>
                             <input type="email"id="emailAddressInput" placeholder="New Email" name="email" />   
                         </div>
-                        <button type="button" class =" btn btn-primary" data-toggle="modal" data-target="#confirmEmailChangesPopUp" id = "emailChangeBtn" value="Update Email" >Update Email</button>
+                        <button type="button" data-toggle="modal" data-target="#confirmEmailChangesPopUp" id = "emailChangeBtn" value="Update Email" >Update Email</button>
                         <div class="form-group">
                             <label>Password:</label>
                             <input type="password"id="newPasswordInput" placeholder="New Password" name="password" />
                         </div>
-                        <button type="button" class =" btn btn-primary" data-toggle="modal" data-target="#confirmPasswordChangesPopUp" id = "passwordChangeBtn"> Update Password</button>
+                        <button type="button" data-toggle="modal" data-target="#confirmPasswordChangesPopUp" id = "passwordChangeBtn"> Update Password</button>
                     </form>
                 </div>
             </div>
