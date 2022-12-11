@@ -6,5 +6,6 @@ export const API_GET_USER_ACTIVITY = API + "/getUserActivity";
 export const API_ADD_USER_ACTIVITY = API + "/addUserActivity";
 export const API_SET_TOKEN = API + "/setToken";
 export const API_GET_TOKEN = API + "/getToken";
+export const API_GET_PLAYLISTS = API + "/getPlaylists";
 
 //currentDoc = document.querySelector("FIlename.html")

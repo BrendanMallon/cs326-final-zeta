@@ -50,21 +50,27 @@ app.get("/auth/callback", function (req, res) {
     })
         .then((response) => {
             if (response.status === 200) {
-                const json = {date: Date.now(), token: response.body};
+                const json = { date: Date.now(), token: response.body };
                 axios({
-                    method : "post",
-                    url : "https://spotlist.herokuapp.com/api/setToken",
+                    method: "post",
+                    url: "http://localhost:" + "/api/setToken",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
-                    body : JSON.stringify(json)
-                }).then(response => {
-                    if(!response.ok) {console.log(response)}
-                }).catch(error => {console.log(error)});
+                    body: JSON.stringify(json),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            console.log(response);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
                 res.send();
             } else {
-                res.status(response.staus).send("Token Error");
+                res.status(response.status).send("Token Error");
             }
         })
         .catch((error) => {
@@ -72,39 +78,48 @@ app.get("/auth/callback", function (req, res) {
         });
 });
 
-app.get("/refresh/:refresh", function (req,res) {
-
+app.get("/refresh/:refresh", function (req, res) {
     axios({
-            method : 'post',
-            url : 'https://accounts.spotify.com/api/token',
-            data : queryString.stringify({
-                grant_type : 'refresh_token',
-                refresh_token : req.params.refresh
-            }),
-            header : {
-                'content-type': 'application/x-www-form-urlencoded',
-                Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
-            }
-        }).then(response => {
+        method: "post",
+        url: "http://localhost:" + "/api/token",
+        data: queryString.stringify({
+            grant_type: "refresh_token",
+            refresh_token: req.params.refresh,
+        }),
+        header: {
+            "content-type": "application/x-www-form-urlencoded",
+            Authorization: `Basic ${new Buffer.from(
+                `${CLIENT_ID}:${CLIENT_SECRET}`
+            ).toString("base64")}`,
+        },
+    })
+        .then((response) => {
             if (response.ok) {
-                const json = {date: Date.now(), token: response.body};
+                const json = { date: Date.now(), token: response.body };
 
                 axios({
-                    method : "POST",
-                    url : "https://spotlist.herokuapp.com/api/setToken",
+                    method: "POST",
+                    url: "http://localhost:" + "api/setToken",
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
-                    body : JSON.stringify(json)
-                }).then(response => {
-                    if(!response.ok) {console.log(response)}
-                }).catch(error => {console.log(error)});
+                    body: JSON.stringify(json),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            console.log(response);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
                 res.send(JSON.stringify(json));
             } else {
                 console.log(response.body.error);
             }
-        }).catch(error => {
+        })
+        .catch((error) => {
             console.log(error);
         });
 });

@@ -7,6 +7,7 @@ import {
     mdbGetPlaylistActivity,
     mdbSetToken,
     mdbGetToken,
+    API_GET_PLAYLISTS,
 } from "./src/mongoDB.js";
 import {
     API_FIND_USER,
@@ -83,6 +84,9 @@ dbAPI.use(async (req, res, next) => {
         console.log(result);
         res.end(JSON.stringify(result));
         break;
+    }
+    case API_GET_PLAYLISTS: {
+        const token = req.session.accessToken;
     }
     default:
         next();
