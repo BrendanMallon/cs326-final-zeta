@@ -187,4 +187,13 @@ input {
 #pause{
     object-fit: fill;
 }
+#home-song-info{
+    background-color: black;
+    min-height: 500px;
+    height: auto;
+    text-align: center;
+}
+#home-info{
+    min-height: 850px
+}
 
