@@ -134,7 +134,7 @@ function test(event) {
     console.log(event);
     console.log("test");
 }
-const firstNameChangeBtn = document.getElementById("NameChangeBtn");
+const firstNameChangeBtn = document.getElementById("confirm-btn-Name");
 firstNameChangeBtn.addEventListener("click", test);
 console.log("init");
 function validatePassword(password) {
@@ -146,10 +146,10 @@ function validatePassword(password) {
     return false;
 }
 
-const confirmButtonName = document.getElementById("confirm-btn-Name");
+//const confirmButtonName = document.getElementById("confirm-btn-Name");
 const confirmButtonEmail = document.getElementById("confirm-btn-Email");
 const confirmButtonPassword = document.getElementById("confirm-btn-Password");
-confirmButtonName.addEventListener("click",changeName);
+//confirmButtonName.addEventListener("click",changeName);
 confirmButtonEmail.addEventListener("click",changeEmail);
 confirmButtonPassword.addEventListener("click",changePassword);
 
