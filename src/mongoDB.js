@@ -54,7 +54,6 @@ export async function mdbGetUserEmail(passedEmail) {
     // Query for a user that has the username provided in passedUserName
     const userNameQuery = { email: passedEmail };
     returnedEmail = await usersInfo.findOne(userNameQuery).email;
-    returnedEmail = -1;
     await client.close();
     return returnedEmail;
 }
@@ -92,7 +91,6 @@ export async function mdbGetUserName(passedUserName) {
     // Query for a user that has the username provided in passedUserName
     const userNameQuery = { username: passedUserName };
     returnedUser = await usersInfo.findOne(userNameQuery).username;
-    returnedUser = -1;
     await client.close();
     return returnedUser;
 }
@@ -108,8 +106,6 @@ export async function mdbGetUserInfo(passedUserName) {
     // Query for a user that has the username provided in passedUserName
     const userNameQuery = { username: passedUserName };
     returnedUser = await usersInfo.findOne(userNameQuery);
-
-    returnedUser = -1;
 
     await client.close();
 
