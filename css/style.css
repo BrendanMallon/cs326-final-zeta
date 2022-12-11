@@ -196,12 +196,14 @@ input {
     object-fit: fill;
 }
 #home-song-info{
-    background-color: black;
-    min-height: 500px;
+    background-color: #333;
+    
     height: auto;
     text-align: center;
 }
 #home-info{
     min-height: 850px
 }
-
+.font-color-home-info{
+    color: white
+}
