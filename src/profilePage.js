@@ -134,7 +134,7 @@ function test(event) {
     console.log(event);
     console.log("test");
 }
-const firstNameChangeBtn = document.getElementById("NameChangeBtn");
+const firstNameChangeBtn = document.getElementById("confirm-btn-Name");
 firstNameChangeBtn.addEventListener("click", test);
 console.log("init");
 function validatePassword(password) {
