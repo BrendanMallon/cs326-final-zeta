@@ -4,8 +4,9 @@ export const API_FIND_USER = API + "/findUser";
 export const API_REGISTER_USER = API + "/registerUser";
 export const API_GET_USER_ACTIVITY = API + "/getUserActivity";
 export const API_ADD_USER_ACTIVITY = API + "/addUserActivity";
-export const API_SET_TOKEN = API + "/setToken";
-export const API_GET_TOKEN = API + "/getToken";
 export const API_GET_PLAYLISTS = API + "/getPlaylists";
+export const API_GET_TOKEN = API + "/spotify/token";
+export const API_SEARCH_PLAYLIST = API + "/spotify/playlist";
+export const API_SEARCH_PLAYLISTID = API + "/spotify/playlistid";
 
 //currentDoc = document.querySelector("FIlename.html")

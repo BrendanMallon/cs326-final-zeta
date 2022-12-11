@@ -26,7 +26,6 @@ const port = process.env.PORT || 3000;
 
 /// NEW
 import { MiniCrypt } from "./miniCrypt.js";
-import queryString from "node:querystring";
 import axios from "axios";
 const mc = new MiniCrypt();
 
@@ -215,7 +214,7 @@ app.post(
     "/login",
     passport.authenticate("local", {
         // use username/password authentication
-        successRedirect: "/auth", // when we login, go to /private
+        successRedirect: "/spotify/auth", // when we login, go to /private
         failureRedirect: "/login", // otherwise, back to login
     })
 );
@@ -325,8 +324,7 @@ app.use(express.static("css"));
 app.use(express.static("src"));
 app.use(express.static("public"));
 
-app.get("/auth", (req, res) => {
-    // Get the authorization URL.
+app.get("spotify/auth", (req, res) => {
     const authorizeURL = spotifyApi.createAuthorizeURL([
         "user-modify-playback-state",
         "playlist-modify-public",
@@ -334,44 +332,58 @@ app.get("/auth", (req, res) => {
         "user-read-private",
     ]);
 
-    // Redirect the user to the authorization URL.
     res.redirect(authorizeURL);
 });
 
-// app.get("/auth", function (req, res) {
-//     const scope =
-//         "user-modify-playback-state playlist-modify-public streaming  user-read-private";
+let expireTime = 0;
 
-//     res.redirect(
-//         "https://accounts.spotify.com/authorize?" +
-//             queryString.stringify({
-//                 response_type: "code",
-//                 client_id: CLIENT_ID,
-//                 scope: scope,
-//                 redirect_uri: URI,
-//             })
-//     );
-// });
-
-app.get("/auth/callback", async (req, res) => {
-    // Get the authorization code from the query string.
+app.get("/spotify/callback", async (req, res) => {
     const code = req.query.code;
+    spotifyApi.authorizationCodeGrant(code).then(data => {
+        spotifyApi.setAccessToken(data.body.access_token);
+        spotifyApi.setRefreshToken(data.body.refresh_token);
+        expireTime = Date.now() + data.body.expires_in;
+    });
+    res.redirect("/private");
+});
 
-    try {
-        // Use the code to get an access token.
-        const data = await spotifyApi.authorizationCodeGrant(code);
-        const accessToken = data.body.access_token;
-
-        // Save the access token to the user's session.
-        req.session.accessToken = accessToken;
-        console.log(accessToken);
-        // This is where we would save token to database
-        // Redirect the user to the app home page.
-        res.redirect("/private");
-    } catch (err) {
-        // Handle the error.
-        res.status(500).send(err);
+async function refresh () {
+    if(Date.now() > expireTime) {
+        spotifyApi.refreshAccessToken().then(data => {
+        spotifyApi.setAccessToken(data.body.access_token);
+        spotifyApi.setRefreshToken(data.body.refresh_token);
+        expireTime = Date.now() + data.body.expires_in;
+        });
     }
+}
+
+app.get("/spotify/token", (req, res) => {
+    refresh();
+    res.send(spotifyApi.getAccessToken);
+});
+
+app.post("/spotify/playlist/", (req, res) => {
+    refresh();
+    const query = req.body;
+    spotifyApi.searchPlaylists(query).then(data => {
+        res.send(JSON.stringify(data.body.playlists));
+    });
+});
+
+app.post("/spotify/playlistid", (req, res) => {
+    refresh();
+    const query = req.body;
+    spotifyApi.getPlaylist(query).then(data => {
+        res.send(JSON.stringify(data.body));
+    });
+});
+
+app.post("/spotify/follow", (req, res) => {
+    refresh();
+    const query = req.body;
+    spotifyApi.followPlaylist(query).then(data => {
+        res.send();
+    });
 });
 
 app.use("/", dbAPI);
