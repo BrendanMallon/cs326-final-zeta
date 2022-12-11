@@ -45,6 +45,11 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
         const res = await playlists.json();
         playlists = res.playlist;
 
+        if (playlists.length === 0) {
+            alert("no playlists found");
+            return;
+        }
+
         index = 0;
 
         loadNext();
