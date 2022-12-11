@@ -366,6 +366,7 @@ app.get("/spotify/token", (req, res) => {
 app.get("/spotify/playlist/:query", (req, res) => {
     refresh();
     const query = req.params.query;
+    console.log("query");
     spotifyApi.searchPlaylists(query).then(data => {
         res.json({playlist : data.body.playlists.items});
     });
