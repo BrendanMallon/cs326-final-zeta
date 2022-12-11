@@ -61,7 +61,7 @@
 
         <div id="confirmNameChangesPopUp" class="modal">
             <div class="modal-header">
-                <div id="close-btn" class="close-btn" onclick="hidePopUp('confirmNameChangesPopUp')">&times;</div>
+                <div id="close-btn-Name" class="close-btn" onclick="hidePopUp('confirmNameChangesPopUp')">&times;</div>
             </div>
             <div class="modal-content">
                 <p><strong>Confirm Changes</strong></p>
@@ -75,8 +75,8 @@
                         </div>
                     </div>
                     <div style="float:right">
-                        <input type="button" style="padding:3px" onclick="changeName()" value="Confirm Changes" />
-                        <input type="button" style="padding:3px" onclick="hidePopUp('confirmNameChangesPopUp')" value="Cancel" />
+                        <input id="confirm-btn-Name" type="button" style="padding:3px" onclick="changeName()" value="Confirm Changes" />
+                        <input id = "cancel-btn-Name"type="button" style="padding:3px" onclick="hidePopUp('confirmNameChangesPopUp')" value="Cancel" />
     
                     </div>
                 </div>
@@ -84,7 +84,7 @@
         </div>
         <div id="confirmEmailChangesPopUp" class="modal">
             <div class="modal-header">
-                <div class="close-btn" onclick="hidePopUp('confirmEmailChangesPopUp')">&times;</div>
+                <div class="close-btn-Email" onclick="hidePopUp('confirmEmailChangesPopUp')">&times;</div>
             </div>
             <div class="modal-content">
                 <p><strong>Confirm Changes</strong></p>
@@ -98,8 +98,8 @@
                         </div>
                     </div>
                     <div style="float:right">
-                        <input type="button" style="padding:3px" onclick="changeEmail()" value="Confirm Changes" />
-                        <input type="button" style="padding:3px" onclick="hidePopUp('confirmEmailChangesPopUp')" value="Cancel" />
+                        <input id="confirm-btn-Email" type="button" style="padding:3px" onclick="changeEmail()" value="Confirm Changes" />
+                        <input id ="cancel-button-Email"type="button" style="padding:3px" onclick="hidePopUp('confirmEmailChangesPopUp')" value="Cancel" />
     
                     </div>
                 </div>
@@ -107,7 +107,7 @@
         </div>
         <div id="confirmPasswordChangesPopUp" class="modal">
             <div class="modal-header">
-                <div class="close-btn" onclick="hidePopUp('confirmPasswordChangesPopUp')">&times;</div>
+                <div class="close-btn-Password" onclick="hidePopUp('confirmPasswordChangesPopUp')">&times;</div>
             </div>
             <div class="modal-content">
                 <p><strong>Confirm Changes</strong></p>
@@ -123,8 +123,8 @@
                         </div>
                     </div>
                     <div style="float:right">
-                        <input type="button" style="padding:3px" onclick="changePassword()" value="Confirm Changes" />
-                        <input type="button" style="padding:3px" onclick="hidePopUp('confirmPasswordChangesPopUp')" value="Cancel" />
+                        <input id="confirm-btn-Password"type="button" style="padding:3px" onclick="changePassword()" value="Confirm Changes" />
+                        <input id="cancel-btn-Password"type="button" style="padding:3px" onclick="hidePopUp('confirmPasswordChangesPopUp')" value="Cancel" />
                         
                     </div>
                 </div>
@@ -132,13 +132,13 @@
         </div>
         <div id="changeSuccessPopUp" class="modal">
             <div class="modal-header">
-                <div class="close-btn" onclick="hidePopUp('changeSuccessPopUp')">&times;</div>
+                <div id="close-btn-Success" class="close-btn" onclick="hidePopUp('changeSuccessPopUp')">&times;</div>
             </div>
             <div class="modal-content">
                 <p><strong>Changes Succesful!</strong></p>
                 <div>
                     <div style="float:right">
-                        <input type="button" style="padding:3px" onclick="hidePopUp('changeSuccessPopUp')" value="OK" />
+                        <input id="ok-btn-Success"type="button" style="padding:3px" onclick="hidePopUp('changeSuccessPopUp')" value="OK" />
                     </div>
                 </div>
             </div>
@@ -158,12 +158,12 @@
                             <label>Email:</label>
                             <input type="email"id="emailAddressInput" placeholder="New Email" name="email" />   
                         </div>
-                        <input type="button" id = "emailChangeBtn" onclick="showPopUp('confirmEmailChangesPopUp')" value="Update Email" ></input>
+                        <input type="button" id = "emailChangeBtn" value="Update Email" ></input>
                         <div class="form-group">
                             <label>Password:</label>
                             <input type="password"id="newPasswordInput" placeholder="New Password" name="password" />
                         </div>
-                        <button id = "passwordChangeBtn" onclick="showPopUp('confirmPasswordChangesPopUp')"> Update Password</button>
+                        <button id = "passwordChangeBtn"> Update Password</button>
                     </form>
                 </div>
             </div>

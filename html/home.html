@@ -111,16 +111,24 @@
                         text-align: center;
                     "
                 >
-                    <div class="row">
+                    <div class="row align-middle form-group">
                         <div class="col">
-                            <image id="cover"/>
+                            <image id="cover" src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/514dc845-04f5-4538-8a4f-869b64243265/1-2.jpg"
+                            width ="100%"
+                            height="100%"
+                            />
                         </div>
-                        <div class="col" id="songInfo">
+                        <div class="col my-auto" id="songInfo">
+                            <li><span id="artistName">Artist</span></li>
+                            <li><span id="songName">Song</span></li>
                         </div>
                     </div>
                     <div class="row align-self-center">
                         <button id="pause">
-                            <img src="https://cdn-icons-png.flaticon.com/512/27/27185.png"/>
+                            <img id ="pause" class="img-fluid" alt ="Responsive Image"src="https://cdn-icons-png.flaticon.com/512/27/27185.png"
+                            width="100%"
+                            height="100%"
+                            />
                         </button>
                     </div>
                 </div>
@@ -134,6 +142,7 @@
                     </buttton>
                 </div>
             </div>
+            
         </div>
         <form onsubmit="makeApiCall(event)">
             <input type="text" id="input-field" placeholder="Enter text here" />
