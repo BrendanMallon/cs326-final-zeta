@@ -180,7 +180,7 @@ input {
     margin-bottom: 8px;
     text-align: center;
 }
-/*
+
 .modal {
     display: none;
     position: fixed;
@@ -192,6 +192,7 @@ input {
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.5);
 }
+/*
  styling for the inner contents of the pop up box
 .modal-content {
     position: relative;
