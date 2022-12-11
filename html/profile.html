@@ -105,13 +105,13 @@
                 </div>
             </div>
         </div>
-        <div id="confirmPasswordChangesPopUp" class="modal">
-            <div class="modal-header">
-                <div class="close-btn-Password" onclick="hidePopUp('confirmPasswordChangesPopUp')">&times;</div>
-            </div>
+        <div id="confirmPasswordChangesPopUp" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-content">
-                <p><strong>Confirm Password Changes</strong></p>
-                <div>
+                <div class="modal-header">
+                    <div class="close-btn-Password" onclick="hidePopUp('confirmPasswordChangesPopUp')">&times;</div>
+                    <p><strong>Confirm Password Changes</strong></p>
+                </div>
+                <div class = "modal-body">
                     <div style="display:inline-block">
                         <div>
                             <p>Username:</p>
@@ -122,15 +122,19 @@
                             <input type="text" id="newPasswordConfirmInput" name="confirmNewPassword"></input>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+
+                
                     <div style="float:right">
                         <input id="confirm-btn-Password"type="button" style="padding:3px" onclick="changePassword()" value="Confirm Changes" />
                         <input id="cancel-btn-Password"type="button" style="padding:3px" onclick="hidePopUp('confirmPasswordChangesPopUp')" value="Cancel" />
-                        
-                    </div>
-                </div>
+                </div>       
+                    
+                
             </div>
         </div>
-        <div id="changeSuccessPopUp" class="modal">
+        <div id="changeSuccessPopUp" class="modal-fade">
             <div class="modal-header">
                 <div id="close-btn-Success" class="close-btn" onclick="hidePopUp('changeSuccessPopUp')">&times;</div>
             </div>
