@@ -7,7 +7,6 @@ import {
     mdbGetPlaylistActivity,
     mdbSetToken,
     mdbGetToken,
-    API_GET_PLAYLISTS,
 } from "./src/mongoDB.js";
 import {
     API_FIND_USER,
