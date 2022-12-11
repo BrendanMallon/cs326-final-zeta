@@ -114,4 +114,13 @@ document.getElementById("like").addEventListener("click", () => {
     loadTracks();
 });
 
+function replaceCover(img){
+    document.getElementById("cover").src = img;
+
+}
+function replaceSongInfo(song, artist){
+    document.getElementById("artistName").innerText = artist
+    document.getElementById("songName").innerText = song
+}
+
 document.getElementById("dislike").addEventListener("click", () => {loadTracks();});
