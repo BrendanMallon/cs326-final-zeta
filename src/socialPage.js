@@ -1,6 +1,33 @@
 console.log(window.location.origin);
-const playListResponse = await fetch(window.location.origin + "/api/playlists");
-const playListJSON = await playListResponse.json();
+
+const addFriendButton = document.getElementById("add-friend-button");
+console.log(addFriendButton);
+async function addFriend() {
+    console.log("TESTING ADD FRIEND API");
+    const id = document.getElementById("friendId").value;
+    const result = await fetch(window.location.origin + "/api/addFriend", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            friend: id,
+        }),
+    });
+
+    // const response = await fetch(window.location.origin + "/api/AD");
+    // const result = await response.json();
+    // console.log(result.date);
+    // console.log(result.token);
+    console.log(result);
+    window.location.reload();
+}
+addFriendButton.addEventListener("click", addFriend);
+
+const responseActivity = await fetch(
+    window.location.origin + "/api/getFriendActivity"
+);
+const playListJSON = await responseActivity.json();
 
 const playlistListElem = document.getElementById("activity-list");
 console.log(playListJSON);
@@ -14,12 +41,27 @@ playListJSON.forEach((playlist) => {
     playListArtItem.classList.add("col-sm-3");
     playListArtItem.id = "activity-item-art";
     playListItem.append(playListArtItem);
+
+    // USERNAME
+    const username = document.createElement("div");
+    username.innerText = playlist.username;
+    username.classList.add("row");
+    username.classList.add("ml-1");
+    playListArtItem.append(username);
     // IMAGE
     const playListImage = document.createElement("img");
-    playListImage.src = playlist.image;
+    playListImage.src = playlist.images[0].url;
     playListImage.height = "90";
     playListImage.width = "90";
     playListArtItem.append(playListImage);
+    // DATE
+    const date = document.createElement("div");
+    date.innerText = new Date(playlist.time).toLocaleDateString();
+    date.classList.add("row");
+    date.classList.add("text-sm");
+    date.classList.add("date");
+    date.classList.add("ml-1");
+    playListArtItem.append(date);
     // INFO CONTAINER
     const playlistInfo = document.createElement("div");
     playlistInfo.classList.add("col-sm-9");
@@ -44,19 +86,22 @@ playListJSON.forEach((playlist) => {
     // DESCRIPTION
     const desc = document.createElement("h6");
     desc.id = "activity-item-description";
-    desc.innerText = playlist.description;
+    desc.innerHTML =
+        playlist.description !== "" ? playlist.description : "No description.";
     descRow.append(desc);
     playlistListElem.append(playListItem);
 });
 
 console.log(window.location.origin);
-const friendslistResponse = await fetch(
-    window.location.origin + "/api/activity/friends"
-);
-const friendslistJSON = await friendslistResponse.json();
+// const friendslistResponse = await fetch(
+//     window.location.origin + "/api/getFriendsList"
+// );
+// const friendslistJSON = await friendslistResponse.json();
 
 const friendsListElem = document.getElementById("friends-list");
-console.log(friendslistJSON);
+// console.log(friendslistJSON);
+const response = await fetch(window.location.origin + "/api/getFriendsList");
+const friendslistJSON = await response.json();
 
 friendslistJSON.forEach((friend) => {
     // Friend Container
@@ -75,33 +120,8 @@ friendslistJSON.forEach((friend) => {
     // fname
     const fname = document.createElement("h6");
     fname.id = "friends-list-firstname";
-    fname.innerText = friend.fname;
+    fname.innerText = friend;
     fnameRow.append(fname);
-    // LName Row
-    const lnameRow = document.createElement("div");
-    lnameRow.classList.add("row");
-    nameCol.append(lnameRow);
-    // fname
-    const lname = document.createElement("h6");
-    lname.id = "friends-list-lastname";
-    lname.innerText = friend.lname;
-    lnameRow.append(lname);
-    // signal col
-    const signalCol = document.createElement("div");
-    signalCol.classList.add("col-3");
-    container.append(signalCol);
-    // Signal container
-    const signalContainer = document.createElement("div");
-    signalContainer.id = "friends-list-signal-icon";
-    signalContainer.classList.add("row");
-    signalContainer.classList.add("justify-content-end");
-    signalCol.append(signalContainer);
-    // Signal
-    const signal = document.createElement("img");
-    signal.src = "https://cdn-icons-png.flaticon.com/512/254/254613.png";
-    signal.height = "50";
-    signal.width = "50";
-    signalContainer.append(signal);
 });
 
 /**
