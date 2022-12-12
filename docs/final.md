@@ -93,5 +93,12 @@
 - Authentication
     - Users are prompted to login to spotify after logging into with us. Once logged in they can only query for a playlist if they have a premium account.
 
+- Conclusion
+    - Brendan
+        - I think that it would have been better to start with a database design first, then server/api design, then css html would have been best. I thin k bootstrap is clunky and outdated. I think that we should have been able to use something like react for our css/html. I also think that the class should put more emphasis on the difference between server/client code. I did have previous experience with web development during and internship so I understood most of the concepts well; however, there were times when our team struggled.
+    - Izaias
+        - I learned a lot. Having never worked on any sort of web development, everything was new. I now do feel comfortable with everything used. The most difficult thing was learning express (mainly routing and how to use it for our purpose) and bootstrap. I wish we had a bootstrap crash course as we spend a lot of time trying to teach ourselves at the beginning. Also I wish we had learned express and passport in depth so we could apply it to our project. Over all it was a fun project. I liked the result and the idea we had
+    - Will
+        - 
 
 
