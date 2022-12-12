@@ -3,9 +3,7 @@ import { mdbSetName, mdbSetEmail, mdbSetPassword } from "./src/mongoDB.js";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import fetch from "node-fetch";
 import dbAPI from "./dbAPI.js";
-import { API_GET_PLAYLISTS } from "./constants/api.js";
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -99,33 +97,6 @@ passport.deserializeUser((uid, done) => {
 app.use(express.json()); // allow JSON inputs
 app.use(express.urlencoded({ extended: true })); // allow URLencoded data
 
-// ///
-
-// we use an in-memory "database"; this isn't persistent but is easy
-
-// // NEW ////
-
-// We used to use:
-//   let users = { 'emery' : 'compsci326' } // default user
-
-// Now, instead of storing the above password in plaintext, we store a
-// random salt and the hash of the password concatentated with that
-// salt.
-
-const users = {
-    John: [
-        "9ebe45061f69e9ab6e1735c5a9784367",
-        "aa1b1d681a258b0debfedb0fd9a875c6723fdb8f17a824f3bf9b3aa6d5f224fa6160d7e7d32c277eb5b7f58a62b463003d792d63a93425f27f6b0fb6e681ed8d",
-    ],
-}; // name : [salt, hash]
-
-// Illustration of how salts and hashes look and work
-const exampleSalt = "541818e33fa6e21a35b718bbd94d1c7f";
-const exampleHash =
-    "902f945dc114cdf04bb1b2bbcc2ccdef6e416fdb1dce93ed8f34dc6aac02eefaaaf5d65c657dec6e405efa977a26c8e41ff4eb3f46722fbd88779a25d1a22c5b";
-console.log(mc.check("compsci326", exampleSalt, exampleHash)); // true
-console.log(mc.check("nope", exampleSalt, exampleHash)); // false
-
 // Returns true iff the user exists.
 async function findUser(username) {
     const result = await new Promise((resolve, reject) => {
@@ -141,8 +112,6 @@ async function findUser(username) {
                 reject(error);
             });
     });
-    console.log("result:");
-    console.log(result);
     return result;
 
     // if (!users[username]) {
@@ -155,11 +124,7 @@ async function findUser(username) {
 // Returns true iff the password is the one we have stored.
 async function validatePassword(name, pwd) {
     const result = await findUser(name);
-    console.log("VALIDATING");
-    console.log(result);
-    console.log(result.exists);
     if (!result.exists) {
-        console.log("exiting");
         return false;
     }
     if (mc.check(pwd, result.salt_hash[0], result.salt_hash[1])) {
@@ -170,26 +135,16 @@ async function validatePassword(name, pwd) {
 
 // Add a user to the "database".
 async function addUser(username, pwd, email, name) {
-    console.log("TESTING TESTING");
     const result = await findUser(username);
-    console.log("ADDING USER");
-    console.log(result);
-    console.log(result["exists"]);
     if (result["exists"]) {
         return false;
     }
-    console.log("HASHING PASSWORD");
     const salt_hash = mc.hash(pwd);
-    console.log(salt_hash);
     const userData = { username, email, salt_hash, name };
-    console.log("userData");
-    console.log(userData);
     request.debug = true;
-    const registered = await new Promise((resolve, reject) => {
+    await new Promise(() => {
         axios.post("http://localhost:" + port + "/api/registerUser", userData);
     });
-    // Now print the user database
-    console.log("User Created");
     return true;
 }
 
@@ -237,7 +192,6 @@ app.get("*/logout", (req, res) => {
 // Use req.body to access data (as in, req.body['username']).
 // Use res.redirect to change URLs.
 app.post("/register", async (req, res) => {
-    console.log("/register");
     const username = req.body["username"];
     const password = req.body["password"];
     const email = req.body["email"];
@@ -330,7 +284,7 @@ app.get("/spotify/auth", (req, res) => {
         "playlist-modify-public",
         "streaming",
         "user-read-private",
-        "user-read-email"
+        "user-read-email",
     ]);
 
     res.redirect(authorizeURL);
@@ -340,72 +294,71 @@ let expireTime = 0;
 
 app.get("/spotify/callback", async (req, res) => {
     const code = req.query.code;
-    spotifyApi.authorizationCodeGrant(code).then(data => {
+    spotifyApi.authorizationCodeGrant(code).then((data) => {
         spotifyApi.setAccessToken(data.body.access_token);
         spotifyApi.setRefreshToken(data.body.refresh_token);
-        expireTime = Date.now() + (data.body.expires_in * 1000);
+        expireTime = Date.now() + data.body.expires_in * 1000;
     });
     res.redirect("/private");
 });
 
-async function refresh () {
-    if(Date.now() > expireTime) {
-        spotifyApi.refreshAccessToken().then(data => {
+async function refresh() {
+    if (Date.now() > expireTime) {
+        spotifyApi.refreshAccessToken().then((data) => {
             spotifyApi.setAccessToken(data.body.access_token);
             spotifyApi.setRefreshToken(data.body.refresh_token);
-            expireTime = Date.now() + (data.body.expires_in * 1000);
+            expireTime = Date.now() + data.body.expires_in * 1000;
         });
     }
 }
 
 app.get("/spotify/token", (req, res) => {
     refresh();
-    res.json({tk : spotifyApi.getAccessToken()});
+    res.json({ tk: spotifyApi.getAccessToken() });
 });
 
 app.get("/spotify/playlist/:query", (req, res) => {
     refresh();
     const query = req.params.query;
-    spotifyApi.searchPlaylists(query).then(data => {
-        res.json({playlist : data.body.playlists.items});
+    spotifyApi.searchPlaylists(query).then((data) => {
+        res.json({ playlist: data.body.playlists.items });
     });
 });
 
 app.get("/spotify/playlistid/:query", (req, res) => {
     refresh();
     const query = req.params.query;
-    spotifyApi.getPlaylist(query).then(data => {
-        res.json({playlist : data.body});
+    spotifyApi.getPlaylist(query).then((data) => {
+        res.json({ playlist: data.body });
     });
 });
 
 app.get("/spotify/follow/:query", (req, res) => {
     refresh();
     const query = req.params.query;
-    spotifyApi.followPlaylist(query).then(data => {
+    spotifyApi.followPlaylist(query).then(() => {
         res.send();
     });
 });
-app.get("/setName/:name",(req,res)=>{
-
+app.get("/setName/:name", (req, res) => {
     const name = req.params.name;
     const user = req.user;
-    mdbSetName(user,name);
+    mdbSetName(user, name);
     res.send();
- });
- app.get("/setEmail/:email",(req,res)=>{
+});
+app.get("/setEmail/:email", (req, res) => {
     const email = req.params.email;
     const user = req.user;
-    mdbSetEmail(user,email);
+    mdbSetEmail(user, email);
     res.send();
- });
- app.get("/setPassword/:password", (req,res)=>{
+});
+app.get("/setPassword/:password", (req, res) => {
     const password = req.params.password;
     const salt_hash = mc.hash(password);
     const user = req.user;
     mdbSetPassword(user, salt_hash);
     res.send();
- });
+});
 app.use("/", dbAPI);
 
 app.get("*", (req, res) => {
@@ -416,4 +369,3 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
     console.log(`App now listening at http://localhost:${port}`);
 });
-

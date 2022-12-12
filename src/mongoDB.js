@@ -15,7 +15,6 @@ if (!process.env.mongoDBURI) {
 export async function mdbAddUser(username, email, salt_hash, name) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    console.log("Connected successfully to server");
     const db = client.db("spotlist");
     const collection = db.collection("USERS");
     const userNameQuery = { username: username };
@@ -32,7 +31,6 @@ export async function mdbAddUser(username, email, salt_hash, name) {
     };
     await collection.insertOne(newUser);
     await client.close();
-    console.log(returnedUser);
     return true;
 }
 
@@ -40,12 +38,11 @@ export async function mdbAddUser(username, email, salt_hash, name) {
 export async function mdbGetUserEmail(passedEmail) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    let returnedEmail;
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
     // Query for a user that has the username provided in passedUserName
     const userNameQuery = { email: passedEmail };
-    returnedEmail = await usersInfo.findOne(userNameQuery).email;
+    const returnedEmail = await usersInfo.findOne(userNameQuery).email;
     await client.close();
     return returnedEmail;
 }
@@ -53,20 +50,17 @@ export async function mdbGetUserEmail(passedEmail) {
 export async function mdbCheckUserName(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    console.log("Connected successfully to server");
     const db = client.db("spotlist");
     const collection = db.collection("USERS");
     const userNameQuery = { username: passedUserName };
     const returnedUser = await collection.findOne(userNameQuery);
     await client.close();
-    console.log(returnedUser);
     return returnedUser !== null;
 }
 
 export async function mdbGetUserSaltHash(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    console.log("Connected successfully to server");
     const db = client.db("spotlist");
     const collection = db.collection("USERS");
     const userNameQuery = { username: passedUserName };
@@ -77,12 +71,10 @@ export async function mdbGetUserSaltHash(passedUserName) {
 
 export async function mdbGetUserName(passedUserName) {
     const client = new MongoClient(mongoDBURI);
-    console.log("TEST PRE CONNECT");
     await client.connect();
-    console.log("TEST");
     let returnedUser = 0;
-    const database = await client.db("spotlist");
-    const usersInfo = await database.collection("USERS");
+    const database = client.db("spotlist");
+    const usersInfo = database.collection("USERS");
     // Query for a user that has the username provided in passedUserName
     const userNameQuery = { username: passedUserName };
     returnedUser = await usersInfo.findOne(userNameQuery).username;
@@ -97,8 +89,8 @@ export async function mdbGetUserInfo(passedUserName) {
     await client.connect();
     let returnedUser = 0;
 
-    const database = await client.db("spotlist");
-    const usersInfo = await database.collection("USERS");
+    const database = client.db("spotlist");
+    const usersInfo = database.collection("USERS");
     // Query for a user that has the username provided in passedUserName
     const userNameQuery = { username: passedUserName };
     returnedUser = await usersInfo.findOne(userNameQuery);
@@ -112,8 +104,8 @@ export async function mdbSetName(passedUserName, newName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
 
-    const database = await client.db("spotlist");
-    const usersInfo = await database.collection("USERS");
+    const database = client.db("spotlist");
+    const usersInfo = database.collection("USERS");
     const user = { username: passedUserName };
     const newData = {
         $set: {
@@ -129,25 +121,22 @@ export async function mdbSetEmail(passedUserName, newEmail) {
 
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName};
+    const user = { username: passedUserName };
     const newData = {
         $set: {
             email: newEmail,
         },
     };
-    result = await usersInfo.updateOne(user, newData);
+    await usersInfo.updateOne(user, newData);
 
     await client.close();
 }
-export async function mdbSetPassword(
-    passedUserName,
-    newPassword
-) {
+export async function mdbSetPassword(passedUserName, newPassword) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName};
+    const user = { username: passedUserName };
     const newData = {
         $set: {
             password: newPassword,
@@ -163,20 +152,15 @@ export async function mdbAddFriend(passedUserName, newFriend) {
     }
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    console.log("Adding Friend");
     const database = client.db("spotlist");
     const usersInfo = database.collection("USERS");
     const user = { username: passedUserName };
     const friend = { username: newFriend };
     const friendInfo = await usersInfo.findOne(friend);
-    console.log("TESTING");
-    console.log(friendInfo);
-    console.log(passedUserName);
     if (!friendInfo) {
         return false;
     }
     const userInfo = await usersInfo.findOne(user);
-    console.log(userInfo);
     const newFriendsList = userInfo.friendsList;
     if (newFriendsList.includes(newFriend)) {
         return false;
@@ -201,8 +185,6 @@ export async function mdbGetFriendsNames(username) {
     const database = client.db("spotlist");
     const usersInfo = database.collection("USERS");
     const userInfo = await usersInfo.findOne({ username });
-    console.log("GETTING USER INFO");
-    console.log(userInfo);
     const friendIdList = userInfo.friendsList;
     await client.close();
     return friendIdList;
@@ -211,7 +193,6 @@ export async function mdbGetFriendsNames(username) {
 export async function mdbAddPlaylistActivity(addUserName, addPlayListID) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    console.log("Connected successfully to server");
     const db = client.db("spotlist");
     const collection = db.collection("PLAYLISTACTIVITY");
     const newPlayListActivity = {
@@ -229,7 +210,6 @@ export async function mdbAddPlaylistActivity(addUserName, addPlayListID) {
 export async function mdbGetPlaylistActivity(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    console.log("Connected successfully to server");
     const db = client.db("spotlist");
     const collection = db.collection("PLAYLISTACTIVITY");
     const playListActivityQuery = {
@@ -238,16 +218,13 @@ export async function mdbGetPlaylistActivity(passedUserName) {
     const returnedPlayListActivity = await collection
         .find(playListActivityQuery)
         .toArray();
-    console.log("testing");
     await client.close();
-    console.log(returnedPlayListActivity);
     return returnedPlayListActivity;
 }
 
 export async function mdbGetFriendActivity(username) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    console.log("Connected successfully to server");
     const db = client.db("spotlist");
     const playlistCollection = db.collection("PLAYLISTACTIVITY");
     const userCollection = db.collection("USERS");
