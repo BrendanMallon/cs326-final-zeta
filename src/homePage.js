@@ -7,7 +7,7 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     let playlists = "";
     let index = 0;
     let stopPlay = null;
-    const play = false;
+    let play = false;
 
     // eslint-disable-next-line no-undef
     const player = new Spotify.Player({
