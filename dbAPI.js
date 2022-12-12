@@ -6,6 +6,9 @@ import {
     mdbAddPlaylistActivity,
     mdbGetPlaylistActivity,
     mdbAddFriend,
+    mdbSetName,
+    mdbGetFriendsNames,
+    mdbGetFriendActivity,
 } from "./src/mongoDB.js";
 import {
     API_FIND_USER,
@@ -14,8 +17,13 @@ import {
     API_ADD_USER_ACTIVITY,
     API_GET_PLAYLISTS,
     API_ADD_FRIEND,
+    API_GET_FRIENDS_LIST,
+    API_GET_FRIEND_ACTIVITY,
 } from "./constants/api.js";
+import axios from "axios";
 const dbAPI = express.Router();
+
+const port = process.env.PORT || 3000;
 
 // middleware that is specific to this router
 dbAPI.use((req, res, next) => {
@@ -64,8 +72,51 @@ dbAPI.use(async (req, res, next) => {
         res.writeHead(200, { "Content-Type": "application/json" });
         const result = await mdbGetPlaylistActivity(req.user);
         console.log("Got Activity:");
-        console.log(result);
-        res.end(JSON.stringify(result));
+        let results = [];
+        console.log("PROMISES STARTED");
+        await Promise.all(
+            (results = result.map(async (activity) => {
+                const SPOTID = activity.playListID;
+                console.log(SPOTID);
+                const response = await axios.get(
+                    "http://localhost:" +
+                            port +
+                            `/spotify/playlistid/${SPOTID}`
+                );
+                const responseJSON = response.data;
+                console.log(responseJSON);
+                const newActivity = await JSON.parse(
+                    JSON.stringify(activity)
+                );
+                newActivity["description"] =
+                        responseJSON.playlist.description;
+                newActivity["images"] = responseJSON.playlist.images;
+                newActivity["name"] = responseJSON.playlist.name;
+                console.log("NEW ACTIVITY");
+                return newActivity;
+            }))
+        );
+        console.log("PROMISES ARE DONE");
+        console.log(results);
+        let answer = [];
+        Promise.all(results).then((value) => {
+            console.log("should not be a promise");
+            console.log(value); // 'hello world'
+            answer.push(value);
+        });
+        const example = () => {
+            return Promise.all(results).then((values) => {
+                console.log(values); // ['hello world', 123, 'foo']
+                return values;
+            });
+        };
+
+        await example().then((values) => {
+            answer = values; // The values are: ['hello world', 123, 'foo']
+        });
+        console.log("ANSWERS");
+        console.log(answer);
+        res.end(JSON.stringify(answer));
         break;
     }
     case API_ADD_FRIEND: {
@@ -77,8 +128,78 @@ dbAPI.use(async (req, res, next) => {
         res.end(JSON.stringify(response));
         break;
     }
-    case API_GET_PLAYLISTS: {
-        const token = req.session.accessToken;
+    case API_GET_FRIENDS_LIST: {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        const result = await mdbGetFriendsNames(req.user);
+        console.log("Got Friends Names:");
+        console.log(result);
+        res.end(JSON.stringify(result));
+        break;
+    }
+    case API_GET_FRIEND_ACTIVITY: {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        const result = await mdbGetFriendActivity(req.user);
+        console.log("Get Friends Activity:");
+        let results = [];
+        console.log("PROMISES STARTED");
+        await Promise.all(
+            (results = result.map(async (activity) => {
+                const SPOTID = activity.playListID;
+                console.log(SPOTID);
+                const error = false;
+                const response = await axios
+                    .get(
+                        "http://localhost:" +
+                                port +
+                                `/spotify/playlistid/${SPOTID}`
+                    )
+                    .catch((error) => {
+                        console.log(error);
+                        error = true;
+                    });
+                const responseJSON = response.data;
+                console.log(responseJSON);
+                const newActivity = await JSON.parse(
+                    JSON.stringify(activity)
+                );
+                if (!error) {
+                    newActivity["description"] =
+                            responseJSON.playlist.description;
+                    newActivity["images"] = responseJSON.playlist.images;
+                    newActivity["name"] = responseJSON.playlist.name;
+                }
+                newActivity.error = error;
+                console.log("NEW ACTIVITY");
+                return newActivity;
+            }))
+        );
+        console.log("PROMISES ARE DONE");
+        console.log(results);
+        let answer = [];
+        Promise.all(results).then((value) => {
+            console.log("should not be a promise");
+            console.log(value); // 'hello world'
+            answer.push(value);
+        });
+        const example = () => {
+            return Promise.all(results).then((values) => {
+                console.log(values); // ['hello world', 123, 'foo']
+                return values;
+            });
+        };
+
+        await example().then((values) => {
+            answer = values; // The values are: ['hello world', 123, 'foo']
+        });
+        console.log("ANSWERS");
+        console.log(answer);
+        const noErrorAnswers = [];
+        for (let i = 0; i < answer.length; i++) {
+            if (!answer[i].error) {
+                noErrorAnswers.push(answer[i]);
+            }
+        }
+        res.end(JSON.stringify(noErrorAnswers));
         break;
     }
 

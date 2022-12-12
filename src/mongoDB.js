@@ -138,7 +138,6 @@ export async function mdbSetName(passedUserName, newName) {
         },
     };
     await usersInfo.updateOne(user, newData);
-
     await client.close();
 }
 export async function mdbSetEmail(passedUserName, newEmail) {
@@ -210,6 +209,22 @@ export async function mdbAddFriend(passedUserName, newFriend) {
     return true;
 }
 
+export async function mdbGetFriendsNames(username) {
+    if (!username) {
+        return false;
+    }
+    const client = new MongoClient(mongoDBURI);
+    await client.connect();
+    const database = client.db("spotlist");
+    const usersInfo = database.collection("USERS");
+    const userInfo = await usersInfo.findOne({ username });
+    console.log("GETTING USER INFO");
+    console.log(userInfo);
+    const friendIdList = userInfo.friendsList;
+    await client.close();
+    return friendIdList;
+}
+
 export async function mdbAddPlaylistActivity(addUserName, addPlayListID) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
@@ -245,6 +260,26 @@ export async function mdbGetPlaylistActivity(passedUserName) {
     console.log(returnedPlayListActivity);
     return returnedPlayListActivity;
 }
+
+export async function mdbGetFriendActivity(username) {
+    const client = new MongoClient(mongoDBURI);
+    await client.connect();
+    console.log("Connected successfully to server");
+    const db = client.db("spotlist");
+    const playlistCollection = db.collection("PLAYLISTACTIVITY");
+    const userCollection = db.collection("USERS");
+    const userInfo = await userCollection.findOne({ username });
+    const friendIds = userInfo.friendsList;
+    const activity = await playlistCollection
+        .find({
+            username: { $in: friendIds },
+        })
+        .sort({ time: -1 })
+        .toArray();
+    await client.close();
+    return activity;
+}
+
 //Adds a like to the like property
 export async function mdbSetPlaylistActivityLikes(
     passedUserName,

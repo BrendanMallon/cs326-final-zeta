@@ -166,7 +166,6 @@ header {
     font-size: 24px;
 }
 
-
 input {
     display: block;
 }
@@ -189,22 +188,25 @@ input {
     text-align: center;
 }
 
-.span{
+.span {
     text-align: center;
 }
-#pause{
+#pause {
     object-fit: fill;
 }
-#home-song-info{
-
+#home-song-info {
     background-color: #333;
     height: auto;
     text-align: center;
 }
-#home-info{
-    min-height: 850px
+#home-info {
+    min-height: 850px;
 }
 
-.font-color-home-info{
-    color: white
+.font-color-home-info {
+    color: white;
+}
+
+.date {
+    font-size: 8px;
 }
