@@ -6,7 +6,6 @@ import {
     mdbAddPlaylistActivity,
     mdbGetPlaylistActivity,
     mdbAddFriend,
-    mdbSetName,
     mdbGetFriendsNames,
     mdbGetFriendActivity,
 } from "./src/mongoDB.js";
@@ -15,7 +14,6 @@ import {
     API_REGISTER_USER,
     API_GET_USER_ACTIVITY,
     API_ADD_USER_ACTIVITY,
-    API_GET_PLAYLISTS,
     API_ADD_FRIEND,
     API_GET_FRIENDS_LIST,
     API_GET_FRIEND_ACTIVITY,
@@ -178,18 +176,18 @@ dbAPI.use(async (req, res, next) => {
         let answer = [];
         Promise.all(results).then((value) => {
             console.log("should not be a promise");
-            console.log(value); // 'hello world'
+            console.log(value);
             answer.push(value);
         });
         const example = () => {
             return Promise.all(results).then((values) => {
-                console.log(values); // ['hello world', 123, 'foo']
+                console.log(values);
                 return values;
             });
         };
 
         await example().then((values) => {
-            answer = values; // The values are: ['hello world', 123, 'foo']
+            answer = values;
         });
         console.log("ANSWERS");
         console.log(answer);
