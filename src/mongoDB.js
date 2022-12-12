@@ -40,12 +40,11 @@ export async function mdbAddUser(username, email, salt_hash, name) {
 export async function mdbGetUserEmail(passedEmail) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
-    let returnedEmail;
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
     // Query for a user that has the username provided in passedUserName
     const userNameQuery = { email: passedEmail };
-    returnedEmail = await usersInfo.findOne(userNameQuery).email;
+    const returnedEmail = await usersInfo.findOne(userNameQuery).email;
     await client.close();
     return returnedEmail;
 }
@@ -129,25 +128,22 @@ export async function mdbSetEmail(passedUserName, newEmail) {
 
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName};
+    const user = { username: passedUserName };
     const newData = {
         $set: {
             email: newEmail,
         },
     };
-    result = await usersInfo.updateOne(user, newData);
+    await usersInfo.updateOne(user, newData);
 
     await client.close();
 }
-export async function mdbSetPassword(
-    passedUserName,
-    newPassword
-) {
+export async function mdbSetPassword(passedUserName, newPassword) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName};
+    const user = { username: passedUserName };
     const newData = {
         $set: {
             password: newPassword,

@@ -1,7 +1,4 @@
-console.log(window.location.origin);
-
 const addFriendButton = document.getElementById("add-friend-button");
-console.log(addFriendButton);
 async function addFriend() {
     console.log("TESTING ADD FRIEND API");
     const id = document.getElementById("friendId").value;
@@ -14,11 +11,6 @@ async function addFriend() {
             friend: id,
         }),
     });
-
-    // const response = await fetch(window.location.origin + "/api/AD");
-    // const result = await response.json();
-    // console.log(result.date);
-    // console.log(result.token);
     console.log(result);
     window.location.reload();
 }
@@ -123,29 +115,3 @@ friendslistJSON.forEach((friend) => {
     fname.innerText = friend;
     fnameRow.append(fname);
 });
-
-/**
- *
-<div class="row friends-list-item">
-    <div class="col-sm-9">
-        <div class="row">
-            <h6 id="friends-list-firstname">FIRST_NAME</h6>
-        </div>
-        <div class="row">
-            <h6 id="friends-list-lastname">LAST_NAME</h6>
-        </div>
-    </div>
-    <div class="col-3">
-        <div
-            id="friends-list-signal-icon"
-            class="row justify-content-end"
-        >
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/254/254613.png"
-                width="50%"
-                height="50%"
-            />
-        </div>
-    </div>
-</div>
- */
