@@ -99,6 +99,6 @@
     - Izaias
         - I learned a lot. Having never worked on any sort of web development, everything was new. I now do feel comfortable with everything used. The most difficult thing was learning express (mainly routing and how to use it for our purpose) and bootstrap. I wish we had a bootstrap crash course as we spend a lot of time trying to teach ourselves at the beginning. Also I wish we had learned express and passport in depth so we could apply it to our project. Over all it was a fun project. I liked the result and the idea we had
     - Will
-        - 
+        - While working with others was a great experience, working with a group posed its own set of problems. collaborating on one project required lots communication and teamwork. This project offered a great opportunity to bounce ideas off of one another and work on teambuilding skills. I enjoyed the HTML bootstrap. Seeing your code come together visually is quite rewarding. implementing MongoDB functionality was difficult but rewarding. I enjoyed my time working on the project.
 
 
