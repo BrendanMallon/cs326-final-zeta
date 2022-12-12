@@ -8,7 +8,7 @@
 - Instructions/Important Notes:
     - Once home page is loaded, open spotify app on phone and select current player to be spotlist. Once done, you can query playlist
     - You can add these accounts as friends in order to have some activity in the social page: ["izaias", "Will", "Brendan"]
-
+    - Make sure you are full screen or there might be weird visual bugs (text overlapping where is shouldn't be) if you aren't
 - Division of Labor
     - Izaias: Built the spotify API and webplayback SDK integration and all the fuinctional components. Created the login and sign up page HTML and all the home page JS. 
     - Will: Worked on MongoDB functionality. Implemented HTML and CSS code for the home page and account page and JS for the account page. 
