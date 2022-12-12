@@ -2,13 +2,6 @@ import { MongoClient } from "mongodb";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
-//TO USE---
-//   place "import {mdbGetUserAndEmail, mdbGetUserInfo, mdbAddUser} from './mongoDB.js'"
-//    at beginning of file
-//   simply call mdbGetUserInfo(username) where username is the users username.
-//   returns an object with properties {username:,email:,password:,uathToken:}
-
-// Replace the uri string with your MongoDB deployment's connection string.
 let secrets, mongoDBURI;
 
 if (!process.env.mongoDBURI) {
@@ -42,6 +35,7 @@ export async function mdbAddUser(username, email, salt_hash, name) {
     console.log(returnedUser);
     return true;
 }
+
 // function for checking if username and email are valid
 export async function mdbGetUserEmail(passedEmail) {
     const client = new MongoClient(mongoDBURI);
@@ -55,6 +49,7 @@ export async function mdbGetUserEmail(passedEmail) {
     await client.close();
     return returnedEmail;
 }
+
 export async function mdbCheckUserName(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
@@ -67,6 +62,7 @@ export async function mdbCheckUserName(passedUserName) {
     console.log(returnedUser);
     return returnedUser !== null;
 }
+
 export async function mdbGetUserSaltHash(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
@@ -78,6 +74,7 @@ export async function mdbGetUserSaltHash(passedUserName) {
     await client.close();
     return returnedUser ? returnedUser.salt_hash : false;
 }
+
 export async function mdbGetUserName(passedUserName) {
     const client = new MongoClient(mongoDBURI);
     console.log("TEST PRE CONNECT");
@@ -92,6 +89,7 @@ export async function mdbGetUserName(passedUserName) {
     await client.close();
     return returnedUser;
 }
+
 //mdbGetUSer searches for an existing user in the database using username parameter
 //returns user object
 export async function mdbGetUserInfo(passedUserName) {
@@ -109,22 +107,7 @@ export async function mdbGetUserInfo(passedUserName) {
 
     return returnedUser;
 }
-/*export async function mdbSetUserName(passedUserName, passedPassword, newUserName) {
-    const client = new MongoClient(mongoDBURI);
-    try {
-        const database = client.db("spotlist");
-        const usersInfo = database.collection("USERS");
-        const user = { username: passedUserName, password: passedPassword };
-        const newData = {
-            $set: {
-                username: newUserName,
-            },
-        };
-        await usersInfo.updateOne(user, newData);
-    } finally {
-        await client.close();
-    }
-}*/
+
 export async function mdbSetName(passedUserName, newName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
