@@ -1,5 +1,5 @@
 "use strict";
-
+import { mdbSetName, mdbSetEmail, mdbSetPassword } from "./src/mongoDB.js";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -387,7 +387,26 @@ app.get("/spotify/follow/:query", (req, res) => {
         res.send();
     });
 });
+app.get("/setName/:name",(req,res)=>{
 
+    const name = req.params.name;
+    const user = req.user;
+    mdbSetName(user,name);
+    res.send();
+ });
+ app.get("/setEmail/:email",(req,res)=>{
+    const email = req.params.email;
+    const user = req.user;
+    mdbSetEmail(user,email);
+    res.send();
+ });
+ app.get("/setPassword/:password", (req,res)=>{
+    const password = req.params.password;
+    const salt_hash = mc.hash(password);
+    const user = req.user;
+    mdbSetPassword(user, salt_hash);
+    res.send();
+ });
 app.use("/", dbAPI);
 
 app.get("*", (req, res) => {
@@ -398,3 +417,4 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
     console.log(`App now listening at http://localhost:${port}`);
 });
+

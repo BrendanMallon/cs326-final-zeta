@@ -82,11 +82,7 @@ dbAPI.use(async (req, res, next) => {
     case API_GET_PLAYLISTS: {
         const token = req.session.accessToken;
     }
-    case API_SET_NAME:{
-        const result = await mdbSetName(req.body.user, req.body.salt_hash, req.body.new_name)
-        res.end(JSON.stringify(result));
 
-    }
     default:
         next();
     }

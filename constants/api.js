@@ -8,5 +8,5 @@ export const API_GET_PLAYLISTS = API + "/getPlaylists";
 export const API_GET_TOKEN = API + "/spotify/token";
 export const API_SEARCH_PLAYLIST = API + "/spotify/playlist";
 export const API_SEARCH_PLAYLISTID = API + "/spotify/playlistid";
-export const API_SET_NAME = API + "/setName";
+
 //currentDoc = document.querySelector("FIlename.html")
