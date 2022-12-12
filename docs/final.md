@@ -7,7 +7,7 @@
 
 - Division of Labor
     - Izaias: Built the spotify API and webplayback SDK integration and all the fuinctional components. Created the login and sign up page HTML and all the home page JS. 
-    - Will:
+    - Will: Worked on MongoDB functionality. Implemented HTML and CSS code for the home page and account page and JS for the account page. 
     - Brendan:
 
 - API:
