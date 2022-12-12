@@ -3,9 +3,7 @@ import { mdbSetName, mdbSetEmail, mdbSetPassword } from "./src/mongoDB.js";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import fetch from "node-fetch";
 import dbAPI from "./dbAPI.js";
-import { API_GET_PLAYLISTS } from "./constants/api.js";
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -144,26 +142,6 @@ passport.deserializeUser((uid, done) => {
 app.use(express.json()); // allow JSON inputs
 app.use(express.urlencoded({ extended: true })); // allow URLencoded data
 
-// ///
-
-// we use an in-memory "database"; this isn't persistent but is easy
-
-// // NEW ////
-
-// We used to use:
-//   let users = { 'emery' : 'compsci326' } // default user
-
-// Now, instead of storing the above password in plaintext, we store a
-// random salt and the hash of the password concatentated with that
-// salt.
-
-const users = {
-    John: [
-        "9ebe45061f69e9ab6e1735c5a9784367",
-        "aa1b1d681a258b0debfedb0fd9a875c6723fdb8f17a824f3bf9b3aa6d5f224fa6160d7e7d32c277eb5b7f58a62b463003d792d63a93425f27f6b0fb6e681ed8d",
-    ],
-}; // name : [salt, hash]
-
 // Illustration of how salts and hashes look and work
 const exampleSalt = "541818e33fa6e21a35b718bbd94d1c7f";
 const exampleHash =
@@ -230,7 +208,7 @@ async function addUser(username, pwd, email, name) {
     console.log("userData");
     console.log(userData);
     request.debug = true;
-    const registered = await new Promise((resolve, reject) => {
+    await new Promise(() => {
         axios.post("http://localhost:" + port + "/api/registerUser", userData);
     });
     // Now print the user database
