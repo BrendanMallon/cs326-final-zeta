@@ -34,4 +34,13 @@
             - Param: [Query: a sptify plylist ID (string)]
             - Follows the playlist on spotify account
 
-    - 
+    - /API
+        - /setName/:name
+            - Method: Set
+            - Sets the new name provided from the account page to update the users name on MongDB.
+        - /setEmail/:email
+            - Method: Set
+            - Sets the new email provided from the account page to update the users email on MongDB.
+        - /setPassword/:password
+            - Method: Set
+            - Sets the new pssword provided from the account page to update the users password on MongDB.
