@@ -8,7 +8,7 @@
 - Division of Labor
     - Izaias: Built the spotify API and webplayback SDK integration and all the fuinctional components. Created the login and sign up page HTML and all the home page JS. 
     - Will: Worked on MongoDB functionality. Implemented HTML and CSS code for the home page and account page and JS for the account page. 
-    - Brendan:
+    - Brendan: Built express framework and implemented passport for authenication. Added spotify authenticaiton to our login route. Built all of the social and playlist pages, including html/css/js. Additionally, created a lot of the api calls used for those pages and pages made by the others. 
 
 - API:
     - /Spotify
