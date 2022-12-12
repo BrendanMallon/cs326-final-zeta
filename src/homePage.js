@@ -7,6 +7,7 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     let playlists = '';
     let index = 0;
     let stopPlay = null;
+    let play = false;
     
     const player = new Spotify.Player({
         name: 'Spotlist',
@@ -14,13 +15,11 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
         volume: 0.5
     });
 
-    // Ready
     player.addListener('ready', ({ device_id }) => {
         devid = device_id;
         console.log('Ready with Device ID', device_id);
     });
 
-    // Not Ready
     player.addListener('not_ready', ({ device_id }) => {
         console.log('Device ID has gone offline', device_id);
     });
@@ -38,13 +37,23 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     });
 
     document.getElementById('searchTextBtn').onclick = async function () {
-        playlists = await fetch (`${window.location.origin}/spotify/playlist/${document.getElementById('homePageSearch-Text').value}`);
+        playlists = await fetch (`${window.location.origin}/spotify/playlist/${document.getElementById('homePageSearch-Text').value}`).catch((error) => {
+            console.log(error);
+            alert("error with token authentication");
+            return;
+        });
+
         const res = await playlists.json();
         playlists = res.playlist;
+
+        if (playlists.length === 0) {
+            alert("no playlists found");
+            return;
+        }
+
         index = 0;
+
         loadNext();
-        document.getElementById("homePageSearch-Text").value = "";
-        
     };
 
     function trackPlay() {
@@ -64,6 +73,7 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     async function loadNext() {
         clearInterval(stopPlay);
         let error = false;
+        
         fetch(`https://api.spotify.com/v1/me/player/play?decive_id=${devid}`, {
             method : 'PUT',
             body : JSON.stringify({context_uri : playlists[index].uri}),
@@ -87,7 +97,10 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
 
             }
         });
+
         if (error) {return;}
+        play === true;
+        
         ++index;
 
         setTimeout(() => {
@@ -103,6 +116,8 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     }
     
     document.getElementById('like').onclick = function () {
+        if (play === false) {return;}
+        
         clearInterval(stopPlay);
 
         fetch(window.location.origin + "/api/addUserActivity", {
@@ -119,10 +134,12 @@ window.onSpotifyWebPlaybackSDKReady = async () => {
     };
 
     document.getElementById('dislike').onclick = () => {
+        if (play === false) {return;}
+
         clearInterval(stopPlay);
 
         loadNext();
     };
 
     player.connect();
-}
+};

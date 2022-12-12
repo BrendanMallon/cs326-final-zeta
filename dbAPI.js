@@ -5,17 +5,15 @@ import {
     mdbGetUserSaltHash,
     mdbAddPlaylistActivity,
     mdbGetPlaylistActivity,
-    mdbSetToken,
-    mdbGetToken,
-    mdbSetName,
+    mdbAddFriend,
 } from "./src/mongoDB.js";
 import {
     API_FIND_USER,
     API_REGISTER_USER,
     API_GET_USER_ACTIVITY,
     API_ADD_USER_ACTIVITY,
-    API_GET_TOKEN,
     API_GET_PLAYLISTS,
+    API_ADD_FRIEND,
 } from "./constants/api.js";
 const dbAPI = express.Router();
 
@@ -70,17 +68,18 @@ dbAPI.use(async (req, res, next) => {
         res.end(JSON.stringify(result));
         break;
     }
-    
-    case API_GET_TOKEN: {
-        console.log("Getting Token");
-        const result = await mdbGetToken(req.user);
-        console.log("Got Token:");
+    case API_ADD_FRIEND: {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        const result = await mdbAddFriend(req.user, req.body.friend);
+        console.log("ADDED FRIEND?:");
         console.log(result);
-        res.end(JSON.stringify(result));
+        const response = { success: result };
+        res.end(JSON.stringify(response));
         break;
     }
     case API_GET_PLAYLISTS: {
         const token = req.session.accessToken;
+        break;
     }
 
     default:

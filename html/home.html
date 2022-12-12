@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <title>Home</title>
+        <link rel="icon" href="/LogoNotext.png">
 
-        <!-- Bootstrap CSS -->
+        <meta charset="utf-8"/>
+        <metaname="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
         <link rel="stylesheet" href="/style.css" />
         <link
             rel="stylesheet"
@@ -16,11 +14,6 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
-
-        <!-- <script type="module" src="/homePage.js"></script> -->
-
-        <title>Home</title>
-        <link rel="icon" href="/LogoNotext.png">
     </head>
     <body>
         <header>
@@ -35,26 +28,14 @@
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="false"
-                            >
-                                MENU
-                            </button>
+                            >MENU</button>
 
-                            <div
-                                class="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton"
-                            >
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="home">Home</a>
-                                <a class="dropdown-item" href="social"
-                                    >Social</a
-                                >
-                                <a class="dropdown-item" href="playlists"
-                                    >Playlists</a
-                                >
-                                <a class="dropdown-item" href="profile"
-                                    >Account</a
-                                ><a class="dropdown-item" href="logout"
-                                    >Log Out</a
-                                >
+                                <a class="dropdown-item" href="social">Social</a>
+                                <a class="dropdown-item" href="playlists">Playlists</a>
+                                <a class="dropdown-item" href="profile">Account</a>
+                                <a class="dropdown-item" href="logout">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -65,54 +46,39 @@
                 </div>
             </div>
         </header>
-        <div class="container-fluid" id="home-page">
-            <div
-                class="row justify-content-md-center green"
-                style="min-height: 80px"
-            >
-                <div class="col-auto">
-                    <div class="input-group mb-3">
-                        <input
-                            type="text"
-                            id="homePageSearch-Text"
-                            placeholder="Playlist Search"
-                        />
-                        <div class="input-group-append">
-                            <button
-                                id="searchTextBtn"
-                                class="btn btn-primary mb-2"
 
-                            >
-                                Search
-                            </button>
-                        </div>
+        <!-- Search Bar -->
+        <div class="container-fluid" id="home-page">
+            <div class="row justify-content-md-center green" style="min-height: 80px">
+                <div class="col-auto pad">
+                    <div class="input">
+                        <input type="text" class="form-control" id="homePageSearch-Text" placeholder="Playlist Search"/>
                     </div>
-                        
+                </div>
+                <div class="col-auto pad">
+                    <button id="searchTextBtn" class="btn btn-primary mb-2">Search</button>
                 </div>
             </div>
-            <div id="home-info"
-                class="row justify-content-md-center green"
-            >
+
+            <div id="home-info" class="row justify-content-md-center green">
+
+                <!-- dislike button -->
                 <div class="col-3 align-self-center mr-auto">
                     <button id="dislike" class="b1 h-100 w-100">
-                        <img
-                            src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
-                            width="100%"
-                            height="100%"
-                        />
+                        <img src="https://cdn-icons-png.flaticon.com/512/458/458594.png" width="100%" height="100%"/>
                     </button>
                 </div>
-                <div id="home-song-info"
-                    class="col-6 align-self-center"
 
-                >
-                    <h1 id="title" class="text-center font-color-home-info">Title</h1>
+                <!-- Song Player -->
+                <div id="home-song-info" class="col-6 align-self-center" style="border-radius: 10px">
+                    <h1 id="title" class="text-center font-color-home-info pad">Title</h1>
                     <br>
                     <div class="row align-middle form-group">
                         <div class="col">
-                            <image id="cover" class="rounded h-100 w-100" src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/514dc845-04f5-4538-8a4f-869b64243265/1-2.jpg"
-                            width ="100%"
-                            height="100%"
+                            <image id="cover" class="rounded h-100 w-100" 
+                                src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/514dc845-04f5-4538-8a4f-869b64243265/1-2.jpg"
+                                width ="100%"
+                                height="100%"
                             />
                         </div>
                         <div class="col my-auto">
@@ -122,25 +88,16 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Like Button -->
                 <div class="col-3 align-self-center mr-auto">
                     <button id="like" class="b1 h-100 w-100">
-                        <img
-                            src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png"
-                            width="100%"
-                            height="100%"
-                        />
+                        <img src="https://freeiconshop.com/wp-content/uploads/edd/checkmark-flat.png" width="100%" height="100%"/>
                     </buttton>
                 </div>
             </div>
-            
         </div>
-        <form onsubmit="makeApiCall(event)">
-            <input type="text" id="input-field" placeholder="Enter text here" />
-            <button id="foo" type="button">Go</button>
-        </form>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -156,6 +113,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"
         ></script>
+        
         <script src="https://sdk.scdn.co/spotify-player.js"></script>
         <script src="/homePage.js"></script>
     </body>
