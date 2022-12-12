@@ -4,7 +4,6 @@ const playListResponse = await fetch(
 const playListJSON = await playListResponse.json();
 
 const playlistListElem = document.getElementById("playlist-list");
-console.log(playListJSON);
 playListJSON.forEach((playlist) => {
     // ITEM ELEM
     const playListItem = document.createElement("div");
