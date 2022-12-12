@@ -75,51 +75,6 @@ const strategy = new LocalStrategy(async (username, password, done) => {
     return done(null, username);
 });
 
-const rememberMeStrategy = require("passport-remember-me").Strategy;
-const tokens = {};
-
-const Token = {
-    consume: async function (token, cb) {
-        const userId = tokens[token];
-        delete tokens[token];
-        return await cb(null, userId);
-    },
-    issue: async function (user, cb) {
-        const token = Math.random() * Math.pow(10, 18);
-        tokens[token] = user.id;
-        return await cb(null, token);
-    },
-};
-passport.use(
-    new rememberMeStrategy(
-        async function (token, done) {
-            // Retrieve the user from the token and return it
-            await Token.consume(token, async function (err, userId) {
-                if (err) {
-                    return done(err);
-                }
-                if (!userId) {
-                    return done(null, false);
-                }
-                const result = await findUser(userId);
-                if (!result.exists) {
-                    return done(null, false);
-                }
-                return done(null, userId);
-            });
-        },
-        function (user, done) {
-            // Create a new token for the user and return it
-            Token.issue(user, function (err, token) {
-                if (err) {
-                    return done(err);
-                }
-                return done(null, token);
-            });
-        }
-    )
-);
-
 // App configuration
 
 app.use(expressSession(session));
