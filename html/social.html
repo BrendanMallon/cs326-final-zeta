@@ -2,10 +2,13 @@
 <html lang="en">
     <head>
         <title>Social</title>
-        <link rel="icon" href="/LogoNotext.png">
+        <link rel="icon" href="/LogoNotext.png" />
 
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
 
         <link
             rel="stylesheet"
@@ -29,14 +32,27 @@
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="false"
-                            >MENU</button>
+                            >
+                                MENU
+                            </button>
 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div
+                                class="dropdown-menu"
+                                aria-labelledby="dropdownMenuButton"
+                            >
                                 <a class="dropdown-item" href="home">Home</a>
-                                <a class="dropdown-item" href="social">Social</a>
-                                <a class="dropdown-item" href="playlists">Playlists</a>
-                                <a class="dropdown-item" href="profile">Account</a>
-                                <a class="dropdown-item" href="logout">Log Out</a>
+                                <a class="dropdown-item" href="social"
+                                    >Social</a
+                                >
+                                <a class="dropdown-item" href="playlists"
+                                    >Playlists</a
+                                >
+                                <a class="dropdown-item" href="profile"
+                                    >Account</a
+                                >
+                                <a class="dropdown-item" href="logout"
+                                    >Log Out</a
+                                >
                             </div>
                         </div>
                     </div>
@@ -52,7 +68,27 @@
                 <div id="pageName">Recent Activity</div>
             </div>
             <div id="page-background" class="row justify-content-md-center">
-                <div id="friends-list" class="col-md-4"></div>
+                <div id="friends-list" class="col-md-4">
+                    <div class="row mx-auto">
+                        <div class="col ml-5">
+                            <input
+                                class="form-control ml-5"
+                                type="text"
+                                id="friendId"
+                                placeholder="Friend's Username"
+                            />
+                        </div>
+                        <div class="col">
+                            <button
+                                class="ml-5 btn btn-primary mb-2"
+                                id="add-friend-button"
+                                type="button"
+                            >
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div id="activity-list" class="col-md-8"></div>
             </div>
         </div>
