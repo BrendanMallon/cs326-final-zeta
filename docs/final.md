@@ -7,7 +7,7 @@
 
 - Division of Labor
     - Izaias: Built the spotify API and webplayback SDK integration and all the fuinctional components. Created the login and sign up page HTML and all the home page JS. 
-    - Will:
+    - Will: Worked on MongoDB functionality. Implemented HTML and CSS code for the home page and account page and JS for the account page. 
     - Brendan:
 
 - API:
@@ -34,4 +34,13 @@
             - Param: [Query: a sptify plylist ID (string)]
             - Follows the playlist on spotify account
 
-    - 
+    - /API
+        - /setName/:name
+            - Method: Set
+            - Sets the new name provided from the account page to update the users name on MongDB.
+        - /setEmail/:email
+            - Method: Set
+            - Sets the new email provided from the account page to update the users email on MongDB.
+        - /setPassword/:password
+            - Method: Set
+            - Sets the new pssword provided from the account page to update the users password on MongDB.
