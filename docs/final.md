@@ -59,3 +59,35 @@
         - /getFriendActivity
             - Method: GET
             - This method is used on the social page. It gets all of the current user's friend's playlist data, queries the spotify api to find the corresponding playlist information.
+
+- Database:
+    - Collections:
+        - /USERS
+            - name
+            - salt_hash
+            - email
+            - username
+            - friendslist
+        - /PLAYLISTACTIVITY
+            - time
+            - playlistID
+
+- Routes:
+    - /login
+        - Users are prompted to log in.
+    - /register
+        - Users can create an account with us here.
+    - /home
+        - This is where users land after logging in. Users can search for playlists and listen to songs. They can like or skip playlists after listening to them.
+    - /social
+        - Users can add friends and see their current friends. Additionally, users can see their friends activity.
+    - /playlist
+        - Users can see their own activity.
+    - /profile
+        - Users can edit some of their account data on this page.
+
+- Authentication
+    - Users are prompted to login to spotify after logging into with us. Once logged in they can only query for a playlist if they have a premium account.
+
+
+
