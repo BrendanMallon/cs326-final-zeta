@@ -18,7 +18,7 @@
         <script type="module" src="/playlists.js" defer></script>
         <link rel="stylesheet" href="/style.css" />
         <title>Playlists</title>
-        <link rel="icon" href="/LogoNotext.png">
+        <link rel="icon" href="/LogoNotext.png" />
     </head>
     <body>
         <header>
@@ -66,7 +66,10 @@
         </header>
         <div class="container-fluid" id="home-page">
             <div id="page-background" class="row justify-content-md-center">
-                <div id="playlist-list" class="col-md-8">
+                <div
+                    id="playlist-list"
+                    class="col-md-4 justify-content-md-center"
+                >
                     <div
                         id="playlist-list-title"
                         class="row justify-content-md-center"
@@ -76,10 +79,6 @@
                 </div>
             </div>
         </div>
-        <form onsubmit="makeApiCall(event)">
-            <input type="text" id="input-field" placeholder="Enter text here" />
-            <button id="foo" type="button">Go</button>
-        </form>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script
