@@ -81,6 +81,7 @@ dbAPI.use(async (req, res, next) => {
         const token = req.session.accessToken;
         break;
     }
+
     default:
         next();
     }

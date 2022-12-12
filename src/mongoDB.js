@@ -125,13 +125,13 @@ export async function mdbGetUserInfo(passedUserName) {
         await client.close();
     }
 }*/
-export async function mdbSetName(passedUserName, passedPassword, newName) {
+export async function mdbSetName(passedUserName, newName) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
 
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName, password: passedPassword };
+    const user = { username: passedUserName };
     const newData = {
         $set: {
             name: newName,
@@ -141,32 +141,31 @@ export async function mdbSetName(passedUserName, passedPassword, newName) {
 
     await client.close();
 }
-export async function mdbSetEmail(passedUserName, passedPassword, newEmail) {
+export async function mdbSetEmail(passedUserName, newEmail) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
 
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName, password: passedPassword };
+    const user = { username: passedUserName};
     const newData = {
         $set: {
             email: newEmail,
         },
     };
-    await usersInfo.updateOne(user, newData);
+    result = await usersInfo.updateOne(user, newData);
 
     await client.close();
 }
 export async function mdbSetPassword(
     passedUserName,
-    passedPassword,
     newPassword
 ) {
     const client = new MongoClient(mongoDBURI);
     await client.connect();
     const database = await client.db("spotlist");
     const usersInfo = await database.collection("USERS");
-    const user = { username: passedUserName, password: passedPassword };
+    const user = { username: passedUserName};
     const newData = {
         $set: {
             password: newPassword,
