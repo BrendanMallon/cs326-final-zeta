@@ -33,14 +33,29 @@
             - Method: get
             - Param: [Query: a sptify plylist ID (string)]
             - Follows the playlist on spotify account
-
-    - /API
-        - /setName/:name
-            - Method: Set
-            - Sets the new name provided from the account page to update the users name on MongDB.
-        - /setEmail/:email
-            - Method: Set
-            - Sets the new email provided from the account page to update the users email on MongDB.
-        - /setPassword/:password
-            - Method: Set
-            - Sets the new pssword provided from the account page to update the users password on MongDB.
+    - /setName/:name
+        - Method: Set
+        - Sets the new name provided from the account page to update the users name on MongDB.
+    - /setEmail/:email
+        - Method: Set
+        - Sets the new email provided from the account page to update the users email on MongDB.
+    - /setPassword/:password
+        - Method: Set
+        - Sets the new pssword provided from the account page to update the users password on MongDB.
+        
+   - /API
+        - /findUser
+            - Method: GET
+            - This method is used during authentication. Given a username in the body, it will return an object in the form {exists, salt_hash}.
+        - /getUserActivity
+            - Method: GET
+            - This method is used on the playlists page. It gets all of the current user's playlist data, queries the spotify api to find the corresponding playlist information.
+        - /addUserActivity
+            - Method: PUT
+            - When a user likes a playlist using our webpage, we will record that intereaction for later use. We record the current time and the playlistID.
+        - /addFriend
+            - Method: PUT
+            - When a user adds a friend this is called. We add the friend's username to the current users friends list.
+        - /getFriendActivity
+            - Method: GET
+            - This method is used on the social page. It gets all of the current user's friend's playlist data, queries the spotify api to find the corresponding playlist information.
