@@ -1,29 +1,3 @@
-console.log(window.location.origin);
-
-const fooElem = document.getElementById("foo");
-console.log(fooElem);
-async function testAPI(event) {
-    console.log("TESTING API");
-    // const id = document.getElementById("input-field").value;
-    // const result = await fetch(window.location.origin + "/api/addFriend", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //         friend: id,
-    //     }),
-    // });37i9dQZF1DX0XUsuxWHRQd
-    const response = await fetch(
-        window.location.origin + "/api/getUserActivity"
-    );
-    const result = await response.json();
-    // console.log(result.date);
-    // console.log(result.token);
-    console.log(result);
-}
-// fooElem.addEventListener("click", testAPI);
-
 const playListResponse = await fetch(
     window.location.origin + "/api/getUserActivity"
 );
@@ -85,20 +59,3 @@ playListJSON.forEach((playlist) => {
     descRow.append(desc);
     playlistListElem.append(playListItem);
 });
-
-/**
- * <div class="row playlist-list-item">
-                        <div id="playlist-item-art" class="col-sm-3">
-                            <img
-                                src="https://cdn.pixabay.com/photo/2021/06/06/21/20/album-cover-6316344_1280.jpg"
-                                width="100%"
-                                height="100%"
-                            />
-                        </div>
-                        <div class="col-sm-9 align-self-center">
-                            <h6 id="playlist-item-title">
-                                Example Playlist Title
-                            </h6>
-                        </div>
-                    </div>
- */

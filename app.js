@@ -77,6 +77,51 @@ const strategy = new LocalStrategy(async (username, password, done) => {
     return done(null, username);
 });
 
+const rememberMeStrategy = require("passport-remember-me").Strategy;
+const tokens = {};
+
+const Token = {
+    consume: async function (token, cb) {
+        const userId = tokens[token];
+        delete tokens[token];
+        return await cb(null, userId);
+    },
+    issue: async function (user, cb) {
+        const token = Math.random() * Math.pow(10, 18);
+        tokens[token] = user.id;
+        return await cb(null, token);
+    },
+};
+passport.use(
+    new rememberMeStrategy(
+        async function (token, done) {
+            // Retrieve the user from the token and return it
+            await Token.consume(token, async function (err, userId) {
+                if (err) {
+                    return done(err);
+                }
+                if (!userId) {
+                    return done(null, false);
+                }
+                const result = await findUser(userId);
+                if (!result.exists) {
+                    return done(null, false);
+                }
+                return done(null, userId);
+            });
+        },
+        function (user, done) {
+            // Create a new token for the user and return it
+            Token.issue(user, function (err, token) {
+                if (err) {
+                    return done(err);
+                }
+                return done(null, token);
+            });
+        }
+    )
+);
+
 // App configuration
 
 app.use(expressSession(session));
@@ -330,7 +375,7 @@ app.get("/spotify/auth", (req, res) => {
         "playlist-modify-public",
         "streaming",
         "user-read-private",
-        "user-read-email"
+        "user-read-email",
     ]);
 
     res.redirect(authorizeURL);
@@ -340,72 +385,71 @@ let expireTime = 0;
 
 app.get("/spotify/callback", async (req, res) => {
     const code = req.query.code;
-    spotifyApi.authorizationCodeGrant(code).then(data => {
+    spotifyApi.authorizationCodeGrant(code).then((data) => {
         spotifyApi.setAccessToken(data.body.access_token);
         spotifyApi.setRefreshToken(data.body.refresh_token);
-        expireTime = Date.now() + (data.body.expires_in * 1000);
+        expireTime = Date.now() + data.body.expires_in * 1000;
     });
     res.redirect("/private");
 });
 
-async function refresh () {
-    if(Date.now() > expireTime) {
-        spotifyApi.refreshAccessToken().then(data => {
+async function refresh() {
+    if (Date.now() > expireTime) {
+        spotifyApi.refreshAccessToken().then((data) => {
             spotifyApi.setAccessToken(data.body.access_token);
             spotifyApi.setRefreshToken(data.body.refresh_token);
-            expireTime = Date.now() + (data.body.expires_in * 1000);
+            expireTime = Date.now() + data.body.expires_in * 1000;
         });
     }
 }
 
 app.get("/spotify/token", (req, res) => {
     refresh();
-    res.json({tk : spotifyApi.getAccessToken()});
+    res.json({ tk: spotifyApi.getAccessToken() });
 });
 
 app.get("/spotify/playlist/:query", (req, res) => {
     refresh();
     const query = req.params.query;
-    spotifyApi.searchPlaylists(query).then(data => {
-        res.json({playlist : data.body.playlists.items});
+    spotifyApi.searchPlaylists(query).then((data) => {
+        res.json({ playlist: data.body.playlists.items });
     });
 });
 
 app.get("/spotify/playlistid/:query", (req, res) => {
     refresh();
     const query = req.params.query;
-    spotifyApi.getPlaylist(query).then(data => {
-        res.json({playlist : data.body});
+    spotifyApi.getPlaylist(query).then((data) => {
+        res.json({ playlist: data.body });
     });
 });
 
 app.get("/spotify/follow/:query", (req, res) => {
     refresh();
     const query = req.params.query;
-    spotifyApi.followPlaylist(query).then(data => {
+    spotifyApi.followPlaylist(query).then(() => {
         res.send();
     });
 });
-app.get("/setName/:name",(req,res)=>{
-
+app.get("/setName/:name", (req, res) => {
     const name = req.params.name;
     const user = req.user;
-    mdbSetName(user,name);
+    mdbSetName(user, name);
     res.send();
- });
- app.get("/setEmail/:email",(req,res)=>{
+});
+app.get("/setEmail/:email", (req, res) => {
     const email = req.params.email;
     const user = req.user;
-    mdbSetEmail(user,email);
+    mdbSetEmail(user, email);
     res.send();
- });
- app.get("/setPassword/:password", (req,res)=>{
+});
+app.get("/setPassword/:password", (req, res) => {
     const password = req.params.password;
     const salt_hash = mc.hash(password);
     const user = req.user;
     mdbSetPassword(user, salt_hash);
     res.send();
- });
+});
 app.use("/", dbAPI);
 
 app.get("*", (req, res) => {
@@ -416,4 +460,3 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
     console.log(`App now listening at http://localhost:${port}`);
 });
-
