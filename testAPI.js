@@ -17,7 +17,6 @@ testAPI.use((req, res, next) => {
 });
 
 testAPI.use((req, res, next) => {
-    console.log(req);
     switch (req.url) {
     case API_LOGIN:
         res.writeHead(200, { "Content-Type": "application/json" });

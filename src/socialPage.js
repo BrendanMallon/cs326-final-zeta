@@ -1,8 +1,7 @@
 const addFriendButton = document.getElementById("add-friend-button");
 async function addFriend() {
-    console.log("TESTING ADD FRIEND API");
     const id = document.getElementById("friendId").value;
-    const result = await fetch(window.location.origin + "/api/addFriend", {
+    await fetch(window.location.origin + "/api/addFriend", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -11,7 +10,6 @@ async function addFriend() {
             friend: id,
         }),
     });
-    console.log(result);
     window.location.reload();
 }
 addFriendButton.addEventListener("click", addFriend);
@@ -22,7 +20,6 @@ const responseActivity = await fetch(
 const playListJSON = await responseActivity.json();
 
 const playlistListElem = document.getElementById("activity-list");
-console.log(playListJSON);
 playListJSON.forEach((playlist) => {
     // ITEM ELEM
     const playListItem = document.createElement("div");
@@ -84,14 +81,7 @@ playListJSON.forEach((playlist) => {
     playlistListElem.append(playListItem);
 });
 
-console.log(window.location.origin);
-// const friendslistResponse = await fetch(
-//     window.location.origin + "/api/getFriendsList"
-// );
-// const friendslistJSON = await friendslistResponse.json();
-
 const friendsListElem = document.getElementById("friends-list");
-// console.log(friendslistJSON);
 const response = await fetch(window.location.origin + "/api/getFriendsList");
 const friendslistJSON = await response.json();
 
