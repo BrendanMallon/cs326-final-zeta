@@ -198,6 +198,7 @@ input {
     background-color: #333;
     height: auto;
     text-align: center;
+    border-radius: 10px
 }
 #home-info {
     min-height: 850px;
@@ -209,4 +210,10 @@ input {
 
 .date {
     font-size: 8px;
+}
+#menu-bar{
+   min-height: 80px 
+}
+#spotlist-text{
+    text-align: center
 }
